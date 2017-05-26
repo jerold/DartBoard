@@ -1,0 +1,53 @@
+<div>
+    <router-outlet></router-outlet>
+</div>
+
+<div roll="main">
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="nav-item" *ngIf="userSelected">
+                Signed in as {{theUser?.name}}
+            </a>
+            <a class="nav-item" *ngIf="!userSelected">
+                Sign in to add your own options
+            </a>
+        </div>
+
+        <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
+        <span class="nav-toggle" [class.is-active]="showMobileMenu" (click)="showMobileMenu = !showMobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+
+        <!-- This "nav-menu" is hidden on mobile -->
+        <div class="nav-right nav-menu" [class.is-active]="showMobileMenu">
+            <a class="nav-item" *ngIf="userSelected">
+                <!--<a class="button is-primary is-outlined" (click)="modalView = modal_view_manage_content">
+                    Manage your content
+                </a>-->
+                <a class="button is-danger is-outlined" (click)="signOut()">
+                    <span>Sign out</span>
+                </a>
+            </a>
+            <a class="nav-item" *ngIf="!userSelected">
+                <button class="button is-primary" (click)="signIn()">Sign in</button>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Footer licenses and shout-outs -->
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>DartBoard</strong> by <a href="http://github.com/jerold">Jerold Albertson</a>.
+                    Styled with <a href="http://bulma.io/">Bulma</a>.
+                </p>
+                <a class="icon" href="https://github.com/jerold/DartBoard">
+                    <i class="fa fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+</div>
