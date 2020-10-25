@@ -14,26 +14,26 @@ part of user;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<User> _$userSerializer = _$UserSerializer();
+Serializer<User> _$userSerializer = new _$UserSerializer();
 
 class _$UserSerializer implements StructuredSerializer<User> {
   @override
-  final Iterable<Type> types = [User, _$User];
+  final Iterable<Type> types = const [User, _$User];
   @override
   final String wireName = 'User';
 
   @override
   Iterable serialize(Serializers serializers, User object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType: FullType.unspecified}) {
     final result = <Object>[
       'uid',
-      serializers.serialize(object.uid, specifiedType: FullType(String)),
+      serializers.serialize(object.uid, specifiedType: const FullType(String)),
       'boardUids',
       serializers.serialize(object.boardUids,
-          specifiedType: FullType(
-              BuiltMap, [FullType(String), FullType(int)])),
+          specifiedType: const FullType(
+              BuiltMap, const [const FullType(String), const FullType(int)])),
       'name',
-      serializers.serialize(object.name, specifiedType: FullType(String)),
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -41,8 +41,8 @@ class _$UserSerializer implements StructuredSerializer<User> {
 
   @override
   User deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = UserBuilder();
+      {FullType specifiedType: FullType.unspecified}) {
+    final result = new UserBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -52,18 +52,18 @@ class _$UserSerializer implements StructuredSerializer<User> {
       switch (key) {
         case 'uid':
           result.uid = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'boardUids':
           result.boardUids.replace(serializers.deserialize(value,
-              specifiedType: FullType(BuiltMap, [
-                FullType(String),
-                FullType(int)
+              specifiedType: const FullType(BuiltMap, const [
+                const FullType(String),
+                const FullType(int)
               ])) as BuiltMap<String, int>);
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -80,21 +80,21 @@ class _$User extends User {
   @override
   final String name;
 
-  factory _$User([void Function(UserBuilder b) updates]) =>
-      (UserBuilder()..update(updates)).build();
+  factory _$User([void updates(UserBuilder b)]) =>
+      (new UserBuilder()..update(updates)).build();
 
   _$User._({this.uid, this.boardUids, this.name}) : super._() {
-    if (uid == null) throw ArgumentError.notNull('uid');
-    if (boardUids == null) throw ArgumentError.notNull('boardUids');
-    if (name == null) throw ArgumentError.notNull('name');
+    if (uid == null) throw new ArgumentError.notNull('uid');
+    if (boardUids == null) throw new ArgumentError.notNull('boardUids');
+    if (name == null) throw new ArgumentError.notNull('name');
   }
 
   @override
-  User rebuild(void Function(UserBuilder b) updates) =>
+  User rebuild(void updates(UserBuilder b)) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  UserBuilder toBuilder() => UserBuilder()..replace(this);
+  UserBuilder toBuilder() => new UserBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -130,7 +130,7 @@ class UserBuilder implements Builder<User, UserBuilder> {
 
   MapBuilder<String, int> _boardUids;
   MapBuilder<String, int> get boardUids =>
-      _$this._boardUids ??= MapBuilder<String, int>();
+      _$this._boardUids ??= new MapBuilder<String, int>();
   set boardUids(MapBuilder<String, int> boardUids) =>
       _$this._boardUids = boardUids;
 
@@ -152,19 +152,19 @@ class UserBuilder implements Builder<User, UserBuilder> {
 
   @override
   void replace(User other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) throw new ArgumentError.notNull('other');
     _$v = other as _$User;
   }
 
   @override
-  void update(void Function(UserBuilder b) updates) {
+  void update(void updates(UserBuilder b)) {
     if (updates != null) updates(this);
   }
 
   @override
   _$User build() {
     final _$result = _$v ??
-        _$User._(uid: uid, boardUids: boardUids?.build(), name: name);
+        new _$User._(uid: uid, boardUids: boardUids?.build(), name: name);
     replace(_$result);
     return _$result;
   }

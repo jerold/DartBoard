@@ -1,4 +1,4 @@
-library creationMiddleware;
+library creation_middleware;
 
 import 'dart:async';
 

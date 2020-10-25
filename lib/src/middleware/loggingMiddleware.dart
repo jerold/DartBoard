@@ -4,7 +4,7 @@ import '../state/app.dart';
 NextActionHandler loggingMiddleware(MiddlewareApi<App, AppBuilder, AppActions> api) =>
     (ActionHandler next) => (Action action) {
           next(action);
-          print("Action: ${action.name}");
-          print("Payload: ${action.payload}");
-          print("Next State: ${api.state}");
+          print('Action: ${action.name}');
+          print('Payload: ${action.payload}');
+          print('Next State: ${api.state}');
         };

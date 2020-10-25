@@ -14,51 +14,51 @@ part of item;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<Item> _$itemSerializer = _$ItemSerializer();
+Serializer<Item> _$itemSerializer = new _$ItemSerializer();
 
 class _$ItemSerializer implements StructuredSerializer<Item> {
   @override
-  final Iterable<Type> types = [Item, _$Item];
+  final Iterable<Type> types = const [Item, _$Item];
   @override
   final String wireName = 'Item';
 
   @override
   Iterable serialize(Serializers serializers, Item object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType: FullType.unspecified}) {
     final result = <Object>[
       'uid',
-      serializers.serialize(object.uid, specifiedType: FullType(String)),
+      serializers.serialize(object.uid, specifiedType: const FullType(String)),
       'boardUid',
       serializers.serialize(object.boardUid,
-          specifiedType: FullType(String)),
+          specifiedType: const FullType(String)),
       'sessionUid',
       serializers.serialize(object.sessionUid,
-          specifiedType: FullType(String)),
+          specifiedType: const FullType(String)),
       'ownerUid',
       serializers.serialize(object.ownerUid,
-          specifiedType: FullType(String)),
+          specifiedType: const FullType(String)),
       'categoryUid',
       serializers.serialize(object.categoryUid,
-          specifiedType: FullType(String)),
+          specifiedType: const FullType(String)),
       'supporterUids',
       serializers.serialize(object.supporterUids,
-          specifiedType: FullType(
-              BuiltMap, [FullType(String), FullType(bool)])),
+          specifiedType: const FullType(
+              BuiltMap, const [const FullType(String), const FullType(bool)])),
       'time',
-      serializers.serialize(object.time, specifiedType: FullType(int)),
+      serializers.serialize(object.time, specifiedType: const FullType(int)),
       'text',
-      serializers.serialize(object.text, specifiedType: FullType(String)),
+      serializers.serialize(object.text, specifiedType: const FullType(String)),
       'pollOptions',
       serializers.serialize(object.pollOptions,
           specifiedType:
-              FullType(BuiltList, [FullType(String)])),
+              const FullType(BuiltList, const [const FullType(String)])),
       'pollResponses',
       serializers.serialize(object.pollResponses,
-          specifiedType: FullType(BuiltMap,
-              [FullType(String), FullType(String)])),
+          specifiedType: const FullType(BuiltMap,
+              const [const FullType(String), const FullType(String)])),
       'visible',
       serializers.serialize(object.visible,
-          specifiedType: FullType(bool)),
+          specifiedType: const FullType(bool)),
     ];
 
     return result;
@@ -66,8 +66,8 @@ class _$ItemSerializer implements StructuredSerializer<Item> {
 
   @override
   Item deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = ItemBuilder();
+      {FullType specifiedType: FullType.unspecified}) {
+    final result = new ItemBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -77,55 +77,55 @@ class _$ItemSerializer implements StructuredSerializer<Item> {
       switch (key) {
         case 'uid':
           result.uid = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'boardUid':
           result.boardUid = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'sessionUid':
           result.sessionUid = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'ownerUid':
           result.ownerUid = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'categoryUid':
           result.categoryUid = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'supporterUids':
           result.supporterUids.replace(serializers.deserialize(value,
-              specifiedType: FullType(BuiltMap, [
-                FullType(String),
-                FullType(bool)
+              specifiedType: const FullType(BuiltMap, const [
+                const FullType(String),
+                const FullType(bool)
               ])) as BuiltMap<String, bool>);
           break;
         case 'time':
           result.time = serializers.deserialize(value,
-              specifiedType: FullType(int)) as int;
+              specifiedType: const FullType(int)) as int;
           break;
         case 'text':
           result.text = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'pollOptions':
           result.pollOptions.replace(serializers.deserialize(value,
                   specifiedType:
-                      FullType(BuiltList, [FullType(String)]))
+                      const FullType(BuiltList, const [const FullType(String)]))
               as BuiltList<String>);
           break;
         case 'pollResponses':
           result.pollResponses.replace(serializers.deserialize(value,
-              specifiedType: FullType(BuiltMap, [
-                FullType(String),
-                FullType(String)
+              specifiedType: const FullType(BuiltMap, const [
+                const FullType(String),
+                const FullType(String)
               ])) as BuiltMap<String, String>);
           break;
         case 'visible':
           result.visible = serializers.deserialize(value,
-              specifiedType: FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool;
           break;
       }
     }
@@ -158,8 +158,8 @@ class _$Item extends Item {
   @override
   final bool visible;
 
-  factory _$Item([void Function(ItemBuilder b) updates]) =>
-      (ItemBuilder()..update(updates)).build();
+  factory _$Item([void updates(ItemBuilder b)]) =>
+      (new ItemBuilder()..update(updates)).build();
 
   _$Item._(
       {this.uid,
@@ -174,25 +174,25 @@ class _$Item extends Item {
       this.pollResponses,
       this.visible})
       : super._() {
-    if (uid == null) throw ArgumentError.notNull('uid');
-    if (boardUid == null) throw ArgumentError.notNull('boardUid');
-    if (sessionUid == null) throw ArgumentError.notNull('sessionUid');
-    if (ownerUid == null) throw ArgumentError.notNull('ownerUid');
-    if (categoryUid == null) throw ArgumentError.notNull('categoryUid');
-    if (supporterUids == null) throw ArgumentError.notNull('supporterUids');
-    if (time == null) throw ArgumentError.notNull('time');
-    if (text == null) throw ArgumentError.notNull('text');
-    if (pollOptions == null) throw ArgumentError.notNull('pollOptions');
-    if (pollResponses == null) throw ArgumentError.notNull('pollResponses');
-    if (visible == null) throw ArgumentError.notNull('visible');
+    if (uid == null) throw new ArgumentError.notNull('uid');
+    if (boardUid == null) throw new ArgumentError.notNull('boardUid');
+    if (sessionUid == null) throw new ArgumentError.notNull('sessionUid');
+    if (ownerUid == null) throw new ArgumentError.notNull('ownerUid');
+    if (categoryUid == null) throw new ArgumentError.notNull('categoryUid');
+    if (supporterUids == null) throw new ArgumentError.notNull('supporterUids');
+    if (time == null) throw new ArgumentError.notNull('time');
+    if (text == null) throw new ArgumentError.notNull('text');
+    if (pollOptions == null) throw new ArgumentError.notNull('pollOptions');
+    if (pollResponses == null) throw new ArgumentError.notNull('pollResponses');
+    if (visible == null) throw new ArgumentError.notNull('visible');
   }
 
   @override
-  Item rebuild(void Function(ItemBuilder b) updates) =>
+  Item rebuild(void updates(ItemBuilder b)) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ItemBuilder toBuilder() => ItemBuilder()..replace(this);
+  ItemBuilder toBuilder() => new ItemBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -278,7 +278,7 @@ class ItemBuilder implements Builder<Item, ItemBuilder> {
 
   MapBuilder<String, bool> _supporterUids;
   MapBuilder<String, bool> get supporterUids =>
-      _$this._supporterUids ??= MapBuilder<String, bool>();
+      _$this._supporterUids ??= new MapBuilder<String, bool>();
   set supporterUids(MapBuilder<String, bool> supporterUids) =>
       _$this._supporterUids = supporterUids;
 
@@ -292,13 +292,13 @@ class ItemBuilder implements Builder<Item, ItemBuilder> {
 
   ListBuilder<String> _pollOptions;
   ListBuilder<String> get pollOptions =>
-      _$this._pollOptions ??= ListBuilder<String>();
+      _$this._pollOptions ??= new ListBuilder<String>();
   set pollOptions(ListBuilder<String> pollOptions) =>
       _$this._pollOptions = pollOptions;
 
   MapBuilder<String, String> _pollResponses;
   MapBuilder<String, String> get pollResponses =>
-      _$this._pollResponses ??= MapBuilder<String, String>();
+      _$this._pollResponses ??= new MapBuilder<String, String>();
   set pollResponses(MapBuilder<String, String> pollResponses) =>
       _$this._pollResponses = pollResponses;
 
@@ -328,19 +328,19 @@ class ItemBuilder implements Builder<Item, ItemBuilder> {
 
   @override
   void replace(Item other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) throw new ArgumentError.notNull('other');
     _$v = other as _$Item;
   }
 
   @override
-  void update(void Function(ItemBuilder b) updates) {
+  void update(void updates(ItemBuilder b)) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Item build() {
     final _$result = _$v ??
-        _$Item._(
+        new _$Item._(
             uid: uid,
             boardUid: boardUid,
             sessionUid: sessionUid,

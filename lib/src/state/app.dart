@@ -87,7 +87,6 @@ abstract class AppActions extends ReduxActions {
 
 /// [App]
 abstract class App implements Built<App, AppBuilder> {
-
   /// [authStatus] indicates the auth status
   String get authStatus;
 
@@ -240,8 +239,8 @@ Reducer<App, AppBuilder, dynamic> createReducer() =>
 /// Reducers
 ///////////////////
 
-AppBuilder _setAuthStatus(App state, Action<String> action, AppBuilder b) => b
-    ..authStatus = action.payload;
+AppBuilder _setAuthStatus(App state, Action<String> action, AppBuilder b) =>
+    b..authStatus = action.payload;
 
 AppBuilder _clear(App state, Action<Null> action, AppBuilder b) => b
   ..users = Users().toBuilder()
@@ -251,17 +250,17 @@ AppBuilder _clear(App state, Action<Null> action, AppBuilder b) => b
   ..items = Items().toBuilder()
   ..notes = Notes().toBuilder();
 
-AppBuilder _showModal(App state, Action<String> action, AppBuilder b) => b
-    ..modalQueue.add(action.payload);
+AppBuilder _showModal(App state, Action<String> action, AppBuilder b) =>
+    b..modalQueue.add(action.payload);
 
-AppBuilder _hideModal(App state, Action<String> action, AppBuilder b) => b
-    ..modalQueue.removeLast();
+AppBuilder _hideModal(App state, Action<String> action, AppBuilder b) =>
+    b..modalQueue.removeLast();
 
-AppBuilder _toggleMobileMenu(App state, Action<String> action, AppBuilder b) => b
-    ..showMobileMenu = !state.showMobileMenu;
+AppBuilder _toggleMobileMenu(App state, Action<String> action, AppBuilder b) =>
+    b..showMobileMenu = !state.showMobileMenu;
 
-AppBuilder _hideMobileMenu(App state, Action<Null> action, AppBuilder b) => b
-    ..showMobileMenu = false;
+AppBuilder _hideMobileMenu(App state, Action<Null> action, AppBuilder b) =>
+    b..showMobileMenu = false;
 
-AppBuilder _showMobileMenu(App state, Action<Null> action, AppBuilder b) => b
-    ..showMobileMenu = true;
+AppBuilder _showMobileMenu(App state, Action<Null> action, AppBuilder b) =>
+    b..showMobileMenu = true;

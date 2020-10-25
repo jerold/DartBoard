@@ -29,7 +29,7 @@ abstract class Session implements Built<Session, SessionBuilder> {
 
   // Built value boilerplate
   Session._();
-  factory Session([updates(SessionBuilder b)]) = _$Session;
+  factory Session([Function(SessionBuilder b) updates]) = _$Session;
 
   @memoized
   bool get started => startTime != 0;
@@ -39,8 +39,8 @@ abstract class Session implements Built<Session, SessionBuilder> {
 
   @memoized
   String get state {
-    if (!started) return "Not Started";
-    if (started && !completed) return "In Progress";
-    return "Complete";
+    if (!started) return 'Not Started';
+    if (started && !completed) return 'In Progress';
+    return 'Complete';
   }
 }

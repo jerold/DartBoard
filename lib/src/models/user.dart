@@ -20,5 +20,5 @@ abstract class User implements Built<User, UserBuilder> {
 
   // Built value boilerplate
   User._();
-  factory User([updates(UserBuilder b)]) = _$User;
+  factory User([Function(UserBuilder b) updates]) = _$User;
 }

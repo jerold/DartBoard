@@ -40,11 +40,12 @@ abstract class Item implements Built<Item, ItemBuilder> {
 
   // Built value boilerplate
   Item._();
-  factory Item([updates(ItemBuilder b)]) = _$Item;
+  factory Item([Function(ItemBuilder b) updates]) = _$Item;
 
   int responseCount() => pollResponses.keys.length;
 
-  int optionCount(String option) => pollResponses.values.where((choice) => choice == option).length;
+  int optionCount(String option) =>
+      pollResponses.values.where((choice) => choice == option).length;
 
   int optionPercentage(String option) {
     final denom = responseCount();

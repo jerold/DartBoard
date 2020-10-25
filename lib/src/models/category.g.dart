@@ -14,41 +14,41 @@ part of category;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<Category> _$categorySerializer = _$CategorySerializer();
+Serializer<Category> _$categorySerializer = new _$CategorySerializer();
 
 class _$CategorySerializer implements StructuredSerializer<Category> {
   @override
-  final Iterable<Type> types = [Category, _$Category];
+  final Iterable<Type> types = const [Category, _$Category];
   @override
   final String wireName = 'Category';
 
   @override
   Iterable serialize(Serializers serializers, Category object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType: FullType.unspecified}) {
     final result = <Object>[
       'uid',
-      serializers.serialize(object.uid, specifiedType: FullType(String)),
+      serializers.serialize(object.uid, specifiedType: const FullType(String)),
       'boardUid',
       serializers.serialize(object.boardUid,
-          specifiedType: FullType(String)),
+          specifiedType: const FullType(String)),
       'sessionUid',
       serializers.serialize(object.sessionUid,
-          specifiedType: FullType(String)),
+          specifiedType: const FullType(String)),
       'title',
       serializers.serialize(object.title,
-          specifiedType: FullType(String)),
+          specifiedType: const FullType(String)),
       'description',
       serializers.serialize(object.description,
-          specifiedType: FullType(String)),
+          specifiedType: const FullType(String)),
       'visible',
       serializers.serialize(object.visible,
-          specifiedType: FullType(bool)),
+          specifiedType: const FullType(bool)),
     ];
     if (object.color != null) {
       result
         ..add('color')
         ..add(serializers.serialize(object.color,
-            specifiedType: FullType(String)));
+            specifiedType: const FullType(String)));
     }
 
     return result;
@@ -56,8 +56,8 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
 
   @override
   Category deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = CategoryBuilder();
+      {FullType specifiedType: FullType.unspecified}) {
+    final result = new CategoryBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -67,31 +67,31 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
       switch (key) {
         case 'uid':
           result.uid = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'boardUid':
           result.boardUid = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'sessionUid':
           result.sessionUid = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'title':
           result.title = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'description':
           result.description = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'color':
           result.color = serializers.deserialize(value,
-              specifiedType: FullType(String)) as String;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'visible':
           result.visible = serializers.deserialize(value,
-              specifiedType: FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool;
           break;
       }
     }
@@ -116,8 +116,8 @@ class _$Category extends Category {
   @override
   final bool visible;
 
-  factory _$Category([void Function(CategoryBuilder b) updates]) =>
-      (CategoryBuilder()..update(updates)).build();
+  factory _$Category([void updates(CategoryBuilder b)]) =>
+      (new CategoryBuilder()..update(updates)).build();
 
   _$Category._(
       {this.uid,
@@ -128,20 +128,20 @@ class _$Category extends Category {
       this.color,
       this.visible})
       : super._() {
-    if (uid == null) throw ArgumentError.notNull('uid');
-    if (boardUid == null) throw ArgumentError.notNull('boardUid');
-    if (sessionUid == null) throw ArgumentError.notNull('sessionUid');
-    if (title == null) throw ArgumentError.notNull('title');
-    if (description == null) throw ArgumentError.notNull('description');
-    if (visible == null) throw ArgumentError.notNull('visible');
+    if (uid == null) throw new ArgumentError.notNull('uid');
+    if (boardUid == null) throw new ArgumentError.notNull('boardUid');
+    if (sessionUid == null) throw new ArgumentError.notNull('sessionUid');
+    if (title == null) throw new ArgumentError.notNull('title');
+    if (description == null) throw new ArgumentError.notNull('description');
+    if (visible == null) throw new ArgumentError.notNull('visible');
   }
 
   @override
-  Category rebuild(void Function(CategoryBuilder b) updates) =>
+  Category rebuild(void updates(CategoryBuilder b)) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CategoryBuilder toBuilder() => CategoryBuilder()..replace(this);
+  CategoryBuilder toBuilder() => new CategoryBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -233,19 +233,19 @@ class CategoryBuilder implements Builder<Category, CategoryBuilder> {
 
   @override
   void replace(Category other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) throw new ArgumentError.notNull('other');
     _$v = other as _$Category;
   }
 
   @override
-  void update(void Function(CategoryBuilder b) updates) {
+  void update(void updates(CategoryBuilder b)) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Category build() {
     final _$result = _$v ??
-        _$Category._(
+        new _$Category._(
             uid: uid,
             boardUid: boardUid,
             sessionUid: sessionUid,

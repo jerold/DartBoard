@@ -29,5 +29,5 @@ abstract class Board implements Built<Board, BoardBuilder> {
 
   // Built value boilerplate
   Board._();
-  factory Board([updates(BoardBuilder b)]) = _$Board;
+  factory Board([Function(BoardBuilder b) updates]) = _$Board;
 }

@@ -29,7 +29,7 @@ abstract class Note implements Built<Note, NoteBuilder> {
 
   // Built value boilerplate
   Note._();
-  factory Note([updates(NoteBuilder b)]) = _$Note;
+  factory Note([Function(NoteBuilder b) updates]) = _$Note;
 
   int itemCount() => itemUids.keys.length;
 }

@@ -8,6 +8,7 @@ environment:
 
 dependencies:
  path: ^1.7.0
+ built_value: ^7.1.0
  built_redux: ^7.5.11
  firebase: ^7.3.2
  intl: ^0.16.1

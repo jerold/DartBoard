@@ -121,7 +121,7 @@ packages:
     source: hosted
     version: "7.5.11"
   built_value:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: built_value
       url: "https://pub.dartlang.org"
