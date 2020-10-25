@@ -11,15 +11,15 @@ import './models/category.dart';
 import './models/item.dart';
 import './models/note.dart';
 
-// part 'serializers.g.dart';
+part 'serializers.g.dart';
 
-// @SerializersFor([
-//   User,
-//   Board,
-//   Session,
-//   Category,
-//   Item,
-//   Note,
-// ])
-// final Serializers serializers =
-//     (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
+@SerializersFor([
+  User,
+  Board,
+  Session,
+  Category,
+  Item,
+  Note,
+])
+final Serializers serializers =
+    (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
