@@ -21,13 +21,13 @@ abstract class BoardsActions extends ReduxActions {
   // update title
   // update description
   // add / remove User
-  // create new Session
+  // create Session
   
   ActionDispatcher<Null> shred;
 
   // factory to create on instance of the generated implementation of BoardsActions
   BoardsActions._();
-  factory BoardsActions() => new _$BoardsActions();
+  factory BoardsActions() => _$BoardsActions();
 }
 
 ////////////////////
@@ -43,8 +43,8 @@ abstract class Boards implements Built<Boards, BoardsBuilder> {
 
   // Built value boilerplate
   Boards._();
-  factory Boards([updates(BoardsBuilder b)]) =>
-      new _$Boards((BoardsBuilder b) => b..currentUid = "");
+  factory Boards([Function(BoardsBuilder b) updates]) =>
+      _$Boards((BoardsBuilder b) => b..currentUid = '');
 
   @memoized
   Board get current => map[currentUid];
@@ -56,7 +56,7 @@ abstract class Boards implements Built<Boards, BoardsBuilder> {
 
 NestedReducerBuilder<App, AppBuilder, Boards, BoardsBuilder>
     createBoardsReducer() =>
-        new NestedReducerBuilder<App, AppBuilder, Boards, BoardsBuilder>(
+        NestedReducerBuilder<App, AppBuilder, Boards, BoardsBuilder>(
           (state) => state.boards,
           (builder) => builder.boards,
         )
@@ -68,11 +68,11 @@ NestedReducerBuilder<App, AppBuilder, Boards, BoardsBuilder>
 /// Reducers
 ///////////////////
 
-_updateBoard(Boards state, Action<Board> action, BoardsBuilder builder) =>
+BoardsBuilder _updateBoard(Boards state, Action<Board> action, BoardsBuilder builder) =>
     builder..map[action.payload.uid] = action.payload;
 
-_removeBoard(Boards state, Action<String> action, BoardsBuilder builder) =>
+BoardsBuilder _removeBoard(Boards state, Action<String> action, BoardsBuilder builder) =>
     builder..map.remove(action.payload);
 
-_setCurrentBoard(Boards state, Action<String> action, BoardsBuilder builder) =>
+BoardsBuilder _setCurrentBoard(Boards state, Action<String> action, BoardsBuilder builder) =>
     builder..currentUid = action.payload;

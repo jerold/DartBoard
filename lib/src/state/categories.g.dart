@@ -22,12 +22,12 @@ class _$Categories extends Categories {
   Category __current;
   BuiltList<Category> __visible;
 
-  factory _$Categories([void updates(CategoriesBuilder b)]) =>
-      (new CategoriesBuilder()..update(updates)).build();
+  factory _$Categories([void Function(CategoriesBuilder b) updates]) =>
+      (CategoriesBuilder()..update(updates)).build();
 
   _$Categories._({this.map, this.currentUid}) : super._() {
-    if (map == null) throw new ArgumentError.notNull('map');
-    if (currentUid == null) throw new ArgumentError.notNull('currentUid');
+    if (map == null) throw ArgumentError.notNull('map');
+    if (currentUid == null) throw ArgumentError.notNull('currentUid');
   }
 
   @override
@@ -37,11 +37,11 @@ class _$Categories extends Categories {
   BuiltList<Category> get visible => __visible ??= super.visible;
 
   @override
-  Categories rebuild(void updates(CategoriesBuilder b)) =>
+  Categories rebuild(void Function(CategoriesBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CategoriesBuilder toBuilder() => new CategoriesBuilder()..replace(this);
+  CategoriesBuilder toBuilder() => CategoriesBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -69,7 +69,7 @@ class CategoriesBuilder implements Builder<Categories, CategoriesBuilder> {
 
   MapBuilder<String, Category> _map;
   MapBuilder<String, Category> get map =>
-      _$this._map ??= new MapBuilder<String, Category>();
+      _$this._map ??= MapBuilder<String, Category>();
   set map(MapBuilder<String, Category> map) => _$this._map = map;
 
   String _currentUid;
@@ -89,19 +89,19 @@ class CategoriesBuilder implements Builder<Categories, CategoriesBuilder> {
 
   @override
   void replace(Categories other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$Categories;
   }
 
   @override
-  void update(void updates(CategoriesBuilder b)) {
+  void update(void Function(CategoriesBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Categories build() {
     final _$result =
-        _$v ?? new _$Categories._(map: map?.build(), currentUid: currentUid);
+        _$v ?? _$Categories._(map: map?.build(), currentUid: currentUid);
     replace(_$result);
     return _$result;
   }
@@ -112,19 +112,19 @@ class CategoriesBuilder implements Builder<Categories, CategoriesBuilder> {
 // **************************************************************************
 
 class _$CategoriesActions extends CategoriesActions {
-  factory _$CategoriesActions() => new _$CategoriesActions._();
+  factory _$CategoriesActions() => _$CategoriesActions._();
   _$CategoriesActions._() : super._();
 
   final ActionDispatcher<Category> update =
-      new ActionDispatcher<Category>('CategoriesActions-update');
+      ActionDispatcher<Category>('CategoriesActions-update');
   final ActionDispatcher<String> remove =
-      new ActionDispatcher<String>('CategoriesActions-remove');
+      ActionDispatcher<String>('CategoriesActions-remove');
   final ActionDispatcher<String> setCurrent =
-      new ActionDispatcher<String>('CategoriesActions-setCurrent');
+      ActionDispatcher<String>('CategoriesActions-setCurrent');
   final ActionDispatcher<String> hide =
-      new ActionDispatcher<String>('CategoriesActions-hide');
+      ActionDispatcher<String>('CategoriesActions-hide');
   final ActionDispatcher<String> show =
-      new ActionDispatcher<String>('CategoriesActions-show');
+      ActionDispatcher<String>('CategoriesActions-show');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -138,13 +138,13 @@ class _$CategoriesActions extends CategoriesActions {
 
 class CategoriesActionsNames {
   static final ActionName<Category> update =
-      new ActionName<Category>('CategoriesActions-update');
+      ActionName<Category>('CategoriesActions-update');
   static final ActionName<String> remove =
-      new ActionName<String>('CategoriesActions-remove');
+      ActionName<String>('CategoriesActions-remove');
   static final ActionName<String> setCurrent =
-      new ActionName<String>('CategoriesActions-setCurrent');
+      ActionName<String>('CategoriesActions-setCurrent');
   static final ActionName<String> hide =
-      new ActionName<String>('CategoriesActions-hide');
+      ActionName<String>('CategoriesActions-hide');
   static final ActionName<String> show =
-      new ActionName<String>('CategoriesActions-show');
+      ActionName<String>('CategoriesActions-show');
 }

@@ -15,49 +15,49 @@ class NavBar extends AppContextComponent<NavBarProps, dynamic> {
   ]);
 
   VNode _navMenu() {
-    final menuClasses = ["navbar-menu"];
-    if (_showMobileMenu()) menuClasses.add("is-active");
+    final menuClasses = ['navbar-menu'];
+    if (_showMobileMenu()) menuClasses.add('is-active');
 
-    final menuChildren = new List<VNode>();
+    final menuChildren = <VNode>[];
     menuChildren.add(_signInOutButton());
 
-    return new VDivElement()
+    return VDivElement()
       ..classes = menuClasses
       ..children = [
-        new VDivElement()
-          ..classes = ["navbar-end"]
+        VDivElement()
+          ..classes = ['navbar-end']
           ..children = menuChildren,
       ];
   }
 
   VNode _signInOutButton() {
-    String icon = "fa-sign-in";
-    String label = "Sign in";
+    var icon = 'fa-sign-in';
+    var label = 'Sign in';
     Function onClick = _signIn;
-    final buttonClasses = ["button", "is-info"];
+    final buttonClasses = ['button', 'is-info'];
     if (_authStatus() == AuthStatus.loading) {
-      buttonClasses.add("is-loading");
+      buttonClasses.add('is-loading');
     } else {
-      buttonClasses.add("is-inverted");
+      buttonClasses.add('is-inverted');
     }
     if (_signedIn()) {
-      icon = "fa-sign-out";
-      label = "Sign out";
+      icon = 'fa-sign-out';
+      label = 'Sign out';
       onClick = _signOut;
     }
-    return new Vspan()
-      ..classes = ["navbar-item"]
+    return Vspan()
+      ..classes = ['navbar-item']
       ..children = [
-        new Va()
+        Va()
           ..classes = buttonClasses
           ..children = [
-            new Vspan()
-              ..classes = ["icon"]
+            Vspan()
+              ..classes = ['icon']
               ..children = [
-                new Vi()
-                  ..classes = ["fa", icon]
+                Vi()
+                  ..classes = ['fa', icon]
               ],
-            new Vspan()
+            Vspan()
               ..innerHtml = label
           ]
           ..onClick = onClick,
@@ -65,24 +65,24 @@ class NavBar extends AppContextComponent<NavBarProps, dynamic> {
   }
 
   @override
-  VNode render() => new Vnav()
-    ..classes = ["navbar", "is-transparent", "is-fixed-top"]
+  VNode render() => Vnav()
+    ..classes = ['navbar', 'is-transparent', 'is-fixed-top']
     ..children = [
-      new VDivElement()
-        ..classes = ["container"]
+      VDivElement()
+        ..classes = ['container']
         ..children = [
-          new VDivElement()
-            ..classes = ["navbar-brand"]
+          VDivElement()
+            ..classes = ['navbar-brand']
             ..children = [
-              new Vspan()
-                ..classes = ["navbar-item"]
+              Vspan()
+                ..classes = ['navbar-item']
                 ..innerHtml = _signedInOutHtml(),
-              new Vspan()
-                ..classes = ["navbar-burger", "burger"]
+              Vspan()
+                ..classes = ['navbar-burger', 'burger']
                 ..children = [
-                  new Vspan(),
-                  new Vspan(),
-                  new Vspan(),
+                  Vspan(),
+                  Vspan(),
+                  Vspan(),
                 ]
                 ..onClick = _toggleMobileMenu,
             ],
@@ -97,7 +97,7 @@ class NavBar extends AppContextComponent<NavBarProps, dynamic> {
   String _authStatus() => appState.authStatus;
 
   String _signedInOutHtml() {
-    return _signedIn() ? "Signed in as:&nbsp;<b>${appState.users.current.name}</b>" : "";
+    return _signedIn() ? 'Signed in as:&nbsp;<b>${appState.users.current.name}</b>' : '';
   }
 
   void _signIn([_]) {

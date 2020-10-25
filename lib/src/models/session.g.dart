@@ -14,46 +14,46 @@ part of session;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<Session> _$sessionSerializer = new _$SessionSerializer();
+Serializer<Session> _$sessionSerializer = _$SessionSerializer();
 
 class _$SessionSerializer implements StructuredSerializer<Session> {
   @override
-  final Iterable<Type> types = const [Session, _$Session];
+  final Iterable<Type> types = [Session, _$Session];
   @override
   final String wireName = 'Session';
 
   @override
   Iterable serialize(Serializers serializers, Session object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'uid',
-      serializers.serialize(object.uid, specifiedType: const FullType(String)),
+      serializers.serialize(object.uid, specifiedType: FullType(String)),
       'boardUid',
       serializers.serialize(object.boardUid,
-          specifiedType: const FullType(String)),
+          specifiedType: FullType(String)),
       'createdDate',
       serializers.serialize(object.createdDate,
-          specifiedType: const FullType(int)),
+          specifiedType: FullType(int)),
       'targetTime',
       serializers.serialize(object.targetTime,
-          specifiedType: const FullType(int)),
+          specifiedType: FullType(int)),
       'startTime',
       serializers.serialize(object.startTime,
-          specifiedType: const FullType(int)),
+          specifiedType: FullType(int)),
       'endTime',
-      serializers.serialize(object.endTime, specifiedType: const FullType(int)),
+      serializers.serialize(object.endTime, specifiedType: FullType(int)),
     ];
     if (object.presentedUid != null) {
       result
         ..add('presentedUid')
         ..add(serializers.serialize(object.presentedUid,
-            specifiedType: const FullType(String)));
+            specifiedType: FullType(String)));
     }
     if (object.presentedDate != null) {
       result
         ..add('presentedDate')
         ..add(serializers.serialize(object.presentedDate,
-            specifiedType: const FullType(int)));
+            specifiedType: FullType(int)));
     }
 
     return result;
@@ -61,8 +61,8 @@ class _$SessionSerializer implements StructuredSerializer<Session> {
 
   @override
   Session deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
-    final result = new SessionBuilder();
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = SessionBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -72,35 +72,35 @@ class _$SessionSerializer implements StructuredSerializer<Session> {
       switch (key) {
         case 'uid':
           result.uid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'boardUid':
           result.boardUid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'createdDate':
           result.createdDate = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: FullType(int)) as int;
           break;
         case 'targetTime':
           result.targetTime = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: FullType(int)) as int;
           break;
         case 'startTime':
           result.startTime = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: FullType(int)) as int;
           break;
         case 'endTime':
           result.endTime = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: FullType(int)) as int;
           break;
         case 'presentedUid':
           result.presentedUid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'presentedDate':
           result.presentedDate = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: FullType(int)) as int;
           break;
       }
     }
@@ -130,8 +130,8 @@ class _$Session extends Session {
   bool __completed;
   String __state;
 
-  factory _$Session([void updates(SessionBuilder b)]) =>
-      (new SessionBuilder()..update(updates)).build();
+  factory _$Session([void Function(SessionBuilder b) updates]) =>
+      (SessionBuilder()..update(updates)).build();
 
   _$Session._(
       {this.uid,
@@ -143,12 +143,12 @@ class _$Session extends Session {
       this.presentedUid,
       this.presentedDate})
       : super._() {
-    if (uid == null) throw new ArgumentError.notNull('uid');
-    if (boardUid == null) throw new ArgumentError.notNull('boardUid');
-    if (createdDate == null) throw new ArgumentError.notNull('createdDate');
-    if (targetTime == null) throw new ArgumentError.notNull('targetTime');
-    if (startTime == null) throw new ArgumentError.notNull('startTime');
-    if (endTime == null) throw new ArgumentError.notNull('endTime');
+    if (uid == null) throw ArgumentError.notNull('uid');
+    if (boardUid == null) throw ArgumentError.notNull('boardUid');
+    if (createdDate == null) throw ArgumentError.notNull('createdDate');
+    if (targetTime == null) throw ArgumentError.notNull('targetTime');
+    if (startTime == null) throw ArgumentError.notNull('startTime');
+    if (endTime == null) throw ArgumentError.notNull('endTime');
   }
 
   @override
@@ -161,11 +161,11 @@ class _$Session extends Session {
   String get state => __state ??= super.state;
 
   @override
-  Session rebuild(void updates(SessionBuilder b)) =>
+  Session rebuild(void Function(SessionBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SessionBuilder toBuilder() => new SessionBuilder()..replace(this);
+  SessionBuilder toBuilder() => SessionBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -266,19 +266,19 @@ class SessionBuilder implements Builder<Session, SessionBuilder> {
 
   @override
   void replace(Session other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$Session;
   }
 
   @override
-  void update(void updates(SessionBuilder b)) {
+  void update(void Function(SessionBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Session build() {
     final _$result = _$v ??
-        new _$Session._(
+        _$Session._(
             uid: uid,
             boardUid: boardUid,
             createdDate: createdDate,

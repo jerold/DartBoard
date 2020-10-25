@@ -13,7 +13,7 @@ import './models/note.dart';
 
 part 'serializers.g.dart';
 
-@SerializersFor(const [
+@SerializersFor([
   User,
   Board,
   Session,
@@ -22,4 +22,4 @@ part 'serializers.g.dart';
   Note,
 ])
 final Serializers serializers =
-    (_$serializers.toBuilder()..addPlugin(new StandardJsonPlugin())).build();
+    (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

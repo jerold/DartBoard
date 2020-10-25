@@ -23,7 +23,7 @@ abstract class UsersActions extends ReduxActions {
 
   // factory to create on instance of the generated implementation of UsersActions
   UsersActions._();
-  factory UsersActions() => new _$UsersActions();
+  factory UsersActions() => _$UsersActions();
 }
 
 ////////////////////
@@ -39,14 +39,14 @@ abstract class Users implements Built<Users, UsersBuilder> {
 
   // Built value boilerplate
   Users._();
-  factory Users([updates(UsersBuilder b)]) =>
-      new _$Users((UsersBuilder b) => b..currentUid = "");
+  factory Users([Function(UsersBuilder b) updates]) =>
+      _$Users((UsersBuilder b) => b..currentUid = '');
 
   @memoized
   User get current => map[currentUid];
 
   @memoized
-  bool get loggedIn => currentUid != "";
+  bool get loggedIn => currentUid != '';
 }
 
 ////////////////////
@@ -55,7 +55,7 @@ abstract class Users implements Built<Users, UsersBuilder> {
 
 NestedReducerBuilder<App, AppBuilder, Users, UsersBuilder>
     createUsersReducer() =>
-        new NestedReducerBuilder<App, AppBuilder, Users, UsersBuilder>(
+        NestedReducerBuilder<App, AppBuilder, Users, UsersBuilder>(
           (state) => state.users,
           (builder) => builder.users,
         )
@@ -67,11 +67,11 @@ NestedReducerBuilder<App, AppBuilder, Users, UsersBuilder>
 /// Reducers
 ///////////////////
 
-_updateUser(Users state, Action<User> action, UsersBuilder builder) =>
+UsersBuilder _updateUser(Users state, Action<User> action, UsersBuilder builder) =>
     builder..map[action.payload.uid] = action.payload;
 
-_removeUser(Users state, Action<String> action, UsersBuilder builder) =>
+UsersBuilder _removeUser(Users state, Action<String> action, UsersBuilder builder) =>
     builder..map.remove(action.payload);
 
-_setCurrentUser(Users state, Action<String> action, UsersBuilder builder) =>
+UsersBuilder _setCurrentUser(Users state, Action<String> action, UsersBuilder builder) =>
     builder..currentUid = action.payload;

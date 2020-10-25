@@ -11,12 +11,13 @@ import 'package:retro/src/state/app.dart';
 const _storeKey = 'storeKey';
 
 abstract class AppContextComponent<P, S> extends CComponent<P, S, Store<App, AppBuilder, AppActions>> {
-  List<StateMapper<App, AppBuilder, dynamic>> _mappers;
-  List<StreamSubscription> _subs = new List<StreamSubscription>();
+  final List<StateMapper<App, AppBuilder, dynamic>> _mappers;
+  final List<StreamSubscription> _subs = <StreamSubscription>[];
 
-  AppContextComponent(P props, this._mappers, {dynamic key: null}) : super(props, key: key);
+  AppContextComponent(P props, this._mappers, {dynamic key}) : super(props, key: key);
 
   @mustCallSuper
+  @override
   void componentWillMount() {
     _mappers.forEach((mapper) {
       _subs.add(contextValue.substateStream(mapper).listen(_update));
@@ -26,6 +27,7 @@ abstract class AppContextComponent<P, S> extends CComponent<P, S, Store<App, App
   void _update(_) => update();
 
   @mustCallSuper
+  @override
   void componentWillUnmount() {
     _subs.forEach((s) => s.cancel());
   }

@@ -14,7 +14,7 @@ part of serializers;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializers _$serializers = (new Serializers().toBuilder()
+Serializers _$serializers = (Serializers().toBuilder()
       ..add(Board.serializer)
       ..add(Category.serializer)
       ..add(Item.serializer)
@@ -22,26 +22,26 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Session.serializer)
       ..add(User.serializer)
       ..addBuilderFactory(
-          const FullType(
-              BuiltMap, const [const FullType(String), const FullType(bool)]),
-          () => new MapBuilder<String, bool>())
+          FullType(
+              BuiltMap, [FullType(String), FullType(bool)]),
+          () => MapBuilder<String, bool>())
       ..addBuilderFactory(
-          const FullType(
-              BuiltMap, const [const FullType(String), const FullType(bool)]),
-          () => new MapBuilder<String, bool>())
+          FullType(
+              BuiltMap, [FullType(String), FullType(bool)]),
+          () => MapBuilder<String, bool>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          FullType(BuiltList, [FullType(String)]),
+          () => ListBuilder<String>())
       ..addBuilderFactory(
-          const FullType(
-              BuiltMap, const [const FullType(String), const FullType(String)]),
-          () => new MapBuilder<String, String>())
+          FullType(
+              BuiltMap, [FullType(String), FullType(String)]),
+          () => MapBuilder<String, String>())
       ..addBuilderFactory(
-          const FullType(
-              BuiltMap, const [const FullType(String), const FullType(int)]),
-          () => new MapBuilder<String, int>())
+          FullType(
+              BuiltMap, [FullType(String), FullType(int)]),
+          () => MapBuilder<String, int>())
       ..addBuilderFactory(
-          const FullType(
-              BuiltMap, const [const FullType(String), const FullType(int)]),
-          () => new MapBuilder<String, int>()))
+          FullType(
+              BuiltMap, [FullType(String), FullType(int)]),
+          () => MapBuilder<String, int>()))
     .build();

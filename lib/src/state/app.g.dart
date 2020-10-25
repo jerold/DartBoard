@@ -48,8 +48,8 @@ class _$App extends App {
   BuiltList<Note> __manageableSessionNotes;
   BuiltMap<String, int> __heroPollResults;
 
-  factory _$App([void updates(AppBuilder b)]) =>
-      (new AppBuilder()..update(updates)).build();
+  factory _$App([void Function(AppBuilder b) updates]) =>
+      (AppBuilder()..update(updates)).build();
 
   _$App._(
       {this.authStatus,
@@ -62,16 +62,17 @@ class _$App extends App {
       this.showMobileMenu,
       this.modalQueue})
       : super._() {
-    if (authStatus == null) throw new ArgumentError.notNull('authStatus');
-    if (users == null) throw new ArgumentError.notNull('users');
-    if (boards == null) throw new ArgumentError.notNull('boards');
-    if (sessions == null) throw new ArgumentError.notNull('sessions');
-    if (categories == null) throw new ArgumentError.notNull('categories');
-    if (items == null) throw new ArgumentError.notNull('items');
-    if (notes == null) throw new ArgumentError.notNull('notes');
-    if (showMobileMenu == null)
-      throw new ArgumentError.notNull('showMobileMenu');
-    if (modalQueue == null) throw new ArgumentError.notNull('modalQueue');
+    if (authStatus == null) throw ArgumentError.notNull('authStatus');
+    if (users == null) throw ArgumentError.notNull('users');
+    if (boards == null) throw ArgumentError.notNull('boards');
+    if (sessions == null) throw ArgumentError.notNull('sessions');
+    if (categories == null) throw ArgumentError.notNull('categories');
+    if (items == null) throw ArgumentError.notNull('items');
+    if (notes == null) throw ArgumentError.notNull('notes');
+    if (showMobileMenu == null) {
+      throw ArgumentError.notNull('showMobileMenu');
+    }
+    if (modalQueue == null) throw ArgumentError.notNull('modalQueue');
   }
 
   @override
@@ -127,11 +128,11 @@ class _$App extends App {
       __heroPollResults ??= super.heroPollResults;
 
   @override
-  App rebuild(void updates(AppBuilder b)) =>
+  App rebuild(void Function(AppBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  AppBuilder toBuilder() => new AppBuilder()..replace(this);
+  AppBuilder toBuilder() => AppBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -192,29 +193,29 @@ class AppBuilder implements Builder<App, AppBuilder> {
   set authStatus(String authStatus) => _$this._authStatus = authStatus;
 
   UsersBuilder _users;
-  UsersBuilder get users => _$this._users ??= new UsersBuilder();
+  UsersBuilder get users => _$this._users ??= UsersBuilder();
   set users(UsersBuilder users) => _$this._users = users;
 
   BoardsBuilder _boards;
-  BoardsBuilder get boards => _$this._boards ??= new BoardsBuilder();
+  BoardsBuilder get boards => _$this._boards ??= BoardsBuilder();
   set boards(BoardsBuilder boards) => _$this._boards = boards;
 
   SessionsBuilder _sessions;
-  SessionsBuilder get sessions => _$this._sessions ??= new SessionsBuilder();
+  SessionsBuilder get sessions => _$this._sessions ??= SessionsBuilder();
   set sessions(SessionsBuilder sessions) => _$this._sessions = sessions;
 
   CategoriesBuilder _categories;
   CategoriesBuilder get categories =>
-      _$this._categories ??= new CategoriesBuilder();
+      _$this._categories ??= CategoriesBuilder();
   set categories(CategoriesBuilder categories) =>
       _$this._categories = categories;
 
   ItemsBuilder _items;
-  ItemsBuilder get items => _$this._items ??= new ItemsBuilder();
+  ItemsBuilder get items => _$this._items ??= ItemsBuilder();
   set items(ItemsBuilder items) => _$this._items = items;
 
   NotesBuilder _notes;
-  NotesBuilder get notes => _$this._notes ??= new NotesBuilder();
+  NotesBuilder get notes => _$this._notes ??= NotesBuilder();
   set notes(NotesBuilder notes) => _$this._notes = notes;
 
   bool _showMobileMenu;
@@ -224,7 +225,7 @@ class AppBuilder implements Builder<App, AppBuilder> {
 
   ListBuilder<String> _modalQueue;
   ListBuilder<String> get modalQueue =>
-      _$this._modalQueue ??= new ListBuilder<String>();
+      _$this._modalQueue ??= ListBuilder<String>();
   set modalQueue(ListBuilder<String> modalQueue) =>
       _$this._modalQueue = modalQueue;
 
@@ -248,19 +249,19 @@ class AppBuilder implements Builder<App, AppBuilder> {
 
   @override
   void replace(App other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$App;
   }
 
   @override
-  void update(void updates(AppBuilder b)) {
+  void update(void Function(AppBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$App build() {
     final _$result = _$v ??
-        new _$App._(
+        _$App._(
             authStatus: authStatus,
             users: users?.build(),
             boards: boards?.build(),
@@ -280,30 +281,30 @@ class AppBuilder implements Builder<App, AppBuilder> {
 // **************************************************************************
 
 class _$AppActions extends AppActions {
-  factory _$AppActions() => new _$AppActions._();
+  factory _$AppActions() => _$AppActions._();
   _$AppActions._() : super._();
 
   final ActionDispatcher<String> setAuthStatus =
-      new ActionDispatcher<String>('AppActions-setAuthStatus');
+      ActionDispatcher<String>('AppActions-setAuthStatus');
   final ActionDispatcher<Null> clear =
-      new ActionDispatcher<Null>('AppActions-clear');
+      ActionDispatcher<Null>('AppActions-clear');
   final ActionDispatcher<String> showModal =
-      new ActionDispatcher<String>('AppActions-showModal');
+      ActionDispatcher<String>('AppActions-showModal');
   final ActionDispatcher<Null> hideModal =
-      new ActionDispatcher<Null>('AppActions-hideModal');
+      ActionDispatcher<Null>('AppActions-hideModal');
   final ActionDispatcher<Null> toggleMobileMenu =
-      new ActionDispatcher<Null>('AppActions-toggleMobileMenu');
+      ActionDispatcher<Null>('AppActions-toggleMobileMenu');
   final ActionDispatcher<Null> hideMobileMenu =
-      new ActionDispatcher<Null>('AppActions-hideMobileMenu');
+      ActionDispatcher<Null>('AppActions-hideMobileMenu');
   final ActionDispatcher<Null> showMobileMenu =
-      new ActionDispatcher<Null>('AppActions-showMobileMenu');
-  final UsersActions users = new UsersActions();
-  final BoardsActions boards = new BoardsActions();
-  final SessionsActions sessions = new SessionsActions();
-  final CategoriesActions categories = new CategoriesActions();
-  final ItemsActions items = new ItemsActions();
-  final NotesActions notes = new NotesActions();
-  final CreationMiddlewareActions creation = new CreationMiddlewareActions();
+      ActionDispatcher<Null>('AppActions-showMobileMenu');
+  final UsersActions users = UsersActions();
+  final BoardsActions boards = BoardsActions();
+  final SessionsActions sessions = SessionsActions();
+  final CategoriesActions categories = CategoriesActions();
+  final ItemsActions items = ItemsActions();
+  final NotesActions notes = NotesActions();
+  final CreationMiddlewareActions creation = CreationMiddlewareActions();
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -326,17 +327,17 @@ class _$AppActions extends AppActions {
 
 class AppActionsNames {
   static final ActionName<String> setAuthStatus =
-      new ActionName<String>('AppActions-setAuthStatus');
+      ActionName<String>('AppActions-setAuthStatus');
   static final ActionName<Null> clear =
-      new ActionName<Null>('AppActions-clear');
+      ActionName<Null>('AppActions-clear');
   static final ActionName<String> showModal =
-      new ActionName<String>('AppActions-showModal');
+      ActionName<String>('AppActions-showModal');
   static final ActionName<Null> hideModal =
-      new ActionName<Null>('AppActions-hideModal');
+      ActionName<Null>('AppActions-hideModal');
   static final ActionName<Null> toggleMobileMenu =
-      new ActionName<Null>('AppActions-toggleMobileMenu');
+      ActionName<Null>('AppActions-toggleMobileMenu');
   static final ActionName<Null> hideMobileMenu =
-      new ActionName<Null>('AppActions-hideMobileMenu');
+      ActionName<Null>('AppActions-hideMobileMenu');
   static final ActionName<Null> showMobileMenu =
-      new ActionName<Null>('AppActions-showMobileMenu');
+      ActionName<Null>('AppActions-showMobileMenu');
 }

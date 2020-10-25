@@ -8,7 +8,7 @@ import './serializers.dart';
 class StreamSubManager {
   final Map<String, StreamSubscription<firebase.QueryEvent>> _refs;
 
-  StreamSubManager() : _refs = new Map<String, StreamSubscription<firebase.QueryEvent>>();
+  StreamSubManager() : _refs = <String, StreamSubscription<firebase.QueryEvent>>{};
 
   void cancel(firebase.DatabaseReference ref) {
     var path = ref.toString();
@@ -65,33 +65,37 @@ class StreamSubManager {
     if (_refs['$path-onChildAdded'] != null) return;
     print('listening to list at $path');
 
-    if (onChildAdded != null)
+    if (onChildAdded != null) {
       _refs['$path-onChildAdded'] = ref.onChildAdded.listen((firebase.QueryEvent event) {
         if (event.snapshot.val() == null) return;
         onChildAdded(
           serializers.deserializeWith(serializer, event.snapshot.val()),
         );
       });
+    }
 
-    if (onChildRemoved != null)
+    if (onChildRemoved != null) {
       _refs['$path-onChildRemoved'] = ref.onChildRemoved.listen((firebase.QueryEvent event) {
         onChildRemoved(event.snapshot.key);
       });
+    }
 
-    if (onChildChanged != null)
+    if (onChildChanged != null) {
       _refs['$path-onChildChanged'] = ref.onChildChanged.listen((firebase.QueryEvent event) {
         if (event.snapshot.val() == null) return;
         onChildChanged(
           serializers.deserializeWith(serializer, event.snapshot.val()),
         );
       });
+    }
 
-    if (onChildMoved != null)
+    if (onChildMoved != null) {
       _refs['$path-onChildMoved'] = ref.onChildMoved.listen((firebase.QueryEvent event) {
         if (event.snapshot.val() == null) return;
         onChildMoved(
           serializers.deserializeWith(serializer, event.snapshot.val()),
         );
       });
+    }
   }
 }

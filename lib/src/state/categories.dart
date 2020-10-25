@@ -26,7 +26,7 @@ abstract class CategoriesActions extends ReduxActions {
 
   // factory to create on instance of the generated implementation of BoardsActions
   CategoriesActions._();
-  factory CategoriesActions() => new _$CategoriesActions();
+  factory CategoriesActions() => _$CategoriesActions();
 }
 
 ////////////////////
@@ -42,15 +42,15 @@ abstract class Categories implements Built<Categories, CategoriesBuilder> {
 
   // Built value boilerplate
   Categories._();
-  factory Categories([updates(CategoriesBuilder b)]) =>
-      new _$Categories((CategoriesBuilder b) => b..currentUid = "");
+  factory Categories([Function(CategoriesBuilder b) updates]) =>
+      _$Categories((CategoriesBuilder b) => b..currentUid = '');
 
   @memoized
   Category get current => map[currentUid];
 
   @memoized
   BuiltList<Category> get visible =>
-      new BuiltList<Category>(map.values.where((value) => value.visible));
+      BuiltList<Category>(map.values.where((value) => value.visible));
 }
 
 ////////////////////
@@ -58,7 +58,7 @@ abstract class Categories implements Built<Categories, CategoriesBuilder> {
 ///////////////////
 
 NestedReducerBuilder<App, AppBuilder, Categories, CategoriesBuilder>
-    createCategoriesReducer() => new NestedReducerBuilder<App, AppBuilder,
+    createCategoriesReducer() => NestedReducerBuilder<App, AppBuilder,
             Categories, CategoriesBuilder>(
           (state) => state.categories,
           (builder) => builder.categories,
@@ -71,14 +71,14 @@ NestedReducerBuilder<App, AppBuilder, Categories, CategoriesBuilder>
 /// Reducers
 ///////////////////
 
-_updateCategory(
+CategoriesBuilder _updateCategory(
         Categories state, Action<Category> action, CategoriesBuilder builder) =>
     builder..map[action.payload.uid] = action.payload;
 
-_removeCategory(
+CategoriesBuilder _removeCategory(
         Categories state, Action<String> action, CategoriesBuilder builder) =>
     builder..map.remove(action.payload);
 
-_setCurrentItem(
+CategoriesBuilder _setCurrentItem(
         Categories state, Action<String> action, CategoriesBuilder builder) =>
     builder..currentUid = action.payload;

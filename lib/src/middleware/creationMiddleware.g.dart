@@ -7,24 +7,24 @@ part of creationMiddleware;
 // **************************************************************************
 
 class _$CreationMiddlewareActions extends CreationMiddlewareActions {
-  factory _$CreationMiddlewareActions() => new _$CreationMiddlewareActions._();
+  factory _$CreationMiddlewareActions() => _$CreationMiddlewareActions._();
   _$CreationMiddlewareActions._() : super._();
 
   final ActionDispatcher<CreateBoardPayload> board =
-      new ActionDispatcher<CreateBoardPayload>(
+      ActionDispatcher<CreateBoardPayload>(
           'CreationMiddlewareActions-board');
   final ActionDispatcher<CreateSessionPayload> session =
-      new ActionDispatcher<CreateSessionPayload>(
+      ActionDispatcher<CreateSessionPayload>(
           'CreationMiddlewareActions-session');
   final ActionDispatcher<Null> cloneSession =
-      new ActionDispatcher<Null>('CreationMiddlewareActions-cloneSession');
+      ActionDispatcher<Null>('CreationMiddlewareActions-cloneSession');
   final ActionDispatcher<CreateCategoryPayload> category =
-      new ActionDispatcher<CreateCategoryPayload>(
+      ActionDispatcher<CreateCategoryPayload>(
           'CreationMiddlewareActions-category');
   final ActionDispatcher<CreateItemPayload> item =
-      new ActionDispatcher<CreateItemPayload>('CreationMiddlewareActions-item');
+      ActionDispatcher<CreateItemPayload>('CreationMiddlewareActions-item');
   final ActionDispatcher<String> note =
-      new ActionDispatcher<String>('CreationMiddlewareActions-note');
+      ActionDispatcher<String>('CreationMiddlewareActions-note');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -39,16 +39,16 @@ class _$CreationMiddlewareActions extends CreationMiddlewareActions {
 
 class CreationMiddlewareActionsNames {
   static final ActionName<CreateBoardPayload> board =
-      new ActionName<CreateBoardPayload>('CreationMiddlewareActions-board');
+      ActionName<CreateBoardPayload>('CreationMiddlewareActions-board');
   static final ActionName<CreateSessionPayload> session =
-      new ActionName<CreateSessionPayload>('CreationMiddlewareActions-session');
+      ActionName<CreateSessionPayload>('CreationMiddlewareActions-session');
   static final ActionName<Null> cloneSession =
-      new ActionName<Null>('CreationMiddlewareActions-cloneSession');
+      ActionName<Null>('CreationMiddlewareActions-cloneSession');
   static final ActionName<CreateCategoryPayload> category =
-      new ActionName<CreateCategoryPayload>(
+      ActionName<CreateCategoryPayload>(
           'CreationMiddlewareActions-category');
   static final ActionName<CreateItemPayload> item =
-      new ActionName<CreateItemPayload>('CreationMiddlewareActions-item');
+      ActionName<CreateItemPayload>('CreationMiddlewareActions-item');
   static final ActionName<String> note =
-      new ActionName<String>('CreationMiddlewareActions-note');
+      ActionName<String>('CreationMiddlewareActions-note');
 }

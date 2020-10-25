@@ -14,39 +14,39 @@ part of board;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<Board> _$boardSerializer = new _$BoardSerializer();
+Serializer<Board> _$boardSerializer = _$BoardSerializer();
 
 class _$BoardSerializer implements StructuredSerializer<Board> {
   @override
-  final Iterable<Type> types = const [Board, _$Board];
+  final Iterable<Type> types = [Board, _$Board];
   @override
   final String wireName = 'Board';
 
   @override
   Iterable serialize(Serializers serializers, Board object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'uid',
-      serializers.serialize(object.uid, specifiedType: const FullType(String)),
+      serializers.serialize(object.uid, specifiedType: FullType(String)),
       'ownerUid',
       serializers.serialize(object.ownerUid,
-          specifiedType: const FullType(String)),
+          specifiedType: FullType(String)),
       'memberUids',
       serializers.serialize(object.memberUids,
-          specifiedType: const FullType(
-              BuiltMap, const [const FullType(String), const FullType(int)])),
+          specifiedType: FullType(
+              BuiltMap, [FullType(String), FullType(int)])),
       'title',
       serializers.serialize(object.title,
-          specifiedType: const FullType(String)),
+          specifiedType: FullType(String)),
       'description',
       serializers.serialize(object.description,
-          specifiedType: const FullType(String)),
+          specifiedType: FullType(String)),
     ];
     if (object.latestSessionUid != null) {
       result
         ..add('latestSessionUid')
         ..add(serializers.serialize(object.latestSessionUid,
-            specifiedType: const FullType(String)));
+            specifiedType: FullType(String)));
     }
 
     return result;
@@ -54,8 +54,8 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
 
   @override
   Board deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
-    final result = new BoardBuilder();
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = BoardBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -65,30 +65,30 @@ class _$BoardSerializer implements StructuredSerializer<Board> {
       switch (key) {
         case 'uid':
           result.uid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'ownerUid':
           result.ownerUid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'memberUids':
           result.memberUids.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(int)
+              specifiedType: FullType(BuiltMap, [
+                FullType(String),
+                FullType(int)
               ])) as BuiltMap<String, int>);
           break;
         case 'latestSessionUid':
           result.latestSessionUid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'title':
           result.title = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'description':
           result.description = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
       }
     }
@@ -111,8 +111,8 @@ class _$Board extends Board {
   @override
   final String description;
 
-  factory _$Board([void updates(BoardBuilder b)]) =>
-      (new BoardBuilder()..update(updates)).build();
+  factory _$Board([void Function(BoardBuilder b) updates]) =>
+      (BoardBuilder()..update(updates)).build();
 
   _$Board._(
       {this.uid,
@@ -122,19 +122,19 @@ class _$Board extends Board {
       this.title,
       this.description})
       : super._() {
-    if (uid == null) throw new ArgumentError.notNull('uid');
-    if (ownerUid == null) throw new ArgumentError.notNull('ownerUid');
-    if (memberUids == null) throw new ArgumentError.notNull('memberUids');
-    if (title == null) throw new ArgumentError.notNull('title');
-    if (description == null) throw new ArgumentError.notNull('description');
+    if (uid == null) throw ArgumentError.notNull('uid');
+    if (ownerUid == null) throw ArgumentError.notNull('ownerUid');
+    if (memberUids == null) throw ArgumentError.notNull('memberUids');
+    if (title == null) throw ArgumentError.notNull('title');
+    if (description == null) throw ArgumentError.notNull('description');
   }
 
   @override
-  Board rebuild(void updates(BoardBuilder b)) =>
+  Board rebuild(void Function(BoardBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BoardBuilder toBuilder() => new BoardBuilder()..replace(this);
+  BoardBuilder toBuilder() => BoardBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -186,7 +186,7 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
 
   MapBuilder<String, int> _memberUids;
   MapBuilder<String, int> get memberUids =>
-      _$this._memberUids ??= new MapBuilder<String, int>();
+      _$this._memberUids ??= MapBuilder<String, int>();
   set memberUids(MapBuilder<String, int> memberUids) =>
       _$this._memberUids = memberUids;
 
@@ -220,19 +220,19 @@ class BoardBuilder implements Builder<Board, BoardBuilder> {
 
   @override
   void replace(Board other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$Board;
   }
 
   @override
-  void update(void updates(BoardBuilder b)) {
+  void update(void Function(BoardBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Board build() {
     final _$result = _$v ??
-        new _$Board._(
+        _$Board._(
             uid: uid,
             ownerUid: ownerUid,
             memberUids: memberUids?.build(),

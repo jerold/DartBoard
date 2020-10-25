@@ -22,12 +22,12 @@ class _$Users extends Users {
   User __current;
   bool __loggedIn;
 
-  factory _$Users([void updates(UsersBuilder b)]) =>
-      (new UsersBuilder()..update(updates)).build();
+  factory _$Users([void Function(UsersBuilder b) updates]) =>
+      (UsersBuilder()..update(updates)).build();
 
   _$Users._({this.map, this.currentUid}) : super._() {
-    if (map == null) throw new ArgumentError.notNull('map');
-    if (currentUid == null) throw new ArgumentError.notNull('currentUid');
+    if (map == null) throw ArgumentError.notNull('map');
+    if (currentUid == null) throw ArgumentError.notNull('currentUid');
   }
 
   @override
@@ -37,11 +37,11 @@ class _$Users extends Users {
   bool get loggedIn => __loggedIn ??= super.loggedIn;
 
   @override
-  Users rebuild(void updates(UsersBuilder b)) =>
+  Users rebuild(void Function(UsersBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  UsersBuilder toBuilder() => new UsersBuilder()..replace(this);
+  UsersBuilder toBuilder() => UsersBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -69,7 +69,7 @@ class UsersBuilder implements Builder<Users, UsersBuilder> {
 
   MapBuilder<String, User> _map;
   MapBuilder<String, User> get map =>
-      _$this._map ??= new MapBuilder<String, User>();
+      _$this._map ??= MapBuilder<String, User>();
   set map(MapBuilder<String, User> map) => _$this._map = map;
 
   String _currentUid;
@@ -89,19 +89,19 @@ class UsersBuilder implements Builder<Users, UsersBuilder> {
 
   @override
   void replace(Users other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$Users;
   }
 
   @override
-  void update(void updates(UsersBuilder b)) {
+  void update(void Function(UsersBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Users build() {
     final _$result =
-        _$v ?? new _$Users._(map: map?.build(), currentUid: currentUid);
+        _$v ?? _$Users._(map: map?.build(), currentUid: currentUid);
     replace(_$result);
     return _$result;
   }
@@ -112,17 +112,17 @@ class UsersBuilder implements Builder<Users, UsersBuilder> {
 // **************************************************************************
 
 class _$UsersActions extends UsersActions {
-  factory _$UsersActions() => new _$UsersActions._();
+  factory _$UsersActions() => _$UsersActions._();
   _$UsersActions._() : super._();
 
   final ActionDispatcher<User> update =
-      new ActionDispatcher<User>('UsersActions-update');
+      ActionDispatcher<User>('UsersActions-update');
   final ActionDispatcher<String> remove =
-      new ActionDispatcher<String>('UsersActions-remove');
+      ActionDispatcher<String>('UsersActions-remove');
   final ActionDispatcher<String> setCurrent =
-      new ActionDispatcher<String>('UsersActions-setCurrent');
+      ActionDispatcher<String>('UsersActions-setCurrent');
   final ActionDispatcher<String> addBoardToCurrentUser =
-      new ActionDispatcher<String>('UsersActions-addBoardToCurrentUser');
+      ActionDispatcher<String>('UsersActions-addBoardToCurrentUser');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -135,11 +135,11 @@ class _$UsersActions extends UsersActions {
 
 class UsersActionsNames {
   static final ActionName<User> update =
-      new ActionName<User>('UsersActions-update');
+      ActionName<User>('UsersActions-update');
   static final ActionName<String> remove =
-      new ActionName<String>('UsersActions-remove');
+      ActionName<String>('UsersActions-remove');
   static final ActionName<String> setCurrent =
-      new ActionName<String>('UsersActions-setCurrent');
+      ActionName<String>('UsersActions-setCurrent');
   static final ActionName<String> addBoardToCurrentUser =
-      new ActionName<String>('UsersActions-addBoardToCurrentUser');
+      ActionName<String>('UsersActions-addBoardToCurrentUser');
 }

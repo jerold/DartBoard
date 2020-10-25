@@ -24,32 +24,32 @@ import '../middleware/creationMiddleware.dart';
 part 'app.g.dart';
 
 class AuthStatus {
-  static const String loading = "loading";
+  static String loading = 'loading';
 
-  static const String signedIn = "signed in";
+  static String signedIn = 'signed in';
 
-  static const String signedOut = "signed out";
+  static String signedOut = 'signed out';
 }
 
-const String CONFIRM_SHRED_BOARD_MODAL = "Confirm Shred Board Modal";
-const String CONFIRM_SHRED_SESSION_MODAL = "Confirm Shred Session Modal";
-const String CREATE_CATEGORY_MODAL = "Create Category Modal";
-const String CREATE_ITEM_MODAL = "Create Item Modal";
-const String CREATE_NOTE_MODAL = "Create Note Modal";
-const String MANAGE_CONTENT_MODAL = "Manage Content Modal";
-const String SIGN_IN_MODAL = "Sign In Modal";
-const String NO_MODAL = "No Modal";
+const String CONFIRM_SHRED_BOARD_MODAL = 'Confirm Shred Board Modal';
+const String CONFIRM_SHRED_SESSION_MODAL = 'Confirm Shred Session Modal';
+const String CREATE_CATEGORY_MODAL = 'Create Category Modal';
+const String CREATE_ITEM_MODAL = 'Create Item Modal';
+const String CREATE_NOTE_MODAL = 'Create Note Modal';
+const String MANAGE_CONTENT_MODAL = 'Manage Content Modal';
+const String SIGN_IN_MODAL = 'Sign In Modal';
+const String NO_MODAL = 'No Modal';
 
-int now() => new DateTime.now().millisecondsSinceEpoch;
+int now() => DateTime.now().millisecondsSinceEpoch;
 
-final _dateFormat = new DateFormat.yMMMMd("en_US");
-final _timeFormat = new DateFormat.Hm("en_US");
+final _dateFormat = DateFormat.yMMMMd('en_US');
+final _timeFormat = DateFormat.Hm('en_US');
 
 String date(int epoch) =>
-    _dateFormat.format(new DateTime.fromMillisecondsSinceEpoch(epoch));
-String dateTime(int epoch) => "${time(epoch)} on ${date(epoch)}";
+    _dateFormat.format(DateTime.fromMillisecondsSinceEpoch(epoch));
+String dateTime(int epoch) => '${time(epoch)} on ${date(epoch)}';
 String time(int epoch) =>
-    _timeFormat.format(new DateTime.fromMillisecondsSinceEpoch(epoch));
+    _timeFormat.format(DateTime.fromMillisecondsSinceEpoch(epoch));
 
 ////////////////////
 /// Actions
@@ -78,7 +78,7 @@ abstract class AppActions extends ReduxActions {
 
   // factory to create on instance of the generated implementation of AppActions
   AppActions._();
-  factory AppActions() => new _$AppActions();
+  factory AppActions() => _$AppActions();
 }
 
 ////////////////////
@@ -119,14 +119,14 @@ abstract class App implements Built<App, AppBuilder> {
 
   // Built value boilerplate
   App._();
-  factory App([updates(AppBuilder b)]) => new _$App((AppBuilder b) => b
+  factory App([Function(AppBuilder b) updates]) => _$App((AppBuilder b) => b
     ..authStatus = AuthStatus.loading
-    ..users = new Users().toBuilder()
-    ..boards = new Boards().toBuilder()
-    ..sessions = new Sessions().toBuilder()
-    ..categories = new Categories().toBuilder()
-    ..items = new Items().toBuilder()
-    ..notes = new Notes().toBuilder()
+    ..users = Users().toBuilder()
+    ..boards = Boards().toBuilder()
+    ..sessions = Sessions().toBuilder()
+    ..categories = Categories().toBuilder()
+    ..items = Items().toBuilder()
+    ..notes = Notes().toBuilder()
     ..showMobileMenu = false);
 
   @memoized
@@ -134,15 +134,15 @@ abstract class App implements Built<App, AppBuilder> {
 
   // TODO: do this or clear sessions everytime current board changes?
   @memoized
-  BuiltList<Session> get currentBoardSessions => new BuiltList<Session>(
+  BuiltList<Session> get currentBoardSessions => BuiltList<Session>(
         sessions.map.values
             .where((Session s) => s.boardUid == boards.currentUid),
       );
 
   @memoized
   Board get usersLatestBoard {
-    String maxUid = "";
-    int maxTime = 0;
+    var maxUid = '';
+    var maxTime = 0;
     users.current.boardUids.forEach((uid, time) {
       if (time > maxTime) {
         maxUid = uid;
@@ -157,13 +157,13 @@ abstract class App implements Built<App, AppBuilder> {
       sessions.map[boards.current.latestSessionUid];
 
   @memoized
-  BuiltList<Category> get sessionCategories => new BuiltList<Category>(
+  BuiltList<Category> get sessionCategories => BuiltList<Category>(
         categories.map.values
             .where((Category c) => c.sessionUid == sessions.currentUid),
       );
 
   @memoized
-  BuiltList<Category> get visibleSessionCategories => new BuiltList<Category>(
+  BuiltList<Category> get visibleSessionCategories => BuiltList<Category>(
         categories.visible
             .where((Category c) => c.sessionUid == sessions.currentUid),
       );
@@ -172,32 +172,32 @@ abstract class App implements Built<App, AppBuilder> {
   BuiltList<Category> get manageableSessionCategories => sessionCategories;
 
   @memoized
-  BuiltList<Item> get sessionItems => new BuiltList<Item>(
+  BuiltList<Item> get sessionItems => BuiltList<Item>(
         items.map.values.where((Item i) => i.sessionUid == sessions.currentUid),
       );
 
   @memoized
-  BuiltList<Item> get visibleSessionItems => new BuiltList<Item>(
+  BuiltList<Item> get visibleSessionItems => BuiltList<Item>(
         items.visible.where((Item i) => i.sessionUid == sessions.currentUid),
       );
 
   @memoized
-  BuiltList<Item> get manageableSessionItems => new BuiltList<Item>(
+  BuiltList<Item> get manageableSessionItems => BuiltList<Item>(
         sessionItems.where((Item i) => i.ownerUid == users.currentUid),
       );
 
   @memoized
-  BuiltList<Note> get sessionNotes => new BuiltList<Note>(
+  BuiltList<Note> get sessionNotes => BuiltList<Note>(
         notes.map.values.where((Note n) => n.sessionUid == sessions.currentUid),
       );
 
   @memoized
-  BuiltList<Note> get visibleSessionNotes => new BuiltList<Note>(
+  BuiltList<Note> get visibleSessionNotes => BuiltList<Note>(
         notes.visible.where((Note n) => n.sessionUid == sessions.currentUid),
       );
 
   @memoized
-  BuiltList<Note> get manageableSessionNotes => new BuiltList<Note>(
+  BuiltList<Note> get manageableSessionNotes => BuiltList<Note>(
         sessionNotes.where((Note n) => n.ownerUid == users.currentUid),
       );
 
@@ -205,7 +205,7 @@ abstract class App implements Built<App, AppBuilder> {
 
   @memoized
   BuiltMap<String, int> get heroPollResults {
-    MapBuilder<String, int> results = new MapBuilder<String, int>();
+    var results = MapBuilder<String, int>();
     if (hero != null) {
       hero.pollOptions.forEach((option) {
         results[option] = hero.optionPercentage(option);
@@ -220,7 +220,7 @@ abstract class App implements Built<App, AppBuilder> {
 ///////////////////
 
 Reducer<App, AppBuilder, dynamic> createReducer() =>
-    (new ReducerBuilder<App, AppBuilder>()
+    (ReducerBuilder<App, AppBuilder>()
           ..add<String>(AppActionsNames.setAuthStatus, _setAuthStatus)
           ..add<Null>(AppActionsNames.clear, _clear)
           ..add<String>(AppActionsNames.showModal, _showModal)
@@ -240,28 +240,28 @@ Reducer<App, AppBuilder, dynamic> createReducer() =>
 /// Reducers
 ///////////////////
 
-_setAuthStatus(App state, Action<String> action, AppBuilder b) => b
+AppBuilder _setAuthStatus(App state, Action<String> action, AppBuilder b) => b
     ..authStatus = action.payload;
 
-_clear(App state, Action<Null> action, AppBuilder b) => b
-  ..users = new Users().toBuilder()
-  ..boards = new Boards().toBuilder()
-  ..sessions = new Sessions().toBuilder()
-  ..categories = new Categories().toBuilder()
-  ..items = new Items().toBuilder()
-  ..notes = new Notes().toBuilder();
+AppBuilder _clear(App state, Action<Null> action, AppBuilder b) => b
+  ..users = Users().toBuilder()
+  ..boards = Boards().toBuilder()
+  ..sessions = Sessions().toBuilder()
+  ..categories = Categories().toBuilder()
+  ..items = Items().toBuilder()
+  ..notes = Notes().toBuilder();
 
-_showModal(App state, Action<String> action, AppBuilder b) => b
+AppBuilder _showModal(App state, Action<String> action, AppBuilder b) => b
     ..modalQueue.add(action.payload);
 
-_hideModal(App state, Action<String> action, AppBuilder b) => b
+AppBuilder _hideModal(App state, Action<String> action, AppBuilder b) => b
     ..modalQueue.removeLast();
 
-_toggleMobileMenu(App state, Action<String> action, AppBuilder b) => b
+AppBuilder _toggleMobileMenu(App state, Action<String> action, AppBuilder b) => b
     ..showMobileMenu = !state.showMobileMenu;
 
-_hideMobileMenu(App state, Action<Null> action, AppBuilder b) => b
+AppBuilder _hideMobileMenu(App state, Action<Null> action, AppBuilder b) => b
     ..showMobileMenu = false;
 
-_showMobileMenu(App state, Action<Null> action, AppBuilder b) => b
+AppBuilder _showMobileMenu(App state, Action<Null> action, AppBuilder b) => b
     ..showMobileMenu = true;

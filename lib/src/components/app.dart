@@ -12,9 +12,9 @@ import 'package:retro/src/components/navBar.dart';
 const _storeKey = 'storeKey';
 
 class AppComponent extends NComponent {
-  StoreService _service;
+  final StoreService _service;
 
-  AppComponent() : _service = new StoreService();
+  AppComponent() : _service = StoreService();
 
   AppActions get actions => _service.store.actions;
 
@@ -25,11 +25,11 @@ class AppComponent extends NComponent {
       <String, dynamic>{_storeKey: _service.store};
 
   @override
-  VNode render() => new Vsection()
-    ..className = "section"
+  VNode render() => Vsection()
+    ..className = 'section'
     ..children = [
       // Navigation
-      new NavBar(new NavBarProps()
+      NavBar(NavBarProps()
         ..signIn = _service.signIn
         ..signOut = _service.signOut),
     ];

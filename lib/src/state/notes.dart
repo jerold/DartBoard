@@ -27,7 +27,7 @@ abstract class NotesActions extends ReduxActions {
 
   // factory to create on instance of the generated implementation of BoardsActions
   NotesActions._();
-  factory NotesActions() => new _$NotesActions();
+  factory NotesActions() => _$NotesActions();
 }
 
 ////////////////////
@@ -53,15 +53,15 @@ abstract class Notes implements Built<Notes, NotesBuilder> {
 
   // Built value boilerplate
   Notes._();
-  factory Notes([updates(NotesBuilder b)]) =>
-      new _$Notes((NotesBuilder b) => b..currentUid = "");
+  factory Notes([Function(NotesBuilder b) updates]) =>
+      _$Notes((NotesBuilder b) => b..currentUid = '');
 
   @memoized
   Note get current => map[currentUid];
 
   @memoized
   BuiltList<Note> get visible =>
-      new BuiltList<Note>(map.values.where((value) => value.visible));
+      BuiltList<Note>(map.values.where((value) => value.visible));
 }
 
 ////////////////////
@@ -70,7 +70,7 @@ abstract class Notes implements Built<Notes, NotesBuilder> {
 
 NestedReducerBuilder<App, AppBuilder, Notes, NotesBuilder>
     createNotesReducer() =>
-        new NestedReducerBuilder<App, AppBuilder, Notes, NotesBuilder>(
+        NestedReducerBuilder<App, AppBuilder, Notes, NotesBuilder>(
           (state) => state.notes,
           (builder) => builder.notes,
         )
@@ -82,11 +82,11 @@ NestedReducerBuilder<App, AppBuilder, Notes, NotesBuilder>
 /// Reducers
 ///////////////////
 
-_updateNote(Notes state, Action<Note> action, NotesBuilder builder) =>
+NotesBuilder _updateNote(Notes state, Action<Note> action, NotesBuilder builder) =>
     builder..map[action.payload.uid] = action.payload;
 
-_removeNote(Notes state, Action<String> action, NotesBuilder builder) =>
+NotesBuilder _removeNote(Notes state, Action<String> action, NotesBuilder builder) =>
     builder..map.remove(action.payload);
 
-_setCurrentNote(Notes state, Action<String> action, NotesBuilder builder) =>
+NotesBuilder _setCurrentNote(Notes state, Action<String> action, NotesBuilder builder) =>
     builder..currentUid = action.payload;

@@ -22,12 +22,12 @@ class _$Notes extends Notes {
   Note __current;
   BuiltList<Note> __visible;
 
-  factory _$Notes([void updates(NotesBuilder b)]) =>
-      (new NotesBuilder()..update(updates)).build();
+  factory _$Notes([void Function(NotesBuilder b) updates]) =>
+      (NotesBuilder()..update(updates)).build();
 
   _$Notes._({this.map, this.currentUid}) : super._() {
-    if (map == null) throw new ArgumentError.notNull('map');
-    if (currentUid == null) throw new ArgumentError.notNull('currentUid');
+    if (map == null) throw ArgumentError.notNull('map');
+    if (currentUid == null) throw ArgumentError.notNull('currentUid');
   }
 
   @override
@@ -37,11 +37,11 @@ class _$Notes extends Notes {
   BuiltList<Note> get visible => __visible ??= super.visible;
 
   @override
-  Notes rebuild(void updates(NotesBuilder b)) =>
+  Notes rebuild(void Function(NotesBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  NotesBuilder toBuilder() => new NotesBuilder()..replace(this);
+  NotesBuilder toBuilder() => NotesBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -69,7 +69,7 @@ class NotesBuilder implements Builder<Notes, NotesBuilder> {
 
   MapBuilder<String, Note> _map;
   MapBuilder<String, Note> get map =>
-      _$this._map ??= new MapBuilder<String, Note>();
+      _$this._map ??= MapBuilder<String, Note>();
   set map(MapBuilder<String, Note> map) => _$this._map = map;
 
   String _currentUid;
@@ -89,19 +89,19 @@ class NotesBuilder implements Builder<Notes, NotesBuilder> {
 
   @override
   void replace(Notes other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$Notes;
   }
 
   @override
-  void update(void updates(NotesBuilder b)) {
+  void update(void Function(NotesBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Notes build() {
     final _$result =
-        _$v ?? new _$Notes._(map: map?.build(), currentUid: currentUid);
+        _$v ?? _$Notes._(map: map?.build(), currentUid: currentUid);
     replace(_$result);
     return _$result;
   }
@@ -112,23 +112,23 @@ class NotesBuilder implements Builder<Notes, NotesBuilder> {
 // **************************************************************************
 
 class _$NotesActions extends NotesActions {
-  factory _$NotesActions() => new _$NotesActions._();
+  factory _$NotesActions() => _$NotesActions._();
   _$NotesActions._() : super._();
 
   final ActionDispatcher<Note> update =
-      new ActionDispatcher<Note>('NotesActions-update');
+      ActionDispatcher<Note>('NotesActions-update');
   final ActionDispatcher<String> remove =
-      new ActionDispatcher<String>('NotesActions-remove');
+      ActionDispatcher<String>('NotesActions-remove');
   final ActionDispatcher<String> setCurrent =
-      new ActionDispatcher<String>('NotesActions-setCurrent');
+      ActionDispatcher<String>('NotesActions-setCurrent');
   final ActionDispatcher<PairNotePayload> pair =
-      new ActionDispatcher<PairNotePayload>('NotesActions-pair');
+      ActionDispatcher<PairNotePayload>('NotesActions-pair');
   final ActionDispatcher<PairNotePayload> unpair =
-      new ActionDispatcher<PairNotePayload>('NotesActions-unpair');
+      ActionDispatcher<PairNotePayload>('NotesActions-unpair');
   final ActionDispatcher<String> hide =
-      new ActionDispatcher<String>('NotesActions-hide');
+      ActionDispatcher<String>('NotesActions-hide');
   final ActionDispatcher<String> show =
-      new ActionDispatcher<String>('NotesActions-show');
+      ActionDispatcher<String>('NotesActions-show');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -144,17 +144,17 @@ class _$NotesActions extends NotesActions {
 
 class NotesActionsNames {
   static final ActionName<Note> update =
-      new ActionName<Note>('NotesActions-update');
+      ActionName<Note>('NotesActions-update');
   static final ActionName<String> remove =
-      new ActionName<String>('NotesActions-remove');
+      ActionName<String>('NotesActions-remove');
   static final ActionName<String> setCurrent =
-      new ActionName<String>('NotesActions-setCurrent');
+      ActionName<String>('NotesActions-setCurrent');
   static final ActionName<PairNotePayload> pair =
-      new ActionName<PairNotePayload>('NotesActions-pair');
+      ActionName<PairNotePayload>('NotesActions-pair');
   static final ActionName<PairNotePayload> unpair =
-      new ActionName<PairNotePayload>('NotesActions-unpair');
+      ActionName<PairNotePayload>('NotesActions-unpair');
   static final ActionName<String> hide =
-      new ActionName<String>('NotesActions-hide');
+      ActionName<String>('NotesActions-hide');
   static final ActionName<String> show =
-      new ActionName<String>('NotesActions-show');
+      ActionName<String>('NotesActions-show');
 }

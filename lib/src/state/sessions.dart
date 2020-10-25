@@ -30,7 +30,7 @@ abstract class SessionsActions extends ReduxActions {
 
   // factory to create on instance of the generated implementation of BoardsActions
   SessionsActions._();
-  factory SessionsActions() => new _$SessionsActions();
+  factory SessionsActions() => _$SessionsActions();
 }
 
 ////////////////////
@@ -46,8 +46,8 @@ abstract class Sessions implements Built<Sessions, SessionsBuilder> {
 
   // Built value boilerplate
   Sessions._();
-  factory Sessions([updates(SessionsBuilder b)]) =>
-      new _$Sessions((SessionsBuilder b) => b..currentUid = "");
+  factory Sessions([Function(SessionsBuilder b) updates]) =>
+      _$Sessions((SessionsBuilder b) => b..currentUid = '');
 
   @memoized
   Session get current => map[currentUid];
@@ -59,7 +59,7 @@ abstract class Sessions implements Built<Sessions, SessionsBuilder> {
 
 NestedReducerBuilder<App, AppBuilder, Sessions, SessionsBuilder>
     createSessionsReducer() =>
-        new NestedReducerBuilder<App, AppBuilder, Sessions, SessionsBuilder>(
+        NestedReducerBuilder<App, AppBuilder, Sessions, SessionsBuilder>(
           (state) => state.sessions,
           (builder) => builder.sessions,
         )
@@ -71,14 +71,14 @@ NestedReducerBuilder<App, AppBuilder, Sessions, SessionsBuilder>
 /// Reducers
 ///////////////////
 
-_updateSession(
+SessionsBuilder _updateSession(
         Sessions state, Action<Session> action, SessionsBuilder builder) =>
     builder..map[action.payload.uid] = action.payload;
 
-_removeSession(
+SessionsBuilder _removeSession(
         Sessions state, Action<String> action, SessionsBuilder builder) =>
     builder..map.remove(action.payload);
 
-_setCurrentSession(
+SessionsBuilder _setCurrentSession(
         Sessions state, Action<String> action, SessionsBuilder builder) =>
     builder..currentUid = action.payload;

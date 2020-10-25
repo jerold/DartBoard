@@ -14,38 +14,38 @@ part of note;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<Note> _$noteSerializer = new _$NoteSerializer();
+Serializer<Note> _$noteSerializer = _$NoteSerializer();
 
 class _$NoteSerializer implements StructuredSerializer<Note> {
   @override
-  final Iterable<Type> types = const [Note, _$Note];
+  final Iterable<Type> types = [Note, _$Note];
   @override
   final String wireName = 'Note';
 
   @override
   Iterable serialize(Serializers serializers, Note object,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'uid',
-      serializers.serialize(object.uid, specifiedType: const FullType(String)),
+      serializers.serialize(object.uid, specifiedType: FullType(String)),
       'boardUid',
       serializers.serialize(object.boardUid,
-          specifiedType: const FullType(String)),
+          specifiedType: FullType(String)),
       'sessionUid',
       serializers.serialize(object.sessionUid,
-          specifiedType: const FullType(String)),
+          specifiedType: FullType(String)),
       'ownerUid',
       serializers.serialize(object.ownerUid,
-          specifiedType: const FullType(String)),
+          specifiedType: FullType(String)),
       'itemUids',
       serializers.serialize(object.itemUids,
-          specifiedType: const FullType(
-              BuiltMap, const [const FullType(String), const FullType(bool)])),
+          specifiedType: FullType(
+              BuiltMap, [FullType(String), FullType(bool)])),
       'text',
-      serializers.serialize(object.text, specifiedType: const FullType(String)),
+      serializers.serialize(object.text, specifiedType: FullType(String)),
       'visible',
       serializers.serialize(object.visible,
-          specifiedType: const FullType(bool)),
+          specifiedType: FullType(bool)),
     ];
 
     return result;
@@ -53,8 +53,8 @@ class _$NoteSerializer implements StructuredSerializer<Note> {
 
   @override
   Note deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType: FullType.unspecified}) {
-    final result = new NoteBuilder();
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = NoteBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -64,34 +64,34 @@ class _$NoteSerializer implements StructuredSerializer<Note> {
       switch (key) {
         case 'uid':
           result.uid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'boardUid':
           result.boardUid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'sessionUid':
           result.sessionUid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'ownerUid':
           result.ownerUid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'itemUids':
           result.itemUids.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(bool)
+              specifiedType: FullType(BuiltMap, [
+                FullType(String),
+                FullType(bool)
               ])) as BuiltMap<String, bool>);
           break;
         case 'text':
           result.text = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: FullType(String)) as String;
           break;
         case 'visible':
           result.visible = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: FullType(bool)) as bool;
           break;
       }
     }
@@ -116,8 +116,8 @@ class _$Note extends Note {
   @override
   final bool visible;
 
-  factory _$Note([void updates(NoteBuilder b)]) =>
-      (new NoteBuilder()..update(updates)).build();
+  factory _$Note([void Function(NoteBuilder b) updates]) =>
+      (NoteBuilder()..update(updates)).build();
 
   _$Note._(
       {this.uid,
@@ -128,21 +128,21 @@ class _$Note extends Note {
       this.text,
       this.visible})
       : super._() {
-    if (uid == null) throw new ArgumentError.notNull('uid');
-    if (boardUid == null) throw new ArgumentError.notNull('boardUid');
-    if (sessionUid == null) throw new ArgumentError.notNull('sessionUid');
-    if (ownerUid == null) throw new ArgumentError.notNull('ownerUid');
-    if (itemUids == null) throw new ArgumentError.notNull('itemUids');
-    if (text == null) throw new ArgumentError.notNull('text');
-    if (visible == null) throw new ArgumentError.notNull('visible');
+    if (uid == null) throw ArgumentError.notNull('uid');
+    if (boardUid == null) throw ArgumentError.notNull('boardUid');
+    if (sessionUid == null) throw ArgumentError.notNull('sessionUid');
+    if (ownerUid == null) throw ArgumentError.notNull('ownerUid');
+    if (itemUids == null) throw ArgumentError.notNull('itemUids');
+    if (text == null) throw ArgumentError.notNull('text');
+    if (visible == null) throw ArgumentError.notNull('visible');
   }
 
   @override
-  Note rebuild(void updates(NoteBuilder b)) =>
+  Note rebuild(void Function(NoteBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  NoteBuilder toBuilder() => new NoteBuilder()..replace(this);
+  NoteBuilder toBuilder() => NoteBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -206,7 +206,7 @@ class NoteBuilder implements Builder<Note, NoteBuilder> {
 
   MapBuilder<String, bool> _itemUids;
   MapBuilder<String, bool> get itemUids =>
-      _$this._itemUids ??= new MapBuilder<String, bool>();
+      _$this._itemUids ??= MapBuilder<String, bool>();
   set itemUids(MapBuilder<String, bool> itemUids) =>
       _$this._itemUids = itemUids;
 
@@ -236,19 +236,19 @@ class NoteBuilder implements Builder<Note, NoteBuilder> {
 
   @override
   void replace(Note other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$Note;
   }
 
   @override
-  void update(void updates(NoteBuilder b)) {
+  void update(void Function(NoteBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Note build() {
     final _$result = _$v ??
-        new _$Note._(
+        _$Note._(
             uid: uid,
             boardUid: boardUid,
             sessionUid: sessionUid,

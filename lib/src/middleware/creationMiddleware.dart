@@ -25,7 +25,7 @@ abstract class CreationMiddlewareActions extends ReduxActions {
   ActionDispatcher<String> note;
 
   CreationMiddlewareActions._();
-  factory CreationMiddlewareActions() => new _$CreationMiddlewareActions();
+  factory CreationMiddlewareActions() => _$CreationMiddlewareActions();
 }
 
 ////////////////////
@@ -63,7 +63,7 @@ class CreateItemPayload {
 
 createCreationMiddleware(
         FirebaseClient client) =>
-    (new MiddlewareBuilder<App, AppBuilder, AppActions>()
+    (MiddlewareBuilder<App, AppBuilder, AppActions>()
           ..add<CreateBoardPayload>(
               CreationMiddlewareActionsNames.board, _createBoard(client))
           ..add<CreateSessionPayload>(

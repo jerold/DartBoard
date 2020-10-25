@@ -21,23 +21,23 @@ class _$Boards extends Boards {
   final String currentUid;
   Board __current;
 
-  factory _$Boards([void updates(BoardsBuilder b)]) =>
-      (new BoardsBuilder()..update(updates)).build();
+  factory _$Boards([void Function(BoardsBuilder b) updates]) =>
+      (BoardsBuilder()..update(updates)).build();
 
   _$Boards._({this.map, this.currentUid}) : super._() {
-    if (map == null) throw new ArgumentError.notNull('map');
-    if (currentUid == null) throw new ArgumentError.notNull('currentUid');
+    if (map == null) throw ArgumentError.notNull('map');
+    if (currentUid == null) throw ArgumentError.notNull('currentUid');
   }
 
   @override
   Board get current => __current ??= super.current;
 
   @override
-  Boards rebuild(void updates(BoardsBuilder b)) =>
+  Boards rebuild(void Function(BoardsBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BoardsBuilder toBuilder() => new BoardsBuilder()..replace(this);
+  BoardsBuilder toBuilder() => BoardsBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -65,7 +65,7 @@ class BoardsBuilder implements Builder<Boards, BoardsBuilder> {
 
   MapBuilder<String, Board> _map;
   MapBuilder<String, Board> get map =>
-      _$this._map ??= new MapBuilder<String, Board>();
+      _$this._map ??= MapBuilder<String, Board>();
   set map(MapBuilder<String, Board> map) => _$this._map = map;
 
   String _currentUid;
@@ -85,19 +85,19 @@ class BoardsBuilder implements Builder<Boards, BoardsBuilder> {
 
   @override
   void replace(Boards other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$Boards;
   }
 
   @override
-  void update(void updates(BoardsBuilder b)) {
+  void update(void Function(BoardsBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Boards build() {
     final _$result =
-        _$v ?? new _$Boards._(map: map?.build(), currentUid: currentUid);
+        _$v ?? _$Boards._(map: map?.build(), currentUid: currentUid);
     replace(_$result);
     return _$result;
   }
@@ -108,17 +108,17 @@ class BoardsBuilder implements Builder<Boards, BoardsBuilder> {
 // **************************************************************************
 
 class _$BoardsActions extends BoardsActions {
-  factory _$BoardsActions() => new _$BoardsActions._();
+  factory _$BoardsActions() => _$BoardsActions._();
   _$BoardsActions._() : super._();
 
   final ActionDispatcher<Board> update =
-      new ActionDispatcher<Board>('BoardsActions-update');
+      ActionDispatcher<Board>('BoardsActions-update');
   final ActionDispatcher<String> remove =
-      new ActionDispatcher<String>('BoardsActions-remove');
+      ActionDispatcher<String>('BoardsActions-remove');
   final ActionDispatcher<String> setCurrent =
-      new ActionDispatcher<String>('BoardsActions-setCurrent');
+      ActionDispatcher<String>('BoardsActions-setCurrent');
   final ActionDispatcher<Null> shred =
-      new ActionDispatcher<Null>('BoardsActions-shred');
+      ActionDispatcher<Null>('BoardsActions-shred');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -131,11 +131,11 @@ class _$BoardsActions extends BoardsActions {
 
 class BoardsActionsNames {
   static final ActionName<Board> update =
-      new ActionName<Board>('BoardsActions-update');
+      ActionName<Board>('BoardsActions-update');
   static final ActionName<String> remove =
-      new ActionName<String>('BoardsActions-remove');
+      ActionName<String>('BoardsActions-remove');
   static final ActionName<String> setCurrent =
-      new ActionName<String>('BoardsActions-setCurrent');
+      ActionName<String>('BoardsActions-setCurrent');
   static final ActionName<Null> shred =
-      new ActionName<Null>('BoardsActions-shred');
+      ActionName<Null>('BoardsActions-shred');
 }

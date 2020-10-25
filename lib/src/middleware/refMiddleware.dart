@@ -20,8 +20,10 @@ import '../models/item.dart';
 /// Action Map
 ///////////////////
 
-createRefMiddleware(FirebaseClient client) =>
-    (new MiddlewareBuilder<App, AppBuilder, AppActions>()
+typedef MiddlewareHandler<T> = Null Function(MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next, Action<T> action);
+
+Middleware<App, AppBuilder, AppActions> createRefMiddleware(FirebaseClient client) =>
+    (MiddlewareBuilder<App, AppBuilder, AppActions>()
           ..add<String>(CategoriesActionsNames.hide, _hideCategory(client))
           ..add<String>(CategoriesActionsNames.show, _showCategory(client))
           ..add<String>(ItemsActionsNames.editText, _editItemText(client))
@@ -60,7 +62,7 @@ createRefMiddleware(FirebaseClient client) =>
 // Update handlers
 
 /// subscribe to the current user's boards
-_onUpdateUser(FirebaseClient client) =>
+MiddlewareHandler<User> _onUpdateUser(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<User> action) {
       next(action);
@@ -70,7 +72,7 @@ _onUpdateUser(FirebaseClient client) =>
     };
 
 /// subscribe to the current boards's users
-_onUpdateBoard(FirebaseClient client) =>
+MiddlewareHandler<Board> _onUpdateBoard(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<Board> action) {
       next(action);
@@ -80,7 +82,7 @@ _onUpdateBoard(FirebaseClient client) =>
     };
 
 /// subscribe to the current boards's users
-_onUpdateSession(FirebaseClient client) =>
+MiddlewareHandler<Session> _onUpdateSession(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<Session> action) {
       next(action);
@@ -90,8 +92,7 @@ _onUpdateSession(FirebaseClient client) =>
     };
 
 // Set current handlers
-
-_onSetCurrentUser(FirebaseClient client) =>
+MiddlewareHandler<String> _onSetCurrentUser(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -99,7 +100,7 @@ _onSetCurrentUser(FirebaseClient client) =>
     };
 
 // TODO: unsub from old board?
-_onSetCurrentBoard(FirebaseClient client) =>
+MiddlewareHandler<String> _onSetCurrentBoard(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -113,7 +114,7 @@ _onSetCurrentBoard(FirebaseClient client) =>
     };
 
 // TODO: unsub from old session?
-_onSetCurrentSession(FirebaseClient client) =>
+MiddlewareHandler<String> _onSetCurrentSession(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -152,7 +153,7 @@ _updateCurrentSessionSubs(
 
 // Update Ref Properties
 
-_addSupport(FirebaseClient client) =>
+MiddlewareHandler<String> _addSupport(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -163,7 +164,7 @@ _addSupport(FirebaseClient client) =>
       }
     };
 
-_editItemText(FirebaseClient client) =>
+MiddlewareHandler<String> _editItemText(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -173,7 +174,7 @@ _editItemText(FirebaseClient client) =>
       }
     };
 
-_removeSupport(FirebaseClient client) =>
+MiddlewareHandler<String> _removeSupport(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -184,7 +185,7 @@ _removeSupport(FirebaseClient client) =>
       }
     };
 
-_addPollResponse(FirebaseClient client) =>
+MiddlewareHandler<PollResponse> _addPollResponse(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<PollResponse> action) {
       next(action);
@@ -195,7 +196,7 @@ _addPollResponse(FirebaseClient client) =>
       }
     };
 
-_removePollResponse(FirebaseClient client) =>
+MiddlewareHandler<String> _removePollResponse(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -206,7 +207,7 @@ _removePollResponse(FirebaseClient client) =>
       }
     };
 
-_hideCategory(FirebaseClient client) =>
+MiddlewareHandler<String> _hideCategory(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -216,7 +217,7 @@ _hideCategory(FirebaseClient client) =>
       }
     };
 
-_showCategory(FirebaseClient client) =>
+MiddlewareHandler<String> _showCategory(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -226,7 +227,7 @@ _showCategory(FirebaseClient client) =>
       }
     };
 
-_hideItem(FirebaseClient client) =>
+MiddlewareHandler<String> _hideItem(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -236,7 +237,7 @@ _hideItem(FirebaseClient client) =>
       }
     };
 
-_showItem(FirebaseClient client) =>
+MiddlewareHandler<String> _showItem(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -246,7 +247,7 @@ _showItem(FirebaseClient client) =>
       }
     };
 
-_hideNote(FirebaseClient client) =>
+MiddlewareHandler<String> _hideNote(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -256,7 +257,7 @@ _hideNote(FirebaseClient client) =>
       }
     };
 
-_showNote(FirebaseClient client) =>
+MiddlewareHandler<String> _showNote(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -266,7 +267,7 @@ _showNote(FirebaseClient client) =>
       }
     };
 
-_pair(FirebaseClient client) =>
+MiddlewareHandler<PairNotePayload> _pair(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<PairNotePayload> action) {
       next(action);
@@ -279,7 +280,7 @@ _pair(FirebaseClient client) =>
       }
     };
 
-_unpair(FirebaseClient client) =>
+MiddlewareHandler<PairNotePayload> _unpair(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<PairNotePayload> action) {
       next(action);
@@ -292,7 +293,7 @@ _unpair(FirebaseClient client) =>
       }
     };
 
-_startSession(FirebaseClient client) =>
+MiddlewareHandler<Null> _startSession(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<Null> action) {
       next(action);
@@ -303,7 +304,7 @@ _startSession(FirebaseClient client) =>
       }
     };
 
-_endSession(FirebaseClient client) =>
+MiddlewareHandler<Null> _endSession(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<Null> action) {
       next(action);
@@ -314,7 +315,7 @@ _endSession(FirebaseClient client) =>
       }
     };
 
-_resetSession(FirebaseClient client) =>
+MiddlewareHandler<String> _resetSession(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -325,7 +326,7 @@ _resetSession(FirebaseClient client) =>
       }
     };
 
-_shredBoard(FirebaseClient client) =>
+MiddlewareHandler<String> _shredBoard(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
@@ -335,13 +336,13 @@ _shredBoard(FirebaseClient client) =>
         }
     };
 
-_shredSession(FirebaseClient client) =>
+MiddlewareHandler<String> _shredSession(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
-      Session session = api.state.sessions.current;
+      var session = api.state.sessions.current;
       if (session != null) {
-        Board board = api.state.boards.map[session.boardUid];
+        var board = api.state.boards.map[session.boardUid];
         if (board != null) {
           if (board.latestSessionUid == session.uid) {
             client.clearBoardsLatestSession(board.uid);
@@ -351,28 +352,28 @@ _shredSession(FirebaseClient client) =>
       }
     };
    
-_present(FirebaseClient client) =>
+MiddlewareHandler<String> _present(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
       var epoch = now();
-      Session session = api.state.sessions.current;
+      var session = api.state.sessions.current;
       if (session != null) {
-        String oldItemUid = api.state.sessions.current.presentedUid;
+        var oldItemUid = api.state.sessions.current.presentedUid;
         if (action.payload != oldItemUid) {
           if (oldItemUid != "") {
-            int oldItemStartTime = api.state.sessions.current.presentedDate;
-            Item oldItem = api.state.items.map[oldItemUid];
+            var oldItemStartTime = api.state.sessions.current.presentedDate;
+            var oldItem = api.state.items.map[oldItemUid];
             if (oldItem != null) {
               client.updateItemTime(oldItem, epoch - oldItemStartTime);
             }
           }
         }
-        // present new item
+        // present  item
         if (action.payload != "") {
-          Item newItem = api.state.items.map[action.payload];
-          if (newItem != null) {
-            client.present(newItem, epoch);
+          var item = api.state.items.map[action.payload];
+          if (Item != null) {
+            client.present(item, epoch);
           }
         }
       }

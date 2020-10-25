@@ -21,23 +21,23 @@ class _$Sessions extends Sessions {
   final String currentUid;
   Session __current;
 
-  factory _$Sessions([void updates(SessionsBuilder b)]) =>
-      (new SessionsBuilder()..update(updates)).build();
+  factory _$Sessions([void Function(SessionsBuilder b) updates]) =>
+      (SessionsBuilder()..update(updates)).build();
 
   _$Sessions._({this.map, this.currentUid}) : super._() {
-    if (map == null) throw new ArgumentError.notNull('map');
-    if (currentUid == null) throw new ArgumentError.notNull('currentUid');
+    if (map == null) throw ArgumentError.notNull('map');
+    if (currentUid == null) throw ArgumentError.notNull('currentUid');
   }
 
   @override
   Session get current => __current ??= super.current;
 
   @override
-  Sessions rebuild(void updates(SessionsBuilder b)) =>
+  Sessions rebuild(void Function(SessionsBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SessionsBuilder toBuilder() => new SessionsBuilder()..replace(this);
+  SessionsBuilder toBuilder() => SessionsBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -65,7 +65,7 @@ class SessionsBuilder implements Builder<Sessions, SessionsBuilder> {
 
   MapBuilder<String, Session> _map;
   MapBuilder<String, Session> get map =>
-      _$this._map ??= new MapBuilder<String, Session>();
+      _$this._map ??= MapBuilder<String, Session>();
   set map(MapBuilder<String, Session> map) => _$this._map = map;
 
   String _currentUid;
@@ -85,19 +85,19 @@ class SessionsBuilder implements Builder<Sessions, SessionsBuilder> {
 
   @override
   void replace(Sessions other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$Sessions;
   }
 
   @override
-  void update(void updates(SessionsBuilder b)) {
+  void update(void Function(SessionsBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Sessions build() {
     final _$result =
-        _$v ?? new _$Sessions._(map: map?.build(), currentUid: currentUid);
+        _$v ?? _$Sessions._(map: map?.build(), currentUid: currentUid);
     replace(_$result);
     return _$result;
   }
@@ -108,25 +108,25 @@ class SessionsBuilder implements Builder<Sessions, SessionsBuilder> {
 // **************************************************************************
 
 class _$SessionsActions extends SessionsActions {
-  factory _$SessionsActions() => new _$SessionsActions._();
+  factory _$SessionsActions() => _$SessionsActions._();
   _$SessionsActions._() : super._();
 
   final ActionDispatcher<Session> update =
-      new ActionDispatcher<Session>('SessionsActions-update');
+      ActionDispatcher<Session>('SessionsActions-update');
   final ActionDispatcher<String> remove =
-      new ActionDispatcher<String>('SessionsActions-remove');
+      ActionDispatcher<String>('SessionsActions-remove');
   final ActionDispatcher<String> setCurrent =
-      new ActionDispatcher<String>('SessionsActions-setCurrent');
+      ActionDispatcher<String>('SessionsActions-setCurrent');
   final ActionDispatcher<Null> start =
-      new ActionDispatcher<Null>('SessionsActions-start');
+      ActionDispatcher<Null>('SessionsActions-start');
   final ActionDispatcher<Null> end =
-      new ActionDispatcher<Null>('SessionsActions-end');
+      ActionDispatcher<Null>('SessionsActions-end');
   final ActionDispatcher<Null> reset =
-      new ActionDispatcher<Null>('SessionsActions-reset');
+      ActionDispatcher<Null>('SessionsActions-reset');
   final ActionDispatcher<String> present =
-      new ActionDispatcher<String>('SessionsActions-present');
+      ActionDispatcher<String>('SessionsActions-present');
   final ActionDispatcher<Null> shred =
-      new ActionDispatcher<Null>('SessionsActions-shred');
+      ActionDispatcher<Null>('SessionsActions-shred');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -143,19 +143,19 @@ class _$SessionsActions extends SessionsActions {
 
 class SessionsActionsNames {
   static final ActionName<Session> update =
-      new ActionName<Session>('SessionsActions-update');
+      ActionName<Session>('SessionsActions-update');
   static final ActionName<String> remove =
-      new ActionName<String>('SessionsActions-remove');
+      ActionName<String>('SessionsActions-remove');
   static final ActionName<String> setCurrent =
-      new ActionName<String>('SessionsActions-setCurrent');
+      ActionName<String>('SessionsActions-setCurrent');
   static final ActionName<Null> start =
-      new ActionName<Null>('SessionsActions-start');
+      ActionName<Null>('SessionsActions-start');
   static final ActionName<Null> end =
-      new ActionName<Null>('SessionsActions-end');
+      ActionName<Null>('SessionsActions-end');
   static final ActionName<Null> reset =
-      new ActionName<Null>('SessionsActions-reset');
+      ActionName<Null>('SessionsActions-reset');
   static final ActionName<String> present =
-      new ActionName<String>('SessionsActions-present');
+      ActionName<String>('SessionsActions-present');
   static final ActionName<Null> shred =
-      new ActionName<Null>('SessionsActions-shred');
+      ActionName<Null>('SessionsActions-shred');
 }
