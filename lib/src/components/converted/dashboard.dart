@@ -1,43 +1,46 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-VNode geratedElement1() => Vsection()
-  ..className = "hero is-dark"
+import 'package:retro/src/components/converted/boardCard.dart';
+import 'package:retro/src/components/converted/boardCreate.dart';
+
+VNode DashboardHero() => Vsection()
+  ..className = 'hero is-dark'
   ..children = [
     Vdiv()
-      ..className = "hero-body"
+      ..className = 'hero-body'
       ..children = [
         Vdiv()
-          ..className = "container"
+          ..className = 'container'
           ..children = [
             Vh1()
-              ..className = "title"
+              ..className = 'title'
               ..text = 'Getting Started',
             Vh2()
-              ..className = "subtitle"
+              ..className = 'subtitle'
               ..text = 'Create or select a board below',
           ],
       ],
   ];
 
-VNode geratedElement2() => Vsection()
-  ..className = "section"
+VNode Dashboard() => Vsection()
+  ..className = 'section'
   ..children = [
     Vdiv()
-      ..className = "container"
+      ..className = 'container'
       ..children = [
         Vdiv()
-          ..className = "columns is-multiline is-mobile"
+          ..className = 'columns is-multiline is-mobile'
           ..children = [
             Vdiv()
-              ..className = "column is-half-tablet is-one-third-desktop"
+              ..className = 'column is-half-tablet is-one-third-desktop'
               ..children = [
-                Vboardcard(),
+                BoardCard(),
               ],
             Vdiv()
-              ..className = "column is-one-third-desktop"
+              ..className = 'column is-one-third-desktop'
               ..children = [
-                Vboardcreate(),
+                BoardCreate(),
               ],
           ],
       ],

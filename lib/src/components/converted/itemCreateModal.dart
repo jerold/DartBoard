@@ -1,84 +1,84 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-VNode modalBackground() => Vdiv()..className = "modal-background";
+VNode ModalBackground() => Vdiv()..className = 'modal-background';
 
-VNode itemCreateModal() => Vdiv()
-  ..className = "modal-card"
+VNode ItemCreateModal() => Vdiv()
+  ..className = 'modal-card'
   ..children = [
     Vheader()
-      ..className = "modal-card-head"
+      ..className = 'modal-card-head'
       ..children = [
         Vp()
-          ..className = "modal-card-title"
+          ..className = 'modal-card-title'
           ..text = '{{category.description}}',
       ],
     Vsection()
-      ..className = "modal-card-body"
+      ..className = 'modal-card-body'
       ..children = [
         Vdiv()
-          ..className = "field"
+          ..className = 'field'
           ..children = [
             Vp()
-              ..className = "control"
+              ..className = 'control'
               ..children = [
-                Vtextarea()
-                  ..className = "textarea is-autofocused"
-                  ..placeholder = "Let it out",
+                VTextAreaElement()
+                  ..className = 'textarea is-autofocused'
+                  ..placeholder = 'Let it out',
               ],
           ],
         Vlabel()
-          ..className = "label has-text-centered"
+          ..className = 'label has-text-centered'
           ..children = [
             Vp()
-              ..className = "menu-label"
+              ..className = 'menu-label'
               ..text =
                   'Want to make it a survey? Add some options, and your team can vote!',
           ],
         Vdiv()
-          ..className = "field is-horizontal"
+          ..className = 'field is-horizontal'
           ..children = [
             Vdiv()
-              ..className = "field-body"
+              ..className = 'field-body'
               ..children = [
                 Vdiv()
-                  ..className = "field is-grouped"
+                  ..className = 'field is-grouped'
                   ..children = [
                     Vp()
-                      ..className = "control is-expanded"
+                      ..className = 'control is-expanded'
                       ..children = [
-                        Vinput()
-                          ..className = "input"
-                          ..type = "text"
-                          ..placeholder = "{{option}}",
+                        VInputElement()
+                          ..className = 'input'
+                          ..type = 'text'
+                          ..placeholder = '{{option}}',
                       ],
                     Vdiv()
-                      ..className = "control"
+                      ..className = 'control'
                       ..children = [
                         Vbutton()
-                          ..className = "button is-white"
+                          ..className = 'button is-white'
                           ..children = [
                             Vspan()
-                              ..className = "icon is-small"
+                              ..className = 'icon is-small'
                               ..children = [
                                 Vi()
-                                  ..className = "fa fa-floppy-o"
-                                  ..title = "save changes",
+                                  ..className = 'fa fa-floppy-o'
+                                  ..title = 'save changes',
                               ],
                           ],
                       ],
                     Vdiv()
-                      ..className = "control"
+                      ..className = 'control'
                       ..children = [
                         Vbutton()
-                          ..className = "button is-white"
+                          ..className = 'button is-white'
                           ..children = [
                             Vspan()
-                              ..className = "icon is-small has-text-danger"
+                              ..className = 'icon is-small has-text-danger'
                               ..children = [
                                 Vi()
-                                  ..className = "fa fa-trash"
-                                  ..title = "remove",
+                                  ..className = 'fa fa-trash'
+                                  ..title = 'remove',
                               ],
                           ],
                       ],
@@ -86,34 +86,34 @@ VNode itemCreateModal() => Vdiv()
               ],
           ],
         Vdiv()
-          ..className = "field is-horizontal"
+          ..className = 'field is-horizontal'
           ..children = [
             Vdiv()
-              ..className = "field-body"
+              ..className = 'field-body'
               ..children = [
                 Vdiv()
-                  ..className = "field is-grouped"
+                  ..className = 'field is-grouped'
                   ..children = [
                     Vp()
-                      ..className = "control is-expanded"
+                      ..className = 'control is-expanded'
                       ..children = [
-                        Vinput()
-                          ..className = "input"
-                          ..type = "text"
-                          ..placeholder = "option description...",
+                        VInputElement()
+                          ..className = 'input'
+                          ..type = 'text'
+                          ..placeholder = 'option description...',
                       ],
                     Vdiv()
-                      ..className = "control"
+                      ..className = 'control'
                       ..children = [
                         Vbutton()
-                          ..className = "button is-white"
+                          ..className = 'button is-white'
                           ..children = [
                             Vspan()
-                              ..className = "icon is-small"
+                              ..className = 'icon is-small'
                               ..children = [
                                 Vi()
-                                  ..className = "fa fa-plus"
-                                  ..title = "add option",
+                                  ..className = 'fa fa-plus'
+                                  ..title = 'add option',
                               ],
                           ],
                       ],
@@ -122,15 +122,15 @@ VNode itemCreateModal() => Vdiv()
           ],
       ],
     Vfooter()
-      ..className = "modal-card-foot"
+      ..className = 'modal-card-foot'
       ..children = [
         Va()
-          ..className = "button is-success"
+          ..className = 'button is-success'
           ..text = 'Save',
         Va()
-          ..className = "button"
+          ..className = 'button'
           ..text = 'Discard',
       ],
   ];
 
-VNode modalCloseButton() => Vbutton()..className = "modal-close";
+VNode ModalCloseButton() => Vbutton()..className = 'modal-close';

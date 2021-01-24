@@ -1,7 +1,7 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-VNode sessionCard() => Vdiv()
+VNode SessionCard() => Vdiv()
   ..className = "box is-primary"
   ..children = [
     Va()

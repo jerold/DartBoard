@@ -1,13 +1,13 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-VNode latestSessionDashboard() => Vdiv()
+VNode LatestSessionDashboard() => Vdiv()
   ..children = [
     Vsection()
-      ..className = "section"
+      ..className = 'section'
       ..children = [
         Vdiv()
-          ..className = "container"
-          ..children = ["Loading latest session..."],
+          ..className = 'container'
+          ..children = ['Loading latest session...'],
       ],
   ];

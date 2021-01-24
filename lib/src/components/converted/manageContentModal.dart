@@ -1,93 +1,93 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-VNode modalBackground() => Vdiv()..className = "modal-background";
+VNode ModalBackground() => Vdiv()..className = 'modal-background';
 
-VNode manageContentModal() => Vdiv()
-  ..className = "modal-content"
+VNode ManageContentModal() => Vdiv()
+  ..className = 'modal-content'
   ..children = [
     Vdiv()
-      ..className = "box"
+      ..className = 'box'
       ..children = [
         Vlabel()
-          ..className = "label has-text-centered"
+          ..className = 'label has-text-centered'
           ..children = [
             Vp()
-              ..className = "menu-label"
+              ..className = 'menu-label'
               ..children = [
                 Vspan()
-                  ..className = "icon is-small has-text-success"
+                  ..className = 'icon is-small has-text-success'
                   ..children = [
                     Vi()
-                      ..className = "fa fa-leaf"
-                      ..title = "restore",
+                      ..className = 'fa fa-leaf'
+                      ..title = 'restore',
                   ],
               ],
           ],
       ],
     Vdiv()
-      ..className = "box"
+      ..className = 'box'
       ..children = [
         Vh4()
-          ..className = "title"
+          ..className = 'title'
           ..children = [
             Va()
-              ..className = "button is-white is-pulled-right"
+              ..className = 'button is-white is-pulled-right'
               ..children = [
                 Vspan()
                   ..className =
-                      "icon {{category.visible ? 'has-text-danger' : 'has-text-success'}}"
+                      'icon {{category.visible ? "has-text-danger" : "has-text-success"}}'
                   ..children = [
                     Vi()
                       ..className =
-                          "fa {{category.visible ? 'fa-trash' : 'fa-leaf'}} ",
+                          'fa {{category.visible ? "fa-trash" : "fa-leaf"}} ',
                   ],
               ],
           ],
         Vdiv()
-          ..className = "field is-horizontal"
+          ..className = 'field is-horizontal'
           ..children = [
             Vdiv()
-              ..className = "field-body"
+              ..className = 'field-body'
               ..children = [
                 Vdiv()
-                  ..className = "field is-grouped"
+                  ..className = 'field is-grouped'
                   ..children = [
                     Vp()
-                      ..className = "control is-expanded"
+                      ..className = 'control is-expanded'
                       ..children = [
-                        Vinput()
-                          ..className = "input {{category.colorClass()}}"
-                          ..type = "text"
-                          ..placeholder = "{{item.text}}",
+                        VInputElement()
+                          ..className = 'input {{category.colorClass()}}'
+                          ..type = 'text'
+                          ..placeholder = '{{item.text}}',
                       ],
                     Vdiv()
-                      ..className = "control"
+                      ..className = 'control'
                       ..children = [
                         Vbutton()
-                          ..className = "button is-white"
+                          ..className = 'button is-white'
                           ..children = [
                             Vspan()
-                              ..className = "icon is-small"
+                              ..className = 'icon is-small'
                               ..children = [
                                 Vi()
-                                  ..className = "fa fa-floppy-o"
-                                  ..title = "save changes",
+                                  ..className = 'fa fa-floppy-o'
+                                  ..title = 'save changes',
                               ],
                           ],
                       ],
                     Vdiv()
-                      ..className = "control"
+                      ..className = 'control'
                       ..children = [
                         Vbutton()
-                          ..className = "button is-white"
+                          ..className = 'button is-white'
                           ..children = [
                             Vspan()
-                              ..className = "icon is-small has-text-success"
+                              ..className = 'icon is-small has-text-success'
                               ..children = [
                                 Vi()
-                                  ..className = "fa fa-leaf"
-                                  ..title = "restore",
+                                  ..className = 'fa fa-leaf'
+                                  ..title = 'restore',
                               ],
                           ],
                       ],
@@ -97,4 +97,4 @@ VNode manageContentModal() => Vdiv()
       ],
   ];
 
-VNode modalCloseButton() => Vbutton()..className = "modal-close";
+VNode ModalCloseButton() => Vbutton()..className = 'modal-close';

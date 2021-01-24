@@ -6,6 +6,8 @@ import 'package:wui_builder/wui_builder.dart';
 import 'package:retro/src/store.dart';
 import 'package:retro/src/state/app.dart';
 
+import 'package:retro/src/components/converted/dashboard.dart';
+
 import 'package:retro/src/components/navBar.dart';
 
 // Same as the key const in appContextComponent.dart
@@ -25,12 +27,13 @@ class AppComponent extends NComponent {
       <String, dynamic>{_storeKey: _service.store};
 
   @override
-  VNode render() => Vsection()
-    ..className = 'section'
+  VNode render() => Vdiv()
     ..children = [
       // Navigation
       NavBar(NavBarProps()
         ..signIn = _service.signIn
         ..signOut = _service.signOut),
+      DashboardHero(),
+      Dashboard(),
     ];
 }

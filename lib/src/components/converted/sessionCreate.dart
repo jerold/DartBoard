@@ -1,38 +1,38 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-VNode sessionCreate() => Vdiv()
-  ..className = "box"
+VNode SessionCreate() => Vdiv()
+  ..className = 'box'
   ..children = [
     Vlabel()
-      ..className = "label"
+      ..className = 'label'
       ..text = 'Create a session',
     Vdiv()
-      ..className = "field"
+      ..className = 'field'
       ..children = [
         Vp()
-          ..className = "control"
+          ..className = 'control'
           ..children = [
-            Vinput()
-              ..className = "input"
-              ..type = "number",
+            VInputElement()
+              ..className = 'input'
+              ..type = 'number',
           ],
       ],
     Vdiv()
-      ..className = "field is-grouped"
+      ..className = 'field is-grouped'
       ..children = [
         Vp()
-          ..className = "control"
+          ..className = 'control'
           ..children = [
             Va()
-              ..className = "button is-primary"
+              ..className = 'button is-primary'
               ..text = 'Create',
           ],
         Vp()
-          ..className = "control"
+          ..className = 'control'
           ..children = [
             Va()
-              ..className = "button is-primary"
+              ..className = 'button is-primary'
               ..text = 'Cancel',
           ],
       ],
