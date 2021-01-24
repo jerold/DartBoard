@@ -1,26 +1,27 @@
 import 'package:wui_builder/vhtml.dart';
+import 'package:wui_builder/wui_builder.dart';
 
-VNode itemCard() => new Vdiv()
+VNode itemCard() => Vdiv()
   ..className = "box is-primary"
   ..children = [
-    new Vdiv()
+    Vdiv()
       ..className = "columns is-mobile"
       ..children = [
-        new Vdiv()
+        Vdiv()
           ..className = "column is-narrow"
           ..children = [
-            new Vspan()
+            Vspan()
               ..className = "icon is-danger"
               ..children = [
-                new Vi()
+                Vi()
                   ..className =
                       "fa {{supported() ? 'fa-heart' : 'fa-heart-o'}}",
               ],
           ],
-        new Vdiv()
+        Vdiv()
           ..className = "column"
           ..children = [
-            new Vp()..text = '{{item.text}}',
+            Vp()..text = '{{item.text}}',
           ],
       ],
   ];

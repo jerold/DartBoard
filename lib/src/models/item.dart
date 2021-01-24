@@ -10,6 +10,9 @@ part 'item.g.dart';
 abstract class Item implements Built<Item, ItemBuilder> {
   static Serializer<Item> get serializer => _$itemSerializer;
 
+  // [uid] is the firebase entity uid, used for lookup, but redundent in firebase
+  @nullable
+  @BuiltValueField(serialize: false)
   String get uid;
 
   String get boardUid;

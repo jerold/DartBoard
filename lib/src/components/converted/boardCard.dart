@@ -1,23 +1,24 @@
 import 'package:wui_builder/vhtml.dart';
+import 'package:wui_builder/wui_builder.dart';
 
-VNode boardCard() => new Vdiv()
+VNode boardCard() => Vdiv()
   ..className = "box is-primary"
   ..children = [
-    new Va()
+    Va()
       ..className = "button is-danger is-pulled-right"
       ..text = 'Shred',
-    new Vh3()
+    Vh3()
       ..className = "title"
       ..text = '{{board.title}}',
-    new Vh5()
+    Vh5()
       ..className = "subtitle"
       ..text = '{{lastActive()}} {{isLatest() ? "(latest)" : ""}}',
-    new Vp()..text = '{{board.description}}',
-    new Vbr(),
-    new Va()
+    Vp()..text = '{{board.description}}',
+    Vbr(),
+    Va()
       ..className = "button is-primary"
       ..text = 'List of Sessions',
-    new Va()
+    Va()
       ..className = "button is-primary"
       ..text = 'Go to latest Session',
   ];

@@ -16,5 +16,6 @@ dependencies:
 dev_dependencies:
   build_runner: any
   build_web_compilers: any
+  built_value_generator: any
   pedantic: ^1.9.0
   wui_builder: ^0.7.1

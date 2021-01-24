@@ -1,34 +1,35 @@
 import 'package:wui_builder/vhtml.dart';
+import 'package:wui_builder/wui_builder.dart';
 
-VNode modalBackground() => new Vdiv()..className = "modal-background";
+VNode modalBackground() => Vdiv()..className = "modal-background";
 
-VNode confirmShredModal() => new Vdiv()
+VNode confirmShredModal() => Vdiv()
   ..className = "modal-card"
   ..children = [
-    new Vsection()
+    Vsection()
       ..className = "modal-card-body"
       ..children = [
-        new Vh1()
+        Vh1()
           ..className = "title"
           ..text = 'Warning!',
-        new Vh3()
+        Vh3()
           ..className = "subtitle"
           ..text =
               'Having a {{typeToShred}} shredded is a non-recoverable action!',
-        new Vp()
+        Vp()
           ..text =
               'All {{typeToShred}} details will be perminently deleted. This includes any contributions made by other {{typeToShred}} participants.',
       ],
-    new Vfooter()
+    Vfooter()
       ..className = "modal-card-foot"
       ..children = [
-        new Va()
+        Va()
           ..className = "button is-danger"
           ..text = 'Shred',
-        new Va()
+        Va()
           ..className = "button"
           ..text = 'Cancel',
       ],
   ];
 
-VNode modalCloseButton() => new Vbutton()..className = "modal-close";
+VNode modalCloseButton() => Vbutton()..className = "modal-close";

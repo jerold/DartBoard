@@ -1,14 +1,15 @@
 import 'package:wui_builder/vhtml.dart';
+import 'package:wui_builder/wui_builder.dart';
 
-VNode noteTag() => new Vdiv()
+VNode noteTag() => Vdiv()
   ..className = "tags has-addons is-unselectable pointer-hand"
   ..children = [
-    new Vspan()
+    Vspan()
       ..className = "tag {{paired() ? 'is-primary' : 'is-dark'}}"
       ..text = '{{count}}',
-    new Vspan()
+    Vspan()
       ..className = "tag is-light"
       ..children = [
-        new Vbutton()..className = "delete is-small",
+        Vbutton()..className = "delete is-small",
       ],
   ];

@@ -3,22 +3,24 @@ import 'dart:async';
 import 'package:built_redux/built_redux.dart';
 import 'package:firebase/firebase.dart' as firebase;
 
-import './state/app.dart';
-import './refs.dart';
-import './streamSubManager.dart';
-import './firebaseClient.dart';
-import './middleware/creationMiddleware.dart';
-import './middleware/refMiddleware.dart';
-import './middleware/loggingMiddleware.dart';
+import 'package:retro/src/models/user.dart';
+import 'package:retro/src/state/app.dart';
+import 'package:retro/src/refs.dart';
+import 'package:retro/src/streamSubManager.dart';
+import 'package:retro/src/firebaseClient.dart';
+import 'package:retro/src/middleware/creationMiddleware.dart';
+import 'package:retro/src/middleware/refMiddleware.dart';
+import 'package:retro/src/middleware/loggingMiddleware.dart';
 
 class StoreService {
   Store<App, AppBuilder, AppActions> _store;
   FirebaseClient _client;
 
   final firebase.App _firebaseApp;
-  final firebase.GoogleAuthProvider _firebaseGoogleAuthProvider;
-  final firebase.Auth _firebaseAuth;
   final firebase.Database _firebaseDatabase;
+
+  firebase.GoogleAuthProvider _firebaseGoogleAuthProvider;
+  firebase.Auth _firebaseAuth;
 
   // Create a Redux store holding the state of the app.
   StoreService()
@@ -28,15 +30,14 @@ class StoreService {
           databaseURL: 'https://dart-board.firebaseio.com',
           storageBucket: 'dart-board.appspot.com',
         ),
-        _firebaseGoogleAuthProvider = firebase.GoogleAuthProvider(),
-        _firebaseAuth = firebase.auth(),
         _firebaseDatabase = firebase.database() {
-          
+    _firebaseAuth = firebase.auth(_firebaseApp);
     _firebaseAuth.onAuthStateChanged.listen(_authChanged);
+    _firebaseGoogleAuthProvider = firebase.GoogleAuthProvider();
 
     var actions = AppActions();
-    _client = FirebaseClient(
-        Refs(_firebaseDatabase), StreamSubManager(), actions);
+    _client =
+        FirebaseClient(Refs(_firebaseDatabase), StreamSubManager(), actions);
     _store = Store<App, AppBuilder, AppActions>(
       createReducer(),
       App(),
@@ -88,7 +89,7 @@ class StoreService {
     }
 
     final user = await _client.userFromFirebaseUser(fbUser);
-    _store.actions.users.update(user);
+    _store.actions.users.update(UpdateEntity<User>(fbUser.uid, user));
     _store.actions.users.setCurrent(user.uid);
     _store.actions.setAuthStatus(AuthStatus.signedIn);
   }

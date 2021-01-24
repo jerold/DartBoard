@@ -1,5 +1,6 @@
 import 'package:built_redux/built_redux.dart';
 import 'package:built_redux/src/middleware.dart';
+import 'package:path/path.dart';
 
 import '../state/app.dart';
 import '../state/users.dart';
@@ -20,9 +21,13 @@ import '../models/item.dart';
 /// Action Map
 ///////////////////
 
-typedef MiddlewareHandler<T> = Null Function(MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next, Action<T> action);
+typedef MiddlewareHandler<T> = Null Function(
+    MiddlewareApi<App, AppBuilder, AppActions> api,
+    ActionHandler next,
+    Action<T> action);
 
-Middleware<App, AppBuilder, AppActions> createRefMiddleware(FirebaseClient client) =>
+Middleware<App, AppBuilder, AppActions> createRefMiddleware(
+        FirebaseClient client) =>
     (MiddlewareBuilder<App, AppBuilder, AppActions>()
           ..add<String>(CategoriesActionsNames.hide, _hideCategory(client))
           ..add<String>(CategoriesActionsNames.show, _showCategory(client))
@@ -44,13 +49,16 @@ Middleware<App, AppBuilder, AppActions> createRefMiddleware(FirebaseClient clien
           ..add<Null>(SessionsActionsNames.reset, _resetSession(client))
           ..add<String>(SessionsActionsNames.present, _present(client))
           ..add<Null>(SessionsActionsNames.shred, _shredSession(client))
-          ..add<User>(UsersActionsNames.update, _onUpdateUser(client))
+          ..add<UpdateEntity<User>>(
+              UsersActionsNames.update, _onUpdateUser(client))
           ..add<String>(UsersActionsNames.setCurrent, _onSetCurrentUser(client))
-          ..add<Board>(BoardsActionsNames.update, _onUpdateBoard(client))
+          ..add<UpdateEntity<Board>>(
+              BoardsActionsNames.update, _onUpdateBoard(client))
           ..add<String>(
               BoardsActionsNames.setCurrent, _onSetCurrentBoard(client))
           ..add<Null>(BoardsActionsNames.shred, _shredBoard(client))
-          ..add<Session>(SessionsActionsNames.update, _onUpdateSession(client))
+          ..add<UpdateEntity<Session>>(
+              SessionsActionsNames.update, _onUpdateSession(client))
           ..add<String>(
               SessionsActionsNames.setCurrent, _onSetCurrentSession(client)))
         .build();
@@ -62,9 +70,9 @@ Middleware<App, AppBuilder, AppActions> createRefMiddleware(FirebaseClient clien
 // Update handlers
 
 /// subscribe to the current user's boards
-MiddlewareHandler<User> _onUpdateUser(FirebaseClient client) =>
+MiddlewareHandler<UpdateEntity<User>> _onUpdateUser(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
-        Action<User> action) {
+        Action<UpdateEntity<User>> action) {
       next(action);
       if (action.payload.uid == api.state.users.currentUid) {
         _updateCurrentUserSubs(client, api);
@@ -72,9 +80,9 @@ MiddlewareHandler<User> _onUpdateUser(FirebaseClient client) =>
     };
 
 /// subscribe to the current boards's users
-MiddlewareHandler<Board> _onUpdateBoard(FirebaseClient client) =>
+MiddlewareHandler<UpdateEntity<Board>> _onUpdateBoard(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
-        Action<Board> action) {
+        Action<UpdateEntity<Board>> action) {
       next(action);
       if (action.payload.uid == api.state.boards.currentUid) {
         _updateCurrentBoardSubs(client, api);
@@ -82,9 +90,10 @@ MiddlewareHandler<Board> _onUpdateBoard(FirebaseClient client) =>
     };
 
 /// subscribe to the current boards's users
-MiddlewareHandler<Session> _onUpdateSession(FirebaseClient client) =>
+MiddlewareHandler<UpdateEntity<Session>> _onUpdateSession(
+        FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
-        Action<Session> action) {
+        Action<UpdateEntity<Session>> action) {
       next(action);
       if (action.payload.uid == api.state.sessions.currentUid) {
         _updateCurrentSessionSubs(client, api);
@@ -125,29 +134,33 @@ MiddlewareHandler<String> _onSetCurrentSession(FirebaseClient client) =>
 
 _updateCurrentUserSubs(
     FirebaseClient client, MiddlewareApi<App, AppBuilder, AppActions> api) {
-  var user = api.state.users.current;
+  final currentUid = api.state.users.currentUid;
+  final user = api.state.users.map[currentUid];
   if (user != null) {
-    client.subToUser(user.uid);
+    final user = api.state.users.current;
+    client.subToUser(currentUid);
     client.subToBoards(user.boardUids.keys);
   }
 }
 
 _updateCurrentBoardSubs(
     FirebaseClient client, MiddlewareApi<App, AppBuilder, AppActions> api) {
-  var board = api.state.boards.current;
+  final currentUid = api.state.boards.currentUid;
+  final board = api.state.boards.map[currentUid];
   if (board != null) {
-    client.subToSessions(board.uid);
+    client.subToSessions(currentUid);
     client.subToUsers(board.memberUids.keys);
   }
 }
 
 _updateCurrentSessionSubs(
     FirebaseClient client, MiddlewareApi<App, AppBuilder, AppActions> api) {
-  var session = api.state.sessions.current;
+  final currentUid = api.state.sessions.currentUid;
+  final session = api.state.sessions.map[currentUid];
   if (session != null) {
-    client.subToCategories(session.boardUid, session.uid);
-    client.subToItems(session.boardUid, session.uid);
-    client.subToNotes(session.boardUid, session.uid);
+    client.subToCategories(session.boardUid, currentUid);
+    client.subToItems(session.boardUid, currentUid);
+    client.subToNotes(session.boardUid, currentUid);
   }
 }
 
@@ -158,7 +171,7 @@ MiddlewareHandler<String> _addSupport(FirebaseClient client) =>
         Action<String> action) {
       next(action);
       var userUid = api.state.users.currentUid;
-      Item item = api.state.items.map[action.payload];
+      var item = api.state.items.map[action.payload];
       if (item != null && userUid != "") {
         client.addSupport(userUid, item);
       }
@@ -168,7 +181,7 @@ MiddlewareHandler<String> _editItemText(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
-      Item item = api.state.items.current;
+      var item = api.state.items.current;
       if (item != null) {
         client.editItemText(action.payload, item);
       }
@@ -179,7 +192,7 @@ MiddlewareHandler<String> _removeSupport(FirebaseClient client) =>
         Action<String> action) {
       next(action);
       var userUid = api.state.users.currentUid;
-      Item item = api.state.items.map[action.payload];
+      var item = api.state.items.map[action.payload];
       if (item != null && userUid != "") {
         client.removeSupport(userUid, item);
       }
@@ -190,7 +203,7 @@ MiddlewareHandler<PollResponse> _addPollResponse(FirebaseClient client) =>
         Action<PollResponse> action) {
       next(action);
       var userUid = api.state.users.currentUid;
-      Item item = api.state.items.map[action.payload.itemUid];
+      var item = api.state.items.map[action.payload.itemUid];
       if (item != null && userUid != "") {
         client.addPollResponse(action.payload.option, userUid, item);
       }
@@ -201,7 +214,7 @@ MiddlewareHandler<String> _removePollResponse(FirebaseClient client) =>
         Action<String> action) {
       next(action);
       var userUid = api.state.users.currentUid;
-      Item item = api.state.items.map[action.payload];
+      var item = api.state.items.map[action.payload];
       if (item != null && userUid != "") {
         client.removePollResponse(userUid, item);
       }
@@ -274,7 +287,7 @@ MiddlewareHandler<PairNotePayload> _pair(FirebaseClient client) =>
       var item = api.state.items.map[action.payload.itemUid];
       var note = api.state.notes.map[action.payload.noteUid];
       if (item != null && note != null) {
-        if (!note.itemUids.containsKey(item.uid)) {
+        if (!note.itemUids.containsKey(action.payload.itemUid)) {
           client.pair(item, note);
         }
       }
@@ -287,7 +300,7 @@ MiddlewareHandler<PairNotePayload> _unpair(FirebaseClient client) =>
       var item = api.state.items.map[action.payload.itemUid];
       var note = api.state.notes.map[action.payload.noteUid];
       if (item != null && note != null) {
-        if (note.itemUids.containsKey(item.uid)) {
+        if (note.itemUids.containsKey(action.payload.itemUid)) {
           client.unpair(item, note);
         }
       }
@@ -298,7 +311,7 @@ MiddlewareHandler<Null> _startSession(FirebaseClient client) =>
         Action<Null> action) {
       next(action);
       var epoch = now();
-      Session session = api.state.sessions.current;
+      var session = api.state.sessions.current;
       if (session != null) {
         client.startSession(session, epoch);
       }
@@ -309,7 +322,7 @@ MiddlewareHandler<Null> _endSession(FirebaseClient client) =>
         Action<Null> action) {
       next(action);
       var epoch = now();
-      Session session = api.state.sessions.current;
+      var session = api.state.sessions.current;
       if (session != null) {
         client.endSession(session, epoch);
       }
@@ -319,7 +332,7 @@ MiddlewareHandler<String> _resetSession(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
-      Session session = api.state.sessions.current;
+      var session = api.state.sessions.current;
       var items = api.state.sessionItems;
       if (session != null) {
         client.resetSession(session, items);
@@ -330,10 +343,10 @@ MiddlewareHandler<String> _shredBoard(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {
       next(action);
-      Board board = api.state.boards.current;
-        if (board != null) {
-          client.shredBoard(board);
-        }
+      var board = api.state.boards.current;
+      if (board != null) {
+        client.shredBoard(board);
+      }
     };
 
 MiddlewareHandler<String> _shredSession(FirebaseClient client) =>
@@ -344,14 +357,14 @@ MiddlewareHandler<String> _shredSession(FirebaseClient client) =>
       if (session != null) {
         var board = api.state.boards.map[session.boardUid];
         if (board != null) {
-          if (board.latestSessionUid == session.uid) {
-            client.clearBoardsLatestSession(board.uid);
+          if (board.latestSessionUid == api.state.sessions.currentUid) {
+            client.clearBoardsLatestSession(session.boardUid);
           }
           client.shredSession(session, board);
         }
       }
     };
-   
+
 MiddlewareHandler<String> _present(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<String> action) {

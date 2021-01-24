@@ -3,7 +3,7 @@ library category;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-// part 'category.g.dart';
+part 'category.g.dart';
 
 const String CAT_COLOR_RED = 'is-danger';
 const String CAT_COLOR_BLUE = 'is-info';
@@ -53,7 +53,9 @@ String textCss(String color) {
 abstract class Category implements Built<Category, CategoryBuilder> {
   static Serializer<Category> get serializer => _$categorySerializer;
 
-  /// [id] is the category's identifier
+  // [uid] is the firebase entity uid, used for lookup, but redundent in firebase
+  @nullable
+  @BuiltValueField(serialize: false)
   String get uid;
 
   String get boardUid;

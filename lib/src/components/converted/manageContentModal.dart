@@ -1,90 +1,91 @@
 import 'package:wui_builder/vhtml.dart';
+import 'package:wui_builder/wui_builder.dart';
 
-VNode modalBackground() => new Vdiv()..className = "modal-background";
+VNode modalBackground() => Vdiv()..className = "modal-background";
 
-VNode manageContentModal() => new Vdiv()
+VNode manageContentModal() => Vdiv()
   ..className = "modal-content"
   ..children = [
-    new Vdiv()
+    Vdiv()
       ..className = "box"
       ..children = [
-        new Vlabel()
+        Vlabel()
           ..className = "label has-text-centered"
           ..children = [
-            new Vp()
+            Vp()
               ..className = "menu-label"
               ..children = [
-                new Vspan()
+                Vspan()
                   ..className = "icon is-small has-text-success"
                   ..children = [
-                    new Vi()
+                    Vi()
                       ..className = "fa fa-leaf"
                       ..title = "restore",
                   ],
               ],
           ],
       ],
-    new Vdiv()
+    Vdiv()
       ..className = "box"
       ..children = [
-        new Vh4()
+        Vh4()
           ..className = "title"
           ..children = [
-            new Va()
+            Va()
               ..className = "button is-white is-pulled-right"
               ..children = [
-                new Vspan()
+                Vspan()
                   ..className =
                       "icon {{category.visible ? 'has-text-danger' : 'has-text-success'}}"
                   ..children = [
-                    new Vi()
+                    Vi()
                       ..className =
                           "fa {{category.visible ? 'fa-trash' : 'fa-leaf'}} ",
                   ],
               ],
           ],
-        new Vdiv()
+        Vdiv()
           ..className = "field is-horizontal"
           ..children = [
-            new Vdiv()
+            Vdiv()
               ..className = "field-body"
               ..children = [
-                new Vdiv()
+                Vdiv()
                   ..className = "field is-grouped"
                   ..children = [
-                    new Vp()
+                    Vp()
                       ..className = "control is-expanded"
                       ..children = [
-                        new Vinput()
+                        Vinput()
                           ..className = "input {{category.colorClass()}}"
                           ..type = "text"
                           ..placeholder = "{{item.text}}",
                       ],
-                    new Vdiv()
+                    Vdiv()
                       ..className = "control"
                       ..children = [
-                        new Vbutton()
+                        Vbutton()
                           ..className = "button is-white"
                           ..children = [
-                            new Vspan()
+                            Vspan()
                               ..className = "icon is-small"
                               ..children = [
-                                new Vi()
+                                Vi()
                                   ..className = "fa fa-floppy-o"
                                   ..title = "save changes",
                               ],
                           ],
                       ],
-                    new Vdiv()
+                    Vdiv()
                       ..className = "control"
                       ..children = [
-                        new Vbutton()
+                        Vbutton()
                           ..className = "button is-white"
                           ..children = [
-                            new Vspan()
+                            Vspan()
                               ..className = "icon is-small has-text-success"
                               ..children = [
-                                new Vi()
+                                Vi()
                                   ..className = "fa fa-leaf"
                                   ..title = "restore",
                               ],
@@ -96,4 +97,4 @@ VNode manageContentModal() => new Vdiv()
       ],
   ];
 
-VNode modalCloseButton() => new Vbutton()..className = "modal-close";
+VNode modalCloseButton() => Vbutton()..className = "modal-close";

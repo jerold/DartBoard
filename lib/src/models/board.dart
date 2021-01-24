@@ -10,7 +10,9 @@ part 'board.g.dart';
 abstract class Board implements Built<Board, BoardBuilder> {
   static Serializer<Board> get serializer => _$boardSerializer;
 
-  /// [uid] is the board's identifier
+  // [uid] is the firebase entity uid, used for lookup, but redundent in firebase
+  @nullable
+  @BuiltValueField(serialize: false)
   String get uid;
 
   /// [ownerUid] is the user uid of the board's owner

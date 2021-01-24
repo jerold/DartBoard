@@ -15,7 +15,7 @@ part 'users.g.dart';
 
 /// [UsersActions]
 abstract class UsersActions extends ReduxActions {
-  ActionDispatcher<User> update;
+  ActionDispatcher<UpdateEntity<User>> update;
   ActionDispatcher<String> remove;
   ActionDispatcher<String> setCurrent;
 
@@ -59,7 +59,7 @@ NestedReducerBuilder<App, AppBuilder, Users, UsersBuilder>
           (state) => state.users,
           (builder) => builder.users,
         )
-          ..add<User>(UsersActionsNames.update, _updateUser)
+          ..add<UpdateEntity<User>>(UsersActionsNames.update, _updateUser)
           ..add<String>(UsersActionsNames.remove, _removeUser)
           ..add<String>(UsersActionsNames.setCurrent, _setCurrentUser);
 
@@ -67,11 +67,16 @@ NestedReducerBuilder<App, AppBuilder, Users, UsersBuilder>
 /// Reducers
 ///////////////////
 
-UsersBuilder _updateUser(Users state, Action<User> action, UsersBuilder builder) =>
-    builder..map[action.payload.uid] = action.payload;
+UsersBuilder _updateUser(
+        Users state, Action<UpdateEntity<User>> action, UsersBuilder builder) =>
+    builder
+      ..map[action.payload.uid] =
+          (action.payload.entity.toBuilder()..uid = action.payload.uid).build();
 
-UsersBuilder _removeUser(Users state, Action<String> action, UsersBuilder builder) =>
+UsersBuilder _removeUser(
+        Users state, Action<String> action, UsersBuilder builder) =>
     builder..map.remove(action.payload);
 
-UsersBuilder _setCurrentUser(Users state, Action<String> action, UsersBuilder builder) =>
+UsersBuilder _setCurrentUser(
+        Users state, Action<String> action, UsersBuilder builder) =>
     builder..currentUid = action.payload;

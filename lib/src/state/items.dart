@@ -15,7 +15,7 @@ part 'items.g.dart';
 
 /// [ItemsActions]
 abstract class ItemsActions extends ReduxActions {
-  ActionDispatcher<Item> update;
+  ActionDispatcher<UpdateEntity<Item>> update;
   ActionDispatcher<String> remove;
   ActionDispatcher<String> setCurrent;
 
@@ -83,7 +83,7 @@ NestedReducerBuilder<App, AppBuilder, Items, ItemsBuilder>
           (state) => state.items,
           (builder) => builder.items,
         )
-          ..add<Item>(ItemsActionsNames.update, _updateItem)
+          ..add<UpdateEntity<Item>>(ItemsActionsNames.update, _updateItem)
           ..add<String>(ItemsActionsNames.remove, _removeItem)
           ..add<String>(ItemsActionsNames.setCurrent, _setCurrentItem);
 
@@ -91,11 +91,16 @@ NestedReducerBuilder<App, AppBuilder, Items, ItemsBuilder>
 /// Reducers
 ///////////////////
 
-ItemsBuilder _updateItem(Items state, Action<Item> action, ItemsBuilder builder) =>
-    builder..map[action.payload.uid] = action.payload;
+ItemsBuilder _updateItem(
+        Items state, Action<UpdateEntity<Item>> action, ItemsBuilder builder) =>
+    builder
+      ..map[action.payload.uid] =
+          (action.payload.entity.toBuilder()..uid = action.payload.uid).build();
 
-ItemsBuilder _removeItem(Items state, Action<String> action, ItemsBuilder builder) =>
+ItemsBuilder _removeItem(
+        Items state, Action<String> action, ItemsBuilder builder) =>
     builder..map.remove(action.payload);
 
-ItemsBuilder _setCurrentItem(Items state, Action<String> action, ItemsBuilder builder) =>
+ItemsBuilder _setCurrentItem(
+        Items state, Action<String> action, ItemsBuilder builder) =>
     builder..currentUid = action.payload;

@@ -1,96 +1,97 @@
 import 'package:wui_builder/vhtml.dart';
+import 'package:wui_builder/wui_builder.dart';
 
-VNode modalBackground() => new Vdiv()..className = "modal-background";
+VNode modalBackground() => Vdiv()..className = "modal-background";
 
-VNode signInModal() => new Vdiv()
+VNode signInModal() => Vdiv()
   ..className = "modal-content"
   ..children = [
-    new Vdiv()
+    Vdiv()
       ..className = "box"
       ..children = [
-        new Vlabel()
+        Vlabel()
           ..className = "label has-text-centered"
           ..children = [
-            new Vimg()
+            Vimg()
               ..src =
                   "google_login/2x/btn_google_signin_light_normal_web@2x.png"
               ..width = "50%"
               ..height = "50%",
           ],
       ],
-    new Vdiv()
+    Vdiv()
       ..className = "box"
       ..children = [
-        new Vlabel()
+        Vlabel()
           ..className = "label has-text-centered"
           ..children = [
-            new Vh1()
+            Vh1()
               ..className = "subtitle is-h3"
               ..text = 'Sign in with your email',
           ],
-        new Vdiv()
+        Vdiv()
           ..className = "field"
           ..children = [
-            new Vlabel()
+            Vlabel()
               ..className = "label"
               ..text = 'Email',
-            new Vdiv()
+            Vdiv()
               ..className = "control has-icons-left has-icons-right"
               ..children = [
-                new Vinput()
+                Vinput()
                   ..className = "input is-danger"
                   ..type = "email"
                   ..placeholder = "you@email.com",
-                new Vspan()
+                Vspan()
                   ..className = "icon is-small is-left"
                   ..children = [
-                    new Vi()..className = "fa fa-envelope",
+                    Vi()..className = "fa fa-envelope",
                   ],
-                new Vspan()
+                Vspan()
                   ..className = "icon is-small is-right"
                   ..children = [
-                    new Vi()..className = "fa fa-exclamation-triangle",
+                    Vi()..className = "fa fa-exclamation-triangle",
                   ],
               ],
-            new Vp()
+            Vp()
               ..className = "help is-danger"
               ..text = 'This email is invalid',
           ],
-        new Vdiv()
+        Vdiv()
           ..className = "field"
           ..children = [
-            new Vlabel()
+            Vlabel()
               ..className = "label"
               ..text = 'Password',
-            new Vdiv()
+            Vdiv()
               ..className = "control has-icons-left has-icons-right"
               ..children = [
-                new Vinput()
+                Vinput()
                   ..className = "input is-warning"
                   ..type = "password"
                   ..placeholder = "Create a password",
-                new Vspan()
+                Vspan()
                   ..className = "icon is-small is-left"
                   ..children = [
-                    new Vi()..className = "fa fa-key",
+                    Vi()..className = "fa fa-key",
                   ],
-                new Vspan()
+                Vspan()
                   ..className = "icon is-small is-right"
                   ..children = [
-                    new Vi()..className = "fa fa-check",
+                    Vi()..className = "fa fa-check",
                   ],
               ],
-            new Vp()
+            Vp()
               ..className = "help is-warning"
               ..text = 'Password meets length criteria',
           ],
-        new Vdiv()
+        Vdiv()
           ..className = "field is-grouped"
           ..children = [
-            new Vdiv()
+            Vdiv()
               ..className = "control"
               ..children = [
-                new Vbutton()
+                Vbutton()
                   ..className = "button is-success"
                   ..text = 'Submit',
               ],
@@ -98,4 +99,4 @@ VNode signInModal() => new Vdiv()
       ],
   ];
 
-VNode modalCloseButton() => new Vbutton()..className = "modal-close";
+VNode modalCloseButton() => Vbutton()..className = "modal-close";

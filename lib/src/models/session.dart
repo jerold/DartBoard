@@ -9,6 +9,9 @@ part 'session.g.dart';
 abstract class Session implements Built<Session, SessionBuilder> {
   static Serializer<Session> get serializer => _$sessionSerializer;
 
+  // [uid] is the firebase entity uid, used for lookup, but redundent in firebase
+  @nullable
+  @BuiltValueField(serialize: false)
   String get uid;
 
   String get boardUid;

@@ -1,43 +1,44 @@
 import 'package:wui_builder/vhtml.dart';
+import 'package:wui_builder/wui_builder.dart';
 
-VNode boardDashboard() => new Vdiv()
+VNode boardDashboard() => Vdiv()
   ..children = [
-    new Vsection()
+    Vsection()
       ..className = "hero is-dark"
       ..children = [
-        new Vdiv()
+        Vdiv()
           ..className = "hero-body"
           ..children = [
-            new Vdiv()
+            Vdiv()
               ..className = "container"
               ..children = [
-                new Vh1()
+                Vh1()
                   ..className = "title"
                   ..text = 'Pick a Session',
-                new Vh2()
+                Vh2()
                   ..className = "subtitle"
                   ..text = 'Be nice to your friends :)',
               ],
           ],
       ],
-    new Vsection()
+    Vsection()
       ..className = "section"
       ..children = [
-        new Vdiv()
+        Vdiv()
           ..className = "container"
           ..children = [
-            new Vdiv()
+            Vdiv()
               ..className = "columns is-multiline is-mobile"
               ..children = [
-                new Vdiv()
+                Vdiv()
                   ..className = "column is-half-tablet is-one-third-desktop"
                   ..children = [
-                    new Vsessioncard(),
+                    Vsessioncard(),
                   ],
-                new Vdiv()
+                Vdiv()
                   ..className = "column is-one-third-desktop"
                   ..children = [
-                    new Vsessioncreate(),
+                    Vsessioncreate(),
                   ],
               ],
           ],

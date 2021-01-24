@@ -15,14 +15,14 @@ part 'boards.g.dart';
 
 /// [BoardsActions]
 abstract class BoardsActions extends ReduxActions {
-  ActionDispatcher<Board> update;
+  ActionDispatcher<UpdateEntity<Board>> update;
   ActionDispatcher<String> remove;
   ActionDispatcher<String> setCurrent;
   // update title
   // update description
   // add / remove User
   // create Session
-  
+
   ActionDispatcher<Null> shred;
 
   // factory to create on instance of the generated implementation of BoardsActions
@@ -60,7 +60,7 @@ NestedReducerBuilder<App, AppBuilder, Boards, BoardsBuilder>
           (state) => state.boards,
           (builder) => builder.boards,
         )
-          ..add<Board>(BoardsActionsNames.update, _updateBoard)
+          ..add<UpdateEntity<Board>>(BoardsActionsNames.update, _updateBoard)
           ..add<String>(BoardsActionsNames.remove, _removeBoard)
           ..add<String>(BoardsActionsNames.setCurrent, _setCurrentBoard);
 
@@ -68,11 +68,16 @@ NestedReducerBuilder<App, AppBuilder, Boards, BoardsBuilder>
 /// Reducers
 ///////////////////
 
-BoardsBuilder _updateBoard(Boards state, Action<Board> action, BoardsBuilder builder) =>
-    builder..map[action.payload.uid] = action.payload;
+BoardsBuilder _updateBoard(Boards state, Action<UpdateEntity<Board>> action,
+        BoardsBuilder builder) =>
+    builder
+      ..map[action.payload.uid] =
+          (action.payload.entity.toBuilder()..uid = action.payload.uid).build();
 
-BoardsBuilder _removeBoard(Boards state, Action<String> action, BoardsBuilder builder) =>
+BoardsBuilder _removeBoard(
+        Boards state, Action<String> action, BoardsBuilder builder) =>
     builder..map.remove(action.payload);
 
-BoardsBuilder _setCurrentBoard(Boards state, Action<String> action, BoardsBuilder builder) =>
+BoardsBuilder _setCurrentBoard(
+        Boards state, Action<String> action, BoardsBuilder builder) =>
     builder..currentUid = action.payload;

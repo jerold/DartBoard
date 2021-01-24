@@ -23,6 +23,13 @@ import '../middleware/creationMiddleware.dart';
 
 part 'app.g.dart';
 
+class UpdateEntity<T> {
+  final String uid;
+  final T entity;
+
+  UpdateEntity(this.uid, this.entity);
+}
+
 class AuthStatus {
   static String loading = 'loading';
 

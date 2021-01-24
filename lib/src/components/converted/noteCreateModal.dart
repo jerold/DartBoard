@@ -1,43 +1,44 @@
 import 'package:wui_builder/vhtml.dart';
+import 'package:wui_builder/wui_builder.dart';
 
-VNode modalBackground() => new Vdiv()..className = "modal-background";
+VNode modalBackground() => Vdiv()..className = "modal-background";
 
-VNode noteCreateModal() => new Vdiv()
+VNode noteCreateModal() => Vdiv()
   ..className = "modal-card"
   ..children = [
-    new Vheader()
+    Vheader()
       ..className = "modal-card-head"
       ..children = [
-        new Vp()
+        Vp()
           ..className = "modal-card-title"
-          ..text = 'New Note',
+          ..text = 'Note',
       ],
-    new Vsection()
+    Vsection()
       ..className = "modal-card-body"
       ..children = [
-        new Vdiv()
+        Vdiv()
           ..className = "field"
           ..children = [
-            new Vp()
+            Vp()
               ..className = "control"
               ..children = [
-                new Vinput()
+                Vinput()
                   ..className = "input is-autofocused"
                   ..type = "text"
                   ..placeholder = "Type your note here...",
               ],
           ],
       ],
-    new Vfooter()
+    Vfooter()
       ..className = "modal-card-foot"
       ..children = [
-        new Va()
+        Va()
           ..className = "button is-success"
           ..text = 'Save',
-        new Va()
+        Va()
           ..className = "button"
           ..text = 'Discard',
       ],
   ];
 
-VNode modalCloseButton() => new Vbutton()..className = "modal-close";
+VNode modalCloseButton() => Vbutton()..className = "modal-close";

@@ -10,6 +10,9 @@ part 'note.g.dart';
 abstract class Note implements Built<Note, NoteBuilder> {
   static Serializer<Note> get serializer => _$noteSerializer;
 
+  // [uid] is the firebase entity uid, used for lookup, but redundent in firebase
+  @nullable
+  @BuiltValueField(serialize: false)
   String get uid;
 
   String get boardUid;

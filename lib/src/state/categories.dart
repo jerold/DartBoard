@@ -15,7 +15,7 @@ part 'categories.g.dart';
 
 /// [CategoriesActions]
 abstract class CategoriesActions extends ReduxActions {
-  ActionDispatcher<Category> update;
+  ActionDispatcher<UpdateEntity<Category>> update;
   ActionDispatcher<String> remove;
   ActionDispatcher<String> setCurrent;
   // update title
@@ -58,8 +58,8 @@ abstract class Categories implements Built<Categories, CategoriesBuilder> {
 ///////////////////
 
 NestedReducerBuilder<App, AppBuilder, Categories, CategoriesBuilder>
-    createCategoriesReducer() => NestedReducerBuilder<App, AppBuilder,
-            Categories, CategoriesBuilder>(
+    createCategoriesReducer() =>
+        NestedReducerBuilder<App, AppBuilder, Categories, CategoriesBuilder>(
           (state) => state.categories,
           (builder) => builder.categories,
         )
@@ -71,9 +71,11 @@ NestedReducerBuilder<App, AppBuilder, Categories, CategoriesBuilder>
 /// Reducers
 ///////////////////
 
-CategoriesBuilder _updateCategory(
-        Categories state, Action<Category> action, CategoriesBuilder builder) =>
-    builder..map[action.payload.uid] = action.payload;
+CategoriesBuilder _updateCategory(Categories state,
+        Action<UpdateEntity<Category>> action, CategoriesBuilder builder) =>
+    builder
+      ..map[action.payload.uid] =
+          (action.payload.entity.toBuilder()..uid = action.payload.uid).build();
 
 CategoriesBuilder _removeCategory(
         Categories state, Action<String> action, CategoriesBuilder builder) =>

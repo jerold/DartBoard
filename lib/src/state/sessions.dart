@@ -15,7 +15,7 @@ part 'sessions.g.dart';
 
 /// [SessionsActions]
 abstract class SessionsActions extends ReduxActions {
-  ActionDispatcher<Session> update;
+  ActionDispatcher<UpdateEntity<Session>> update;
   ActionDispatcher<String> remove;
   ActionDispatcher<String> setCurrent;
   // update startDate
@@ -63,7 +63,8 @@ NestedReducerBuilder<App, AppBuilder, Sessions, SessionsBuilder>
           (state) => state.sessions,
           (builder) => builder.sessions,
         )
-          ..add<Session>(SessionsActionsNames.update, _updateSession)
+          ..add<UpdateEntity<Session>>(
+              SessionsActionsNames.update, _updateSession)
           ..add<String>(SessionsActionsNames.remove, _removeSession)
           ..add<String>(SessionsActionsNames.setCurrent, _setCurrentSession);
 
@@ -71,9 +72,11 @@ NestedReducerBuilder<App, AppBuilder, Sessions, SessionsBuilder>
 /// Reducers
 ///////////////////
 
-SessionsBuilder _updateSession(
-        Sessions state, Action<Session> action, SessionsBuilder builder) =>
-    builder..map[action.payload.uid] = action.payload;
+SessionsBuilder _updateSession(Sessions state,
+        Action<UpdateEntity<Session>> action, SessionsBuilder builder) =>
+    builder
+      ..map[action.payload.uid] =
+          (action.payload.entity.toBuilder()..uid = action.payload.uid).build();
 
 SessionsBuilder _removeSession(
         Sessions state, Action<String> action, SessionsBuilder builder) =>

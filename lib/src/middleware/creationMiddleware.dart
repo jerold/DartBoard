@@ -61,8 +61,7 @@ class CreateItemPayload {
 /// Action Map
 ///////////////////
 
-createCreationMiddleware(
-        FirebaseClient client) =>
+createCreationMiddleware(FirebaseClient client) =>
     (MiddlewareBuilder<App, AppBuilder, AppActions>()
           ..add<CreateBoardPayload>(
               CreationMiddlewareActionsNames.board, _createBoard(client))
@@ -86,8 +85,8 @@ _createNote(FirebaseClient client) => (
       MiddlewareApi<App, AppBuilder, AppActions> api,
       ActionHandler next,
       Action<String> action,
-    ) =>
-        client.createNote(
+    ) async =>
+        await client.createNote(
           api.state.boards.currentUid,
           api.state.sessions.currentUid,
           api.state.users.currentUid,
@@ -98,8 +97,8 @@ _createItem(FirebaseClient client) => (
       MiddlewareApi<App, AppBuilder, AppActions> api,
       ActionHandler next,
       Action<CreateItemPayload> action,
-    ) =>
-        client.createItem(
+    ) async =>
+        await client.createItem(
           api.state.boards.currentUid,
           api.state.sessions.currentUid,
           api.state.users.currentUid,
@@ -112,8 +111,8 @@ _createCategory(FirebaseClient client) => (
       MiddlewareApi<App, AppBuilder, AppActions> api,
       ActionHandler next,
       Action<CreateCategoryPayload> action,
-    ) =>
-        client.createCategory(
+    ) async =>
+        await client.createCategory(
           api.state.boards.currentUid,
           api.state.sessions.currentUid,
           action.payload.title,
@@ -125,8 +124,8 @@ _createSession(FirebaseClient client) => (
       MiddlewareApi<App, AppBuilder, AppActions> api,
       ActionHandler next,
       Action<CreateSessionPayload> action,
-    ) =>
-        client.createSession(
+    ) async =>
+        await client.createSession(
           api.state.boards.currentUid,
           action.payload.targetTime,
         );
@@ -134,15 +133,16 @@ _createSession(FirebaseClient client) => (
 _cloneSession(FirebaseClient client) =>
     (MiddlewareApi<App, AppBuilder, AppActions> api, ActionHandler next,
         Action<Null> action) async {
-      Session session = api.state.sessions.current;
+      final sessionUid = api.state.sessions.currentUid;
+      final session = api.state.sessions.map[sessionUid];
       if (session != null) {
-        Session newSession = await client.createSession(
+        var newSession = await client.createSession(
           session.boardUid,
           session.targetTime,
         );
-        Iterable<Category> categories = api.state.categories.visible
-            .where((cat) => cat.sessionUid == session.uid);
-        if (categories.length > 0) {
+        var categories = api.state.categories.visible
+            .where((cat) => cat.sessionUid == sessionUid);
+        if (categories.isNotEmpty) {
           await Future.forEach(categories, (Category category) async {
             await client.createCategory(
               newSession.boardUid,
@@ -155,16 +155,20 @@ _cloneSession(FirebaseClient client) =>
         }
         return newSession;
       }
-      return null;
     };
 
 _createBoard(FirebaseClient client) => (
       MiddlewareApi<App, AppBuilder, AppActions> api,
       ActionHandler next,
       Action<CreateBoardPayload> action,
-    ) =>
-        client.createBoard(
-          api.state.users.currentUid,
+    ) async {
+      final userUid = api.state.users.currentUid;
+      final user = api.state.users.map[userUid];
+      if (user != null) {
+        await client.createBoard(
+          userUid,
           action.payload.title,
           action.payload.description,
         );
+      }
+    };

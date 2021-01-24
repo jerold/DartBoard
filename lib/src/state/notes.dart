@@ -15,7 +15,7 @@ part 'notes.g.dart';
 
 /// [NotesActions]
 abstract class NotesActions extends ReduxActions {
-  ActionDispatcher<Note> update;
+  ActionDispatcher<UpdateEntity<Note>> update;
   ActionDispatcher<String> remove;
   ActionDispatcher<String> setCurrent;
 
@@ -74,7 +74,7 @@ NestedReducerBuilder<App, AppBuilder, Notes, NotesBuilder>
           (state) => state.notes,
           (builder) => builder.notes,
         )
-          ..add<Note>(NotesActionsNames.update, _updateNote)
+          ..add<UpdateEntity<Note>>(NotesActionsNames.update, _updateNote)
           ..add<String>(NotesActionsNames.remove, _removeNote)
           ..add<String>(NotesActionsNames.setCurrent, _setCurrentNote);
 
@@ -82,11 +82,16 @@ NestedReducerBuilder<App, AppBuilder, Notes, NotesBuilder>
 /// Reducers
 ///////////////////
 
-NotesBuilder _updateNote(Notes state, Action<Note> action, NotesBuilder builder) =>
-    builder..map[action.payload.uid] = action.payload;
+NotesBuilder _updateNote(
+        Notes state, Action<UpdateEntity<Note>> action, NotesBuilder builder) =>
+    builder
+      ..map[action.payload.uid] =
+          (action.payload.entity.toBuilder()..uid = action.payload.uid).build();
 
-NotesBuilder _removeNote(Notes state, Action<String> action, NotesBuilder builder) =>
+NotesBuilder _removeNote(
+        Notes state, Action<String> action, NotesBuilder builder) =>
     builder..map.remove(action.payload);
 
-NotesBuilder _setCurrentNote(Notes state, Action<String> action, NotesBuilder builder) =>
+NotesBuilder _setCurrentNote(
+        Notes state, Action<String> action, NotesBuilder builder) =>
     builder..currentUid = action.payload;

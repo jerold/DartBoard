@@ -1,14 +1,18 @@
 import 'dart:async';
 import 'package:built_redux/built_redux.dart';
+import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:firebase/firebase.dart' as firebase;
 import './serializers.dart';
+
+import './state/app.dart';
 
 /// [StreamSubManager] keeps track of subsciptions to db refs
 class StreamSubManager {
   final Map<String, StreamSubscription<firebase.QueryEvent>> _refs;
 
-  StreamSubManager() : _refs = <String, StreamSubscription<firebase.QueryEvent>>{};
+  StreamSubManager()
+      : _refs = <String, StreamSubscription<firebase.QueryEvent>>{};
 
   void cancel(firebase.DatabaseReference ref) {
     var path = ref.toString();
@@ -19,7 +23,7 @@ class StreamSubManager {
 
   void add<T>(
     firebase.DatabaseReference ref,
-    ActionDispatcher<T> onValue,
+    ActionDispatcher<UpdateEntity<T>> onValue,
     Serializer<T> serializer,
   ) {
     var path = ref.toString();
@@ -34,9 +38,10 @@ class StreamSubManager {
         return;
       }
 
-      onValue(
+      onValue(UpdateEntity<T>(
+        event.snapshot.key,
         serializers.deserializeWith(serializer, event.snapshot.val()),
-      );
+      ));
     });
   }
 
@@ -56,9 +61,9 @@ class StreamSubManager {
   void addList<T>(
     firebase.DatabaseReference ref,
     Serializer<T> serializer, {
-    ActionDispatcher<T> onChildAdded,
+    ActionDispatcher<UpdateEntity<T>> onChildAdded,
     ActionDispatcher<String> onChildRemoved,
-    ActionDispatcher<T> onChildChanged,
+    ActionDispatcher<UpdateEntity<T>> onChildChanged,
     ActionDispatcher<T> onChildMoved,
   }) {
     var path = ref.toString();
@@ -66,31 +71,35 @@ class StreamSubManager {
     print('listening to list at $path');
 
     if (onChildAdded != null) {
-      _refs['$path-onChildAdded'] = ref.onChildAdded.listen((firebase.QueryEvent event) {
+      _refs['$path-onChildAdded'] =
+          ref.onChildAdded.listen((firebase.QueryEvent event) {
         if (event.snapshot.val() == null) return;
-        onChildAdded(
-          serializers.deserializeWith(serializer, event.snapshot.val()),
-        );
+        onChildAdded(UpdateEntity<T>(event.snapshot.key,
+            serializers.deserializeWith(serializer, event.snapshot.val())));
       });
     }
 
     if (onChildRemoved != null) {
-      _refs['$path-onChildRemoved'] = ref.onChildRemoved.listen((firebase.QueryEvent event) {
+      _refs['$path-onChildRemoved'] =
+          ref.onChildRemoved.listen((firebase.QueryEvent event) {
         onChildRemoved(event.snapshot.key);
       });
     }
 
     if (onChildChanged != null) {
-      _refs['$path-onChildChanged'] = ref.onChildChanged.listen((firebase.QueryEvent event) {
+      _refs['$path-onChildChanged'] =
+          ref.onChildChanged.listen((firebase.QueryEvent event) {
         if (event.snapshot.val() == null) return;
-        onChildChanged(
+        onChildChanged(UpdateEntity<T>(
+          event.snapshot.key,
           serializers.deserializeWith(serializer, event.snapshot.val()),
-        );
+        ));
       });
     }
 
     if (onChildMoved != null) {
-      _refs['$path-onChildMoved'] = ref.onChildMoved.listen((firebase.QueryEvent event) {
+      _refs['$path-onChildMoved'] =
+          ref.onChildMoved.listen((firebase.QueryEvent event) {
         if (event.snapshot.val() == null) return;
         onChildMoved(
           serializers.deserializeWith(serializer, event.snapshot.val()),
