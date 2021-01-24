@@ -8,6 +8,6 @@ VNode LatestSessionDashboard() => Vdiv()
       ..children = [
         Vdiv()
           ..className = 'container'
-          ..children = ['Loading latest session...'],
+          ..text = 'Loading latest session...',
       ],
   ];

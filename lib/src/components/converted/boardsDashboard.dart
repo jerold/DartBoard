@@ -1,10 +1,10 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-import 'package:retro/src/components/converted/sessionCard.dart';
-import 'package:retro/src/components/converted/sessionCreate.dart';
+import 'package:retro/src/components/converted/boardCard.dart';
+import 'package:retro/src/components/converted/boardCreate.dart';
 
-VNode BoardDashboard() => Vdiv()
+VNode BoardsDashboard() => Vdiv()
   ..children = [
     Vsection()
       ..className = 'hero is-dark'
@@ -17,10 +17,10 @@ VNode BoardDashboard() => Vdiv()
               ..children = [
                 Vh1()
                   ..className = 'title'
-                  ..text = 'Pick a Session',
+                  ..text = 'Getting Started',
                 Vh2()
                   ..className = 'subtitle'
-                  ..text = 'Be nice to your friends :)',
+                  ..text = 'Create or select a board below',
               ],
           ],
       ],
@@ -34,14 +34,14 @@ VNode BoardDashboard() => Vdiv()
               ..className = 'columns is-multiline is-mobile'
               ..children = [
                 Vdiv()
-                  ..className = 'column is-half-tablet is-one-third-desktop'
-                  ..children = [
-                    SessionCard(),
-                  ],
-                Vdiv()
                   ..className = 'column is-one-third-desktop'
                   ..children = [
-                    SessionCreate(),
+                    BoardCreate(),
+                  ],
+                Vdiv()
+                  ..className = 'column is-half-tablet is-one-third-desktop'
+                  ..children = [
+                    BoardCard(),
                   ],
               ],
           ],

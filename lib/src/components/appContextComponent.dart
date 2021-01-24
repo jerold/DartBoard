@@ -10,11 +10,18 @@ import 'package:retro/src/state/app.dart';
 // Same as the key const in app.dart
 const _storeKey = 'storeKey';
 
-abstract class AppContextComponent<P, S> extends CComponent<P, S, Store<App, AppBuilder, AppActions>> {
+abstract class AppContextComponent<P, S>
+    extends CComponent<P, S, Store<App, AppBuilder, AppActions>> {
   final List<StateMapper<App, AppBuilder, dynamic>> _mappers;
   final List<StreamSubscription> _subs = <StreamSubscription>[];
 
-  AppContextComponent(P props, this._mappers, {dynamic key}) : super(props, key: key);
+  AppContextComponent(P props, this._mappers, {dynamic key})
+      : super(props, key: key);
+
+  @override
+  String get contextKey => _storeKey;
+
+  Store<App, AppBuilder, AppActions> get store => contextValue;
 
   @mustCallSuper
   @override
@@ -31,11 +38,4 @@ abstract class AppContextComponent<P, S> extends CComponent<P, S, Store<App, App
   void componentWillUnmount() {
     _subs.forEach((s) => s.cancel());
   }
-
-  @override
-  String get contextKey => _storeKey;
-
-  App get appState => contextValue.state;
-
-  AppActions get appActions => contextValue.actions;
 }

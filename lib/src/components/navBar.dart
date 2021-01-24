@@ -1,3 +1,4 @@
+import 'package:retro/src/models/user.dart';
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
@@ -9,60 +10,26 @@ class NavBarProps {
   Function signOut;
 }
 
+// Mappers for App state used in this component
+bool _showMobileMenuMapper(App app) => app.showMobileMenu;
+User _currentUserMapper(App app) => app.users.current;
+String _authStatusMapper(App app) => app.authStatus;
+
 class NavBar extends AppContextComponent<NavBarProps, dynamic> {
-  NavBar(NavBarProps props) : super(props, [
-    (app) => app, // maps to all app changes, pretty heavy handed.
-  ]);
+  NavBar(NavBarProps props)
+      : super(props, [
+          _showMobileMenuMapper,
+          _currentUserMapper,
+          _authStatusMapper,
+        ]);
 
-  VNode _navMenu() {
-    final menuClasses = ['navbar-menu'];
-    if (_showMobileMenu()) menuClasses.add('is-active');
+  bool get _showMobileMenu => _showMobileMenuMapper(store.state);
 
-    final menuChildren = <VNode>[];
-    menuChildren.add(_signInOutButton());
+  bool get _signedIn => _currentUserMapper(store.state) != null;
 
-    return VDivElement()
-      ..classes = menuClasses
-      ..children = [
-        VDivElement()
-          ..classes = ['navbar-end']
-          ..children = menuChildren,
-      ];
-  }
+  String get _currentUserName => _currentUserMapper(store.state)?.name;
 
-  VNode _signInOutButton() {
-    var icon = 'fa-sign-in';
-    var label = 'Sign in';
-    Function onClick = _signIn;
-    final buttonClasses = ['button', 'is-info'];
-    if (_authStatus() == AuthStatus.loading) {
-      buttonClasses.add('is-loading');
-    } else {
-      buttonClasses.add('is-inverted');
-    }
-    if (_signedIn()) {
-      icon = 'fa-sign-out';
-      label = 'Sign out';
-      onClick = _signOut;
-    }
-    return Vspan()
-      ..classes = ['navbar-item']
-      ..children = [
-        Va()
-          ..classes = buttonClasses
-          ..children = [
-            Vspan()
-              ..classes = ['icon']
-              ..children = [
-                Vi()
-                  ..classes = ['fa', icon]
-              ],
-            Vspan()
-              ..innerHtml = label
-          ]
-          ..onClick = onClick,
-      ];
-  }
+  String get _authStatus => _authStatusMapper(store.state);
 
   @override
   VNode render() => Vnav()
@@ -76,7 +43,9 @@ class NavBar extends AppContextComponent<NavBarProps, dynamic> {
             ..children = [
               Vspan()
                 ..classes = ['navbar-item']
-                ..innerHtml = _signedInOutHtml(),
+                ..innerHtml = _signedIn && _currentUserName != null
+                    ? 'Signed in as:&nbsp;<b>$_currentUserName</b>'
+                    : '',
               Vspan()
                 ..classes = ['navbar-burger', 'burger']
                 ..children = [
@@ -86,35 +55,70 @@ class NavBar extends AppContextComponent<NavBarProps, dynamic> {
                 ]
                 ..onClick = _toggleMobileMenu,
             ],
-          _navMenu(),
+          _navMenu,
         ],
     ];
 
-  bool _showMobileMenu() => appState.showMobileMenu;
+  VNode get _navMenu {
+    final menuClasses = ['navbar-menu'];
+    if (_showMobileMenu) menuClasses.add('is-active');
 
-  bool _signedIn() => appState.users.current != null;
+    final menuChildren = <VNode>[];
+    menuChildren.add(_signInOutButton);
 
-  String _authStatus() => appState.authStatus;
-
-  String _signedInOutHtml() {
-    return _signedIn() ? 'Signed in as:&nbsp;<b>${appState.users.current.name}</b>' : '';
+    return VDivElement()
+      ..classes = menuClasses
+      ..children = [
+        VDivElement()
+          ..classes = ['navbar-end']
+          ..children = menuChildren,
+      ];
   }
 
-  void _signIn([_]) {
-    props.signIn();
-    appActions.hideMobileMenu();
+  VNode get _signInOutButton {
+    var icon = 'fa-sign-in';
+    var label = 'Sign in';
+    if (_signedIn) {
+      icon = 'fa-sign-out';
+      label = 'Sign out';
+    }
+    return Vspan()
+      ..classes = ['navbar-item']
+      ..children = [
+        Va()
+          ..classes = [
+            'button',
+            'is-info',
+            _authStatus == AuthStatus.loading ? 'is-loading' : 'is-inverted'
+          ]
+          ..children = [
+            Vspan()
+              ..classes = ['icon']
+              ..children = [
+                Vi()..classes = ['fa', icon]
+              ],
+            Vspan()..innerHtml = label
+          ]
+          ..onClick = _toggleAuth,
+      ];
   }
 
-  void _signOut([_]) {
-    props.signOut();
-    appActions.hideMobileMenu();
+  void _toggleAuth([_]) {
+    if (_signedIn) {
+      props.signOut();
+    } else {
+      props.signIn();
+    }
+    if (_showMobileMenu) {
+      store.actions.hideMobileMenu();
+    }
   }
 
   void _toggleMobileMenu([_]) {
-    if (_showMobileMenu()) {
-      appActions.hideMobileMenu();
+    if (_showMobileMenu) {
+      store.actions.hideMobileMenu();
     } else {
-      appActions.showMobileMenu();
+      store.actions.showMobileMenu();
     }
   }
 }

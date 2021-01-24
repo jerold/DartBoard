@@ -1,7 +1,7 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-VNode SessionDashboard() => Vdiv()
+VNode SessionView(String boardUid, String sessionUid) => Vdiv()
   ..children = [
     Vsection()
       ..className = 'hero is-dark is-bold'
@@ -42,8 +42,8 @@ VNode SessionDashboard() => Vdiv()
                 Vbr(),
                 VProgressElement()
                   ..className = 'progress is-extra-small'
-                  ..value = '{{heroTimeProgress}}'
-                  ..max = '100'
+                  ..value = 100 // '{{heroTimeProgress}}'
+                  ..max = 100 // '100'
                   ..text = '{{heroTimeProgress}}%',
               ],
           ],
@@ -249,7 +249,7 @@ VNode SessionDashboard() => Vdiv()
                       ..text = '{{category.description}}',
                     Vp()
                       ..className =
-                          'notification {{category.colorClass()}} {{isItemCovered(item) ? 'covered' : ''}}'
+                          'notification {{category.colorClass()}} {{isItemCovered(item) ? "covered" : ""}}'
                       ..children = [
                         Vbutton()..className = 'delete',
                         Vspan()
@@ -257,7 +257,7 @@ VNode SessionDashboard() => Vdiv()
                           ..children = [
                             Vi()
                               ..className =
-                                  'fa {{supported(item) ? 'fa-heart' : 'fa-heart-o'}}',
+                                  'fa {{supported(item) ? "fa-heart" : "fa-heart-o"}}',
                           ],
                         Vbr(),
                         Vspan()
@@ -268,7 +268,7 @@ VNode SessionDashboard() => Vdiv()
                               ..children = [
                                 Vi()
                                   ..className =
-                                      'fa {{optionIsUsersResponse(item, option) ? 'fa-check-square-o' : 'fa-square-o'}}',
+                                      'fa {{optionIsUsersResponse(item, option) ? "fa-check-square-o" : "fa-square-o"}}',
                               ],
                           ],
                       ],
