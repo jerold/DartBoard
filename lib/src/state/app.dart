@@ -52,11 +52,9 @@ int now() => DateTime.now().millisecondsSinceEpoch;
 final _dateFormat = DateFormat.yMMMMd('en_US');
 final _timeFormat = DateFormat.Hm('en_US');
 
-String date(int epoch) =>
-    _dateFormat.format(DateTime.fromMillisecondsSinceEpoch(epoch));
+String date(int epoch) => _dateFormat.format(DateTime.fromMillisecondsSinceEpoch(epoch));
 String dateTime(int epoch) => '${time(epoch)} on ${date(epoch)}';
-String time(int epoch) =>
-    _timeFormat.format(DateTime.fromMillisecondsSinceEpoch(epoch));
+String time(int epoch) => _timeFormat.format(DateTime.fromMillisecondsSinceEpoch(epoch));
 
 ////////////////////
 /// Actions
@@ -141,8 +139,7 @@ abstract class App implements Built<App, AppBuilder> {
   // TODO: do this or clear sessions everytime current board changes?
   @memoized
   BuiltList<Session> get currentBoardSessions => BuiltList<Session>(
-        sessions.map.values
-            .where((Session s) => s.boardUid == boards.currentUid),
+        sessions.map.values.where((Session s) => s.boardUid == boards.currentUid),
       );
 
   @memoized
@@ -159,19 +156,16 @@ abstract class App implements Built<App, AppBuilder> {
   }
 
   @memoized
-  Session get boardsLatestSession =>
-      sessions.map[boards.current.latestSessionUid];
+  Session get boardsLatestSession => sessions.map[boards.current.latestSessionUid];
 
   @memoized
   BuiltList<Category> get sessionCategories => BuiltList<Category>(
-        categories.map.values
-            .where((Category c) => c.sessionUid == sessions.currentUid),
+        categories.map.values.where((Category c) => c.sessionUid == sessions.currentUid),
       );
 
   @memoized
   BuiltList<Category> get visibleSessionCategories => BuiltList<Category>(
-        categories.visible
-            .where((Category c) => c.sessionUid == sessions.currentUid),
+        categories.visible.where((Category c) => c.sessionUid == sessions.currentUid),
       );
 
   @memoized
@@ -225,29 +219,27 @@ abstract class App implements Built<App, AppBuilder> {
 /// Main Reducer
 ///////////////////
 
-Reducer<App, AppBuilder, dynamic> createReducer() =>
-    (ReducerBuilder<App, AppBuilder>()
-          ..add<String>(AppActionsNames.setAuthStatus, _setAuthStatus)
-          ..add<Null>(AppActionsNames.clear, _clear)
-          ..add<String>(AppActionsNames.showModal, _showModal)
-          ..add<Null>(AppActionsNames.hideModal, _hideModal)
-          ..add<Null>(AppActionsNames.toggleMobileMenu, _toggleMobileMenu)
-          ..add<Null>(AppActionsNames.hideMobileMenu, _hideMobileMenu)
-          ..add<Null>(AppActionsNames.showMobileMenu, _showMobileMenu)
-          ..combineNested(createBoardsReducer())
-          ..combineNested(createCategoriesReducer())
-          ..combineNested(createItemsReducer())
-          ..combineNested(createNotesReducer())
-          ..combineNested(createSessionsReducer())
-          ..combineNested(createUsersReducer()))
-        .build();
+Reducer<App, AppBuilder, dynamic> createReducer() => (ReducerBuilder<App, AppBuilder>()
+      ..add<String>(AppActionsNames.setAuthStatus, _setAuthStatus)
+      ..add<Null>(AppActionsNames.clear, _clear)
+      ..add<String>(AppActionsNames.showModal, _showModal)
+      ..add<Null>(AppActionsNames.hideModal, _hideModal)
+      ..add<Null>(AppActionsNames.toggleMobileMenu, _toggleMobileMenu)
+      ..add<Null>(AppActionsNames.hideMobileMenu, _hideMobileMenu)
+      ..add<Null>(AppActionsNames.showMobileMenu, _showMobileMenu)
+      ..combineNested(createBoardsReducer())
+      ..combineNested(createCategoriesReducer())
+      ..combineNested(createItemsReducer())
+      ..combineNested(createNotesReducer())
+      ..combineNested(createSessionsReducer())
+      ..combineNested(createUsersReducer()))
+    .build();
 
 ////////////////////
 /// Reducers
 ///////////////////
 
-AppBuilder _setAuthStatus(App state, Action<String> action, AppBuilder b) =>
-    b..authStatus = action.payload;
+AppBuilder _setAuthStatus(App state, Action<String> action, AppBuilder b) => b..authStatus = action.payload;
 
 AppBuilder _clear(App state, Action<Null> action, AppBuilder b) => b
   ..users = Users().toBuilder()
@@ -257,17 +249,13 @@ AppBuilder _clear(App state, Action<Null> action, AppBuilder b) => b
   ..items = Items().toBuilder()
   ..notes = Notes().toBuilder();
 
-AppBuilder _showModal(App state, Action<String> action, AppBuilder b) =>
-    b..modalQueue.add(action.payload);
+AppBuilder _showModal(App state, Action<String> action, AppBuilder b) => b..modalQueue.add(action.payload);
 
-AppBuilder _hideModal(App state, Action<String> action, AppBuilder b) =>
-    b..modalQueue.removeLast();
+AppBuilder _hideModal(App state, Action<String> action, AppBuilder b) => b..modalQueue.removeLast();
 
 AppBuilder _toggleMobileMenu(App state, Action<String> action, AppBuilder b) =>
     b..showMobileMenu = !state.showMobileMenu;
 
-AppBuilder _hideMobileMenu(App state, Action<Null> action, AppBuilder b) =>
-    b..showMobileMenu = false;
+AppBuilder _hideMobileMenu(App state, Action<Null> action, AppBuilder b) => b..showMobileMenu = false;
 
-AppBuilder _showMobileMenu(App state, Action<Null> action, AppBuilder b) =>
-    b..showMobileMenu = true;
+AppBuilder _showMobileMenu(App state, Action<Null> action, AppBuilder b) => b..showMobileMenu = true;

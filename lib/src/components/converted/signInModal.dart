@@ -13,10 +13,9 @@ VNode SignInModal() => Vdiv()
           ..className = 'label has-text-centered'
           ..children = [
             VImageElement()
-              ..src =
-                  'google_login/2x/btn_google_signin_light_normal_web@2x.png'
-              ..width = '50%'
-              ..height = '50%',
+              ..src = 'google_login/2x/btn_google_signin_light_normal_web@2x.png'
+              ..width = 50
+              ..height = 50,
           ],
       ],
     Vdiv()

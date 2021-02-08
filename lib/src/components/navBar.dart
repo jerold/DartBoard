@@ -10,26 +10,23 @@ class NavBarProps {
   Function signOut;
 }
 
-// Mappers for App state used in this component
-bool _showMobileMenuMapper(App app) => app.showMobileMenu;
-User _currentUserMapper(App app) => app.users.current;
-String _authStatusMapper(App app) => app.authStatus;
-
 class NavBar extends AppContextComponent<NavBarProps, dynamic> {
   NavBar(NavBarProps props)
       : super(props, [
-          _showMobileMenuMapper,
-          _currentUserMapper,
-          _authStatusMapper,
+          showMobileMenuMapper,
+          currentUserMapper,
+          authStatusMapper,
         ]);
 
-  bool get _showMobileMenu => _showMobileMenuMapper(store.state);
+  bool get _showMobileMenu => showMobileMenuMapper(store.state);
 
-  bool get _signedIn => _currentUserMapper(store.state) != null;
+  bool get _signedIn => currentUserMapper(store.state) != null;
 
-  String get _currentUserName => _currentUserMapper(store.state)?.name;
+  User get _currentUser => currentUserMapper(store.state);
 
-  String get _authStatus => _authStatusMapper(store.state);
+  String get _currentUserName => _currentUser != null ? _currentUser.name : 'Anonomous';
+
+  String get _authStatus => authStatusMapper(store.state);
 
   @override
   VNode render() => Vnav()
@@ -43,9 +40,7 @@ class NavBar extends AppContextComponent<NavBarProps, dynamic> {
             ..children = [
               Vspan()
                 ..classes = ['navbar-item']
-                ..innerHtml = _signedIn && _currentUserName != null
-                    ? 'Signed in as:&nbsp;<b>$_currentUserName</b>'
-                    : '',
+                ..innerHtml = _signedIn ? 'Signed in as:&nbsp;<b>$_currentUserName</b>' : '',
               Vspan()
                 ..classes = ['navbar-burger', 'burger']
                 ..children = [
@@ -86,11 +81,7 @@ class NavBar extends AppContextComponent<NavBarProps, dynamic> {
       ..classes = ['navbar-item']
       ..children = [
         Va()
-          ..classes = [
-            'button',
-            'is-info',
-            _authStatus == AuthStatus.loading ? 'is-loading' : 'is-inverted'
-          ]
+          ..classes = ['button', 'is-info', _authStatus == AuthStatus.loading ? 'is-loading' : 'is-inverted']
           ..children = [
             Vspan()
               ..classes = ['icon']

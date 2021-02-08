@@ -1,4 +1,5 @@
 import 'package:built_redux/built_redux.dart';
+import 'package:retro/src/components/converted/loginSplash.dart';
 import 'package:wui_builder/components.dart';
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
@@ -6,11 +7,12 @@ import 'package:wui_builder/wui_builder.dart';
 import 'package:retro/src/store.dart';
 import 'package:retro/src/state/app.dart';
 
+import 'package:retro/src/components/appContextComponent.dart';
+import 'package:retro/src/components/navBar.dart';
+
 import 'package:retro/src/components/converted/boardsDashboard.dart';
 import 'package:retro/src/components/converted/sessionsDashboard.dart';
 import 'package:retro/src/components/converted/sessionView.dart';
-
-import 'package:retro/src/components/navBar.dart';
 
 // Same as the key const in appContextComponent.dart
 const _storeKey = 'storeKey';
@@ -21,7 +23,11 @@ class AppComponent extends NComponent {
 
   AppComponent()
       : _service = StoreService(),
-        _history = HashHistory();
+        _history = HashHistory() {
+    _service.store.substateStream(authStatusMapper).listen(_update);
+  }
+
+  bool get _signedIn => currentUserMapper(store.state) != null;
 
   AppActions get actions => _service.store.actions;
 
@@ -33,6 +39,8 @@ class AppComponent extends NComponent {
         historyContextKey: _history,
       };
 
+  void _update(_) => update();
+
   @override
   VNode render() => Vdiv()
     ..children = [
@@ -40,12 +48,18 @@ class AppComponent extends NComponent {
       NavBar(NavBarProps()
         ..signIn = _service.signIn
         ..signOut = _service.signOut),
-      _routeContent,
+      Vdiv()
+        ..vif = _signedIn
+        ..children = [_routeContent],
+      LoginSplash(LoginSplashProps()
+        ..signIn = _service.signIn
+        ..signOut = _service.signOut)
+        ..vif = !_signedIn,
     ];
 
   VNode get _routeContent => Router(routes: [
         Route(
-          path: '/',
+          path: '/home',
           componentFactory: (params) => BoardsDashboard(),
           useAsDefault: true,
         ),
@@ -55,8 +69,7 @@ class AppComponent extends NComponent {
         ),
         Route(
           path: '/board/:boardUid/session/:sessionUid',
-          componentFactory: (params) =>
-              SessionView(params['boardUid'], params['sessionUid']),
+          componentFactory: (params) => SessionView(params['boardUid'], params['sessionUid']),
         ),
       ]);
 }
