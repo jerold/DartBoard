@@ -3,7 +3,6 @@ import 'package:wui_builder/wui_builder.dart';
 import 'package:built_collection/built_collection.dart';
 
 import 'package:retro/src/models/board.dart';
-import 'package:retro/src/state/app.dart';
 import 'package:retro/src/components/appContextComponent.dart';
 
 import 'package:retro/src/components/converted/boardCard.dart';
@@ -60,12 +59,12 @@ class BoardsDashboard extends AppContextComponent<dynamic, dynamic> {
                     ..children = [
                       BoardCreate(),
                     ])
-                  ..addAll(_boardCards())),
+                  ..addAll(_boardCards)),
             ],
         ],
     ];
 
-  Iterable<VNode> _boardCards() => _boards.keys.map(
+  Iterable<VNode> get _boardCards => _boards.keys.map(
         (buid) => Vdiv()
           ..className = 'column is-half-tablet is-one-third-desktop'
           ..children = [

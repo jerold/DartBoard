@@ -30,22 +30,21 @@ class UpdateEntity<T> {
   UpdateEntity(this.uid, this.entity);
 }
 
-class AuthStatus {
-  static String loading = 'loading';
-
-  static String signedIn = 'signed in';
-
-  static String signedOut = 'signed out';
+enum AuthStatus {
+  loading,
+  signedIn,
+  signedOut,
 }
 
-const String CONFIRM_SHRED_BOARD_MODAL = 'Confirm Shred Board Modal';
-const String CONFIRM_SHRED_SESSION_MODAL = 'Confirm Shred Session Modal';
-const String CREATE_CATEGORY_MODAL = 'Create Category Modal';
-const String CREATE_ITEM_MODAL = 'Create Item Modal';
-const String CREATE_NOTE_MODAL = 'Create Note Modal';
-const String MANAGE_CONTENT_MODAL = 'Manage Content Modal';
-const String SIGN_IN_MODAL = 'Sign In Modal';
-const String NO_MODAL = 'No Modal';
+enum Modal {
+  confirmShredBoard,
+  confirmShredSession,
+  createCategory,
+  createItem,
+  createNote,
+  manageContent,
+  none,
+}
 
 int now() => DateTime.now().millisecondsSinceEpoch;
 
@@ -62,10 +61,10 @@ String time(int epoch) => _timeFormat.format(DateTime.fromMillisecondsSinceEpoch
 
 /// [AppActions]
 abstract class AppActions extends ReduxActions {
-  ActionDispatcher<String> setAuthStatus;
+  ActionDispatcher<AuthStatus> setAuthStatus;
 
   ActionDispatcher<Null> clear;
-  ActionDispatcher<String> showModal;
+  ActionDispatcher<Modal> showModal;
   ActionDispatcher<Null> hideModal;
 
   ActionDispatcher<Null> toggleMobileMenu;
@@ -93,7 +92,7 @@ abstract class AppActions extends ReduxActions {
 /// [App]
 abstract class App implements Built<App, AppBuilder> {
   /// [authStatus] indicates the auth status
-  String get authStatus;
+  AuthStatus get authStatus;
 
   /// [users]
   Users get users;
@@ -119,7 +118,7 @@ abstract class App implements Built<App, AppBuilder> {
 
   bool get showMobileMenu;
 
-  BuiltList<String> get modalQueue;
+  BuiltList<Modal> get modalQueue;
 
   // Built value boilerplate
   App._();
@@ -134,7 +133,7 @@ abstract class App implements Built<App, AppBuilder> {
     ..showMobileMenu = false);
 
   @memoized
-  String get visibleModal => modalQueue.isNotEmpty ? modalQueue.last : NO_MODAL;
+  Modal get visibleModal => modalQueue.isNotEmpty ? modalQueue.last : Modal.none;
 
   // TODO: do this or clear sessions everytime current board changes?
   @memoized
@@ -220,9 +219,9 @@ abstract class App implements Built<App, AppBuilder> {
 ///////////////////
 
 Reducer<App, AppBuilder, dynamic> createReducer() => (ReducerBuilder<App, AppBuilder>()
-      ..add<String>(AppActionsNames.setAuthStatus, _setAuthStatus)
+      ..add<AuthStatus>(AppActionsNames.setAuthStatus, _setAuthStatus)
       ..add<Null>(AppActionsNames.clear, _clear)
-      ..add<String>(AppActionsNames.showModal, _showModal)
+      ..add<Modal>(AppActionsNames.showModal, _showModal)
       ..add<Null>(AppActionsNames.hideModal, _hideModal)
       ..add<Null>(AppActionsNames.toggleMobileMenu, _toggleMobileMenu)
       ..add<Null>(AppActionsNames.hideMobileMenu, _hideMobileMenu)
@@ -239,7 +238,7 @@ Reducer<App, AppBuilder, dynamic> createReducer() => (ReducerBuilder<App, AppBui
 /// Reducers
 ///////////////////
 
-AppBuilder _setAuthStatus(App state, Action<String> action, AppBuilder b) => b..authStatus = action.payload;
+AppBuilder _setAuthStatus(App state, Action<AuthStatus> action, AppBuilder b) => b..authStatus = action.payload;
 
 AppBuilder _clear(App state, Action<Null> action, AppBuilder b) => b
   ..users = Users().toBuilder()
@@ -249,9 +248,9 @@ AppBuilder _clear(App state, Action<Null> action, AppBuilder b) => b
   ..items = Items().toBuilder()
   ..notes = Notes().toBuilder();
 
-AppBuilder _showModal(App state, Action<String> action, AppBuilder b) => b..modalQueue.add(action.payload);
+AppBuilder _showModal(App state, Action<Modal> action, AppBuilder b) => b..modalQueue.add(action.payload);
 
-AppBuilder _hideModal(App state, Action<String> action, AppBuilder b) => b..modalQueue.removeLast();
+AppBuilder _hideModal(App state, Action<Modal> action, AppBuilder b) => b..modalQueue.removeLast();
 
 AppBuilder _toggleMobileMenu(App state, Action<String> action, AppBuilder b) =>
     b..showMobileMenu = !state.showMobileMenu;

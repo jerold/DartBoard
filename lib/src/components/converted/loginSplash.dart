@@ -1,9 +1,7 @@
+import 'package:retro/src/state/app.dart';
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-import 'package:retro/src/models/board.dart';
-import 'package:retro/src/models/user.dart';
-import 'package:retro/src/state/app.dart';
 import 'package:retro/src/components/appContextComponent.dart';
 
 class LoginSplashProps {
@@ -12,12 +10,7 @@ class LoginSplashProps {
 }
 
 class LoginSplash extends AppContextComponent<LoginSplashProps, dynamic> {
-  LoginSplash(LoginSplashProps props)
-      : super(props, [
-          showMobileMenuMapper,
-          currentUserMapper,
-          authStatusMapper,
-        ]);
+  LoginSplash(LoginSplashProps props) : super(props, []);
 
   @override
   VNode render() => Vdiv()
@@ -72,7 +65,7 @@ class LoginSplash extends AppContextComponent<LoginSplashProps, dynamic> {
                                           Vlabel()
                                             ..className = 'label has-text-centered'
                                             ..children = [
-                                              Vh4()..text = 'You can also use make an account using your email.',
+                                              Vh4()..text = 'You can also make an account using your email.',
                                             ],
                                           Vdiv()
                                             ..className = 'field'

@@ -26,7 +26,7 @@ class NavBar extends AppContextComponent<NavBarProps, dynamic> {
 
   String get _currentUserName => _currentUser != null ? _currentUser.name : 'Anonomous';
 
-  String get _authStatus => authStatusMapper(store.state);
+  AuthStatus get _authStatus => authStatusMapper(store.state);
 
   @override
   VNode render() => Vnav()

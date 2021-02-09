@@ -13,6 +13,14 @@ import 'package:retro/src/state/app.dart';
 // Same as the key const in app.dart
 const _storeKey = 'storeKey';
 
+const homeRoute = '/home';
+
+String boardRoute(String boardUid) => '/board/${boardUid}';
+final boardRoutePattern = boardRoute(':boardUid');
+
+String sessionRoute(String boardUid, String sessionUid) => '/board/${boardUid}/session/${sessionUid}';
+final sessionRoutePattern = sessionRoute(':boardUid', ':sessionUid');
+
 abstract class AppContextComponent<P, S> extends CComponent<P, S, Store<App, AppBuilder, AppActions>> {
   final List<StateMapper<App, AppBuilder, dynamic>> _mappers;
   final List<StreamSubscription> _subs = <StreamSubscription>[];
@@ -23,6 +31,26 @@ abstract class AppContextComponent<P, S> extends CComponent<P, S, Store<App, App
   String get contextKey => _storeKey;
 
   Store<App, AppBuilder, AppActions> get store => contextValue;
+
+  History get _history => findHistoryInContext(context);
+
+  void routeToHome() {
+    // store.actions.boards.setCurrent('');
+    // store.actions.sessions.setCurrent('');
+    _history.push(homeRoute);
+  }
+
+  void routeToBoard(String boardUid) {
+    // store.actions.boards.setCurrent(boardUid);
+    // store.actions.sessions.setCurrent('');
+    _history.push(boardRoute(boardUid));
+  }
+
+  void routeToSession(String boardUid, String sessionUid) {
+    // store.actions.boards.setCurrent(boardUid);
+    // store.actions.sessions.setCurrent(sessionUid);
+    _history.push(sessionRoute(boardUid, sessionUid));
+  }
 
   @mustCallSuper
   @override
@@ -43,7 +71,7 @@ abstract class AppContextComponent<P, S> extends CComponent<P, S, Store<App, App
 
 /// Substate Mappers
 
-String authStatusMapper(App app) => app.authStatus;
+AuthStatus authStatusMapper(App app) => app.authStatus;
 
 bool showMobileMenuMapper(App app) => app.showMobileMenu;
 
@@ -58,3 +86,5 @@ BuiltMap<String, Board> boardsMapper(App app) => app.boards.map;
 Session currentSessionMapper(App app) => app.sessions.current;
 
 BuiltMap<String, Session> sessionsMapper(App app) => app.sessions.map;
+
+Modal visibleModalMapper(App app) => app.visibleModal;

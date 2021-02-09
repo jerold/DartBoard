@@ -18,8 +18,6 @@ class BoardCard extends AppContextComponent<dynamic, dynamic> {
 
   Board get _board => _boardMapper(key)(store.state);
 
-  bool get _signedIn => currentUserMapper(store.state) != null;
-
   User get _currentUser => currentUserMapper(store.state);
 
   String get _lastActive => date(_currentUser.boardUids[_board.uid]);
@@ -28,7 +26,7 @@ class BoardCard extends AppContextComponent<dynamic, dynamic> {
 
   bool get _hasLatestSession => _board.latestSessionUid != null;
 
-  bool get _canDeleteCard => _signedIn && _board?.ownerUid == _currentUser.uid;
+  bool get _canDeleteCard => _board?.ownerUid == _currentUser.uid;
 
   @override
   VNode render() => Vdiv()
@@ -37,7 +35,8 @@ class BoardCard extends AppContextComponent<dynamic, dynamic> {
       Va()
         ..vif = _canDeleteCard
         ..className = 'button is-danger is-pulled-right'
-        ..text = 'Shred',
+        ..text = 'Shred'
+        ..onClick = _onClickShred,
       Vh3()
         ..className = 'title'
         ..text = _board.title,
@@ -51,6 +50,7 @@ class BoardCard extends AppContextComponent<dynamic, dynamic> {
         ..children = [
           Vp()
             ..className = 'control'
+            ..onClick = _onClickListOfSessions
             ..children = [
               Va()
                 ..className = 'button is-primary'
@@ -59,6 +59,7 @@ class BoardCard extends AppContextComponent<dynamic, dynamic> {
           Vp()
             ..vif = _hasLatestSession
             ..className = 'control'
+            ..onClick = _onClickLatestSession
             ..children = [
               Va()
                 ..className = 'button is-primary'
@@ -66,4 +67,17 @@ class BoardCard extends AppContextComponent<dynamic, dynamic> {
             ],
         ],
     ];
+
+  void _onClickListOfSessions([_]) {
+    routeToBoard(props.buid);
+  }
+
+  void _onClickLatestSession([_]) {
+    routeToSession(props.buid, _board.latestSessionUid);
+  }
+
+  void _onClickShred([_]) {
+    store.actions.boards.setCurrent(props.buid);
+    store.actions.showModal(Modal.confirmShredBoard);
+  }
 }

@@ -1,9 +1,7 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-VNode ModalBackground() => Vdiv()..className = 'modal-background';
-
-VNode ManageContentModal() => Vdiv()
+VNode ManageContentModalBody() => Vdiv()
   ..className = 'modal-content'
   ..children = [
     Vdiv()
@@ -35,12 +33,9 @@ VNode ManageContentModal() => Vdiv()
               ..className = 'button is-white is-pulled-right'
               ..children = [
                 Vspan()
-                  ..className =
-                      'icon {{category.visible ? "has-text-danger" : "has-text-success"}}'
+                  ..className = 'icon {{category.visible ? "has-text-danger" : "has-text-success"}}'
                   ..children = [
-                    Vi()
-                      ..className =
-                          'fa {{category.visible ? "fa-trash" : "fa-leaf"}} ',
+                    Vi()..className = 'fa {{category.visible ? "fa-trash" : "fa-leaf"}} ',
                   ],
               ],
           ],
@@ -96,5 +91,3 @@ VNode ManageContentModal() => Vdiv()
           ],
       ],
   ];
-
-VNode ModalCloseButton() => Vbutton()..className = 'modal-close';

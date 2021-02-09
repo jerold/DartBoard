@@ -15,9 +15,10 @@ class _$AppActions extends AppActions {
   factory _$AppActions() => _$AppActions._();
   _$AppActions._() : super._();
 
-  final setAuthStatus = ActionDispatcher<String>('AppActions-setAuthStatus');
+  final setAuthStatus =
+      ActionDispatcher<AuthStatus>('AppActions-setAuthStatus');
   final clear = ActionDispatcher<Null>('AppActions-clear');
-  final showModal = ActionDispatcher<String>('AppActions-showModal');
+  final showModal = ActionDispatcher<Modal>('AppActions-showModal');
   final hideModal = ActionDispatcher<Null>('AppActions-hideModal');
   final toggleMobileMenu =
       ActionDispatcher<Null>('AppActions-toggleMobileMenu');
@@ -53,9 +54,10 @@ class _$AppActions extends AppActions {
 }
 
 class AppActionsNames {
-  static final setAuthStatus = ActionName<String>('AppActions-setAuthStatus');
+  static final setAuthStatus =
+      ActionName<AuthStatus>('AppActions-setAuthStatus');
   static final clear = ActionName<Null>('AppActions-clear');
-  static final showModal = ActionName<String>('AppActions-showModal');
+  static final showModal = ActionName<Modal>('AppActions-showModal');
   static final hideModal = ActionName<Null>('AppActions-hideModal');
   static final toggleMobileMenu =
       ActionName<Null>('AppActions-toggleMobileMenu');
@@ -69,7 +71,7 @@ class AppActionsNames {
 
 class _$App extends App {
   @override
-  final String authStatus;
+  final AuthStatus authStatus;
   @override
   final Users users;
   @override
@@ -85,8 +87,8 @@ class _$App extends App {
   @override
   final bool showMobileMenu;
   @override
-  final BuiltList<String> modalQueue;
-  String __visibleModal;
+  final BuiltList<Modal> modalQueue;
+  Modal __visibleModal;
   BuiltList<Session> __currentBoardSessions;
   Board __usersLatestBoard;
   Session __boardsLatestSession;
@@ -145,7 +147,7 @@ class _$App extends App {
   }
 
   @override
-  String get visibleModal => __visibleModal ??= super.visibleModal;
+  Modal get visibleModal => __visibleModal ??= super.visibleModal;
 
   @override
   BuiltList<Session> get currentBoardSessions =>
@@ -257,9 +259,9 @@ class _$App extends App {
 class AppBuilder implements Builder<App, AppBuilder> {
   _$App _$v;
 
-  String _authStatus;
-  String get authStatus => _$this._authStatus;
-  set authStatus(String authStatus) => _$this._authStatus = authStatus;
+  AuthStatus _authStatus;
+  AuthStatus get authStatus => _$this._authStatus;
+  set authStatus(AuthStatus authStatus) => _$this._authStatus = authStatus;
 
   UsersBuilder _users;
   UsersBuilder get users => _$this._users ??= new UsersBuilder();
@@ -292,10 +294,10 @@ class AppBuilder implements Builder<App, AppBuilder> {
   set showMobileMenu(bool showMobileMenu) =>
       _$this._showMobileMenu = showMobileMenu;
 
-  ListBuilder<String> _modalQueue;
-  ListBuilder<String> get modalQueue =>
-      _$this._modalQueue ??= new ListBuilder<String>();
-  set modalQueue(ListBuilder<String> modalQueue) =>
+  ListBuilder<Modal> _modalQueue;
+  ListBuilder<Modal> get modalQueue =>
+      _$this._modalQueue ??= new ListBuilder<Modal>();
+  set modalQueue(ListBuilder<Modal> modalQueue) =>
       _$this._modalQueue = modalQueue;
 
   AppBuilder();

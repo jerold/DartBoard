@@ -1,9 +1,7 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-VNode ModalBackground() => Vdiv()..className = 'modal-background';
-
-VNode ItemCreateModal() => Vdiv()
+VNode ItemCreateModalBody() => Vdiv()
   ..className = 'modal-card'
   ..children = [
     Vheader()
@@ -32,8 +30,7 @@ VNode ItemCreateModal() => Vdiv()
           ..children = [
             Vp()
               ..className = 'menu-label'
-              ..text =
-                  'Want to make it a survey? Add some options, and your team can vote!',
+              ..text = 'Want to make it a survey? Add some options, and your team can vote!',
           ],
         Vdiv()
           ..className = 'field is-horizontal'
@@ -132,5 +129,3 @@ VNode ItemCreateModal() => Vdiv()
           ..text = 'Discard',
       ],
   ];
-
-VNode ModalCloseButton() => Vbutton()..className = 'modal-close';
