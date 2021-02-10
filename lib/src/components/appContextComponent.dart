@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_redux/built_redux.dart';
-import 'package:retro/src/models/session.dart';
+import 'package:retro_board/src/models/session.dart';
 import 'package:wui_builder/components.dart';
 
-import 'package:retro/src/models/board.dart';
-import 'package:retro/src/models/user.dart';
-import 'package:retro/src/state/app.dart';
+import 'package:retro_board/src/models/board.dart';
+import 'package:retro_board/src/models/user.dart';
+import 'package:retro_board/src/state/app.dart';
 
 // Same as the key const in app.dart
 const _storeKey = 'storeKey';
@@ -60,7 +60,13 @@ abstract class AppContextComponent<P, S> extends CComponent<P, S, Store<App, App
     });
   }
 
-  void _update(_) => update();
+  void _update(_) {
+    try {
+      update();
+    } catch (e) {
+      print('JJA caght it $e');
+    }
+  }
 
   @mustCallSuper
   @override

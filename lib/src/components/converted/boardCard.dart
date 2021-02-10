@@ -1,10 +1,10 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-import 'package:retro/src/models/board.dart';
-import 'package:retro/src/models/user.dart';
-import 'package:retro/src/state/app.dart';
-import 'package:retro/src/components/appContextComponent.dart';
+import 'package:retro_board/src/models/board.dart';
+import 'package:retro_board/src/models/user.dart';
+import 'package:retro_board/src/state/app.dart';
+import 'package:retro_board/src/components/appContextComponent.dart';
 
 class BoardCardProps {
   String buid;
@@ -14,7 +14,7 @@ class BoardCardProps {
 Board Function(App) _boardMapper(String buid) => (App app) => boardsMapper(app)[buid];
 
 class BoardCard extends AppContextComponent<dynamic, dynamic> {
-  BoardCard(BoardCardProps props) : super(props, [_boardMapper(props.buid), currentUserMapper], key: props.buid);
+  BoardCard(BoardCardProps props) : super(props, [boardsMapper, currentUserMapper], key: props.buid);
 
   Board get _board => _boardMapper(key)(store.state);
 

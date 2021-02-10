@@ -1,9 +1,9 @@
-import 'package:retro/src/models/user.dart';
+import 'package:retro_board/src/models/user.dart';
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-import 'package:retro/src/state/app.dart';
-import 'package:retro/src/components/appContextComponent.dart';
+import 'package:retro_board/src/state/app.dart';
+import 'package:retro_board/src/components/appContextComponent.dart';
 
 class NavBarProps {
   Function signIn;

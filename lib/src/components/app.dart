@@ -3,18 +3,18 @@ import 'package:wui_builder/components.dart';
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-import 'package:retro/src/store.dart';
-import 'package:retro/src/state/app.dart';
+import 'package:retro_board/src/store.dart';
+import 'package:retro_board/src/state/app.dart';
 
-import 'package:retro/src/components/appContextComponent.dart';
-import 'package:retro/src/components/navBar.dart';
+import 'package:retro_board/src/components/appContextComponent.dart';
+import 'package:retro_board/src/components/navBar.dart';
 
-import 'package:retro/src/components/converted/boardsDashboard.dart';
-import 'package:retro/src/components/converted/sessionsDashboard.dart';
-import 'package:retro/src/components/converted/sessionView.dart';
+import 'package:retro_board/src/components/converted/boardsDashboard.dart';
+import 'package:retro_board/src/components/converted/sessionsDashboard.dart';
+import 'package:retro_board/src/components/converted/sessionView.dart';
 
-import 'package:retro/src/components/converted/loginSplash.dart';
-import 'package:retro/src/components/converted/modals.dart';
+import 'package:retro_board/src/components/converted/loginSplash.dart';
+import 'package:retro_board/src/components/converted/modals.dart';
 
 // Same as the key const in appContextComponent.dart
 const _storeKey = 'storeKey';

@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:built_redux/built_redux.dart';
 import 'package:firebase/firebase.dart' as firebase;
 
-import 'package:retro/src/models/user.dart';
-import 'package:retro/src/state/app.dart';
-import 'package:retro/src/refs.dart';
-import 'package:retro/src/streamSubManager.dart';
-import 'package:retro/src/firebaseClient.dart';
-import 'package:retro/src/middleware/creationMiddleware.dart';
-import 'package:retro/src/middleware/refMiddleware.dart';
-import 'package:retro/src/middleware/loggingMiddleware.dart';
+import 'package:retro_board/src/models/user.dart';
+import 'package:retro_board/src/state/app.dart';
+import 'package:retro_board/src/refs.dart';
+import 'package:retro_board/src/streamSubManager.dart';
+import 'package:retro_board/src/firebaseClient.dart';
+import 'package:retro_board/src/middleware/creationMiddleware.dart';
+import 'package:retro_board/src/middleware/refMiddleware.dart';
+import 'package:retro_board/src/middleware/loggingMiddleware.dart';
 
 class StoreService {
   Store<App, AppBuilder, AppActions> _store;
@@ -36,8 +36,7 @@ class StoreService {
     _firebaseGoogleAuthProvider = firebase.GoogleAuthProvider();
 
     var actions = AppActions();
-    _client =
-        FirebaseClient(Refs(_firebaseDatabase), StreamSubManager(), actions);
+    _client = FirebaseClient(Refs(_firebaseDatabase), StreamSubManager(), actions);
     _store = Store<App, AppBuilder, AppActions>(
       createReducer(),
       App(),

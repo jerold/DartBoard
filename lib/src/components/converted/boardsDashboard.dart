@@ -2,15 +2,16 @@ import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 import 'package:built_collection/built_collection.dart';
 
-import 'package:retro/src/models/board.dart';
-import 'package:retro/src/components/appContextComponent.dart';
+import 'package:retro_board/src/models/board.dart';
+import 'package:retro_board/src/components/appContextComponent.dart';
 
-import 'package:retro/src/components/converted/boardCard.dart';
-import 'package:retro/src/components/converted/boardCreate.dart';
+import 'package:retro_board/src/components/converted/boardCard.dart';
+import 'package:retro_board/src/components/converted/boardCreate.dart';
 
 class BoardsDashboard extends AppContextComponent<dynamic, dynamic> {
   BoardsDashboard()
       : super(null, [
+          currentUserMapper,
           boardsMapper,
         ]);
 
@@ -23,6 +24,8 @@ class BoardsDashboard extends AppContextComponent<dynamic, dynamic> {
   }
 
   BuiltMap<String, Board> get _boards => boardsMapper(store.state);
+
+  BuiltList<String> get _sortedBuids => store.state.sortedBuids;
 
   @override
   VNode render() => Vdiv()
@@ -64,7 +67,7 @@ class BoardsDashboard extends AppContextComponent<dynamic, dynamic> {
         ],
     ];
 
-  Iterable<VNode> get _boardCards => _boards.keys.map(
+  Iterable<VNode> get _boardCards => _sortedBuids.map(
         (buid) => Vdiv()
           ..className = 'column is-half-tablet is-one-third-desktop'
           ..children = [

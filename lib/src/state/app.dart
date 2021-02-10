@@ -154,6 +154,13 @@ abstract class App implements Built<App, AppBuilder> {
     return boards.map[maxUid];
   }
 
+  int boardsLatestSessionEpoch(String buid) => users?.current?.boardUids[buid] ?? 0;
+
+  // by user's lastest session epoch
+  @memoized
+  BuiltList<String> get sortedBuids => BuiltList<String>(
+      boards.map.keys.toList()..sort((a, b) => boardsLatestSessionEpoch(b).compareTo(boardsLatestSessionEpoch(a))));
+
   @memoized
   Session get boardsLatestSession => sessions.map[boards.current.latestSessionUid];
 

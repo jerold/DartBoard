@@ -1,14 +1,14 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-import 'package:retro/src/state/app.dart';
+import 'package:retro_board/src/state/app.dart';
 
-import 'package:retro/src/components/converted/modalBodies/categoryCreateModalBody.dart';
-import 'package:retro/src/components/converted/modalBodies/confirmShredModalBody.dart';
-import 'package:retro/src/components/converted/modalBodies/itemCreateModalBody.dart';
-import 'package:retro/src/components/converted/modalBodies/manageContentModalBody.dart';
-import 'package:retro/src/components/converted/modalBodies/noteCreateModalBody.dart';
-import 'package:retro/src/components/appContextComponent.dart';
+import 'package:retro_board/src/components/converted/modalBodies/categoryCreateModalBody.dart';
+import 'package:retro_board/src/components/converted/modalBodies/confirmShredModalBody.dart';
+import 'package:retro_board/src/components/converted/modalBodies/itemCreateModalBody.dart';
+import 'package:retro_board/src/components/converted/modalBodies/manageContentModalBody.dart';
+import 'package:retro_board/src/components/converted/modalBodies/noteCreateModalBody.dart';
+import 'package:retro_board/src/components/appContextComponent.dart';
 
 class Modals extends AppContextComponent<dynamic, dynamic> {
   Modals() : super(null, [visibleModalMapper]);

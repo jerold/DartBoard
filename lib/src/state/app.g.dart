@@ -91,6 +91,7 @@ class _$App extends App {
   Modal __visibleModal;
   BuiltList<Session> __currentBoardSessions;
   Board __usersLatestBoard;
+  BuiltList<String> __sortedBuids;
   Session __boardsLatestSession;
   BuiltList<Category> __sessionCategories;
   BuiltList<Category> __visibleSessionCategories;
@@ -155,6 +156,9 @@ class _$App extends App {
 
   @override
   Board get usersLatestBoard => __usersLatestBoard ??= super.usersLatestBoard;
+
+  @override
+  BuiltList<String> get sortedBuids => __sortedBuids ??= super.sortedBuids;
 
   @override
   Session get boardsLatestSession =>

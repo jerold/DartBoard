@@ -1,8 +1,8 @@
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-import 'package:retro/src/components/converted/sessionCard.dart';
-import 'package:retro/src/components/converted/sessionCreate.dart';
+import 'package:retro_board/src/components/converted/sessionCard.dart';
+import 'package:retro_board/src/components/converted/sessionCreate.dart';
 
 VNode SessionsDashboard(String boardUid) => Vdiv()
   ..children = [

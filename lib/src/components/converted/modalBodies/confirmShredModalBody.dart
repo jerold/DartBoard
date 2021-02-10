@@ -1,8 +1,8 @@
-import 'package:retro/src/state/app.dart';
+import 'package:retro_board/src/state/app.dart';
 import 'package:wui_builder/vhtml.dart';
 import 'package:wui_builder/wui_builder.dart';
 
-import 'package:retro/src/components/appContextComponent.dart';
+import 'package:retro_board/src/components/appContextComponent.dart';
 
 class ConfirmShredModalBody extends AppContextComponent<dynamic, dynamic> {
   ConfirmShredModalBody() : super(null, []);
